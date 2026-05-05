@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Events · Newlife United</title>
+<meta name="description" content="What's on at Newlife United — weekly services, special events, and the AWAKE 2026 conference.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="events">
+<div id="site-nav"></div>
+
+<div class="page-hero">
+  <div class="page-hero-bg"><img src="assets/worship.png" alt="Worship night"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-kicker"><span class="eyebrow"><span class="dot"></span>Events</span></div>
+    <h1>What's <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">next.</span></h1>
+    <p class="page-hero-lede">Weekly gatherings, special nights, and the moments you won't want to miss. Mark your calendar.</p>
+  </div>
+</div>
+
+<!-- Featured event: AWAKE 2026 -->
+<section class="section bordered" style="padding-top:80px;padding-bottom:80px">
+  <div class="container">
+    <span class="eyebrow"><span class="dot"></span>Featured · Don't miss</span>
+    <div style="margin-top:32px;position:relative;min-height:540px;overflow:hidden;border:1px solid rgba(255,255,255,.12)">
+      <img src="assets/worship.png" alt="AWAKE 2026 conference" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.5) 60%,transparent 100%)"></div>
+      <div style="position:relative;padding:60px;display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:end;min-height:540px">
+        <div>
+          <span data-crm-event-id="awake2026" style="display:inline-block;padding:6px 14px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:28px">FLAGSHIP CONFERENCE</span>
+          <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(64px,9vw,130px);letter-spacing:-.045em;line-height:.88;margin:0">
+            AWAKE<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">2026.</span>
+          </h2>
+          <p style="margin-top:24px;font-size:18px;line-height:1.55;color:rgba(255,255,255,.8);max-width:520px">Three days. One generation. A revival summit at Newlife United — worship, prayer and prophetic teaching from leaders across Africa.</p>
+        </div>
+        <div style="background:rgba(0,0,0,.5);backdrop-filter:blur(8px);padding:32px;border:1px solid rgba(255,255,255,.18)">
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.55);margin-bottom:6px">FRI 19 — SUN 21 JUN 2026</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.7);margin-bottom:24px">Newlife United · 129, 12th Ave, Edenvale</div>
+          <!-- Live countdown -->
+          <div id="countdown" class="countdown-grid">
+            <div class="countdown-cell"><div class="countdown-num" id="cd-days">--</div><div class="countdown-label">DAYS</div></div>
+            <div class="countdown-cell"><div class="countdown-num" id="cd-hrs">--</div><div class="countdown-label">HRS</div></div>
+            <div class="countdown-cell"><div class="countdown-num" id="cd-min">--</div><div class="countdown-label">MIN</div></div>
+            <div class="countdown-cell"><div class="countdown-num" id="cd-sec">--</div><div class="countdown-label">SEC</div></div>
+          </div>
+          <a href="contact.html" class="btn accent-bg full" data-crm-event-id="awake2026" data-crm-action="register">Reserve your seat <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Calendar -->
+<section class="section dark bordered" style="padding-top:120px;padding-bottom:120px">
+  <div class="container">
+    <span class="eyebrow"><span class="dot"></span>The whole calendar</span>
+    <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(56px,7vw,110px);letter-spacing:-.045em;line-height:.9;margin:24px 0 44px">
+      What's <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">next.</span>
+    </h2>
+    <!--
+      CRM INTEGRATION POINT:
+      Replace the static rows below with a dynamic fetch from your events system.
+      Shape: [{ id, date, title, time, location, tag }]
+    -->
+    <div>
+      <a href="#" data-crm-event-id="sun-service" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
+        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">SUN</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">26</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">APR</span></div>
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Sunday Morning Service</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">09:00 — 10:30</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
+        <span style="padding:4px 10px;border:1px solid rgba(255,255,255,.4);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.5)">WEEKLY</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#" data-crm-event-id="wed-prayer" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
+        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">WED</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">29</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">APR</span></div>
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Corporate Prayer Night</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">19:00 — 20:30</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55)">Upper Room</div>
+        <span style="padding:4px 10px;border:1px solid rgba(255,255,255,.4);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.5)">WEEKLY</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#" data-crm-event-id="youth-night-0501" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
+        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">FRI</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">01</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">MAY</span></div>
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Youth Worship Night</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">19:00 — 21:00</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55)">Youth Hall</div>
+        <span style="padding:4px 10px;border:1px solid #D4847A;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:#D4847A">SPECIAL</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#" data-crm-event-id="baptism-0531" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
+        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">SUN</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">31</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">MAY</span></div>
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Water Baptism Sunday</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">10:30 — 11:30</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
+        <span style="padding:4px 10px;border:1px solid #D4847A;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:#D4847A">SPECIAL</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#" data-crm-event-id="awake2026-d1" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
+        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">FRI</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">19</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">JUN</span></div>
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">AWAKE 2026 — Day 1</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">19:00 — 22:00</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
+        <span style="padding:4px 10px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent)">CONFERENCE</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#" data-crm-event-id="awake2026-d2" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
+        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">SAT</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">20</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">JUN</span></div>
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">AWAKE 2026 — Day 2</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">09:00 — 22:00</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
+        <span style="padding:4px 10px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent)">CONFERENCE</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#" data-crm-event-id="awake2026-d3" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
+        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">SUN</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">21</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">JUN</span></div>
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">AWAKE 2026 — Closing</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">09:00 — 13:00</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
+        <span style="padding:4px 10px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent)">CONFERENCE</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="cta-strip">
+  <div class="cta-strip-bg"><img src="assets/worship.png" alt=""></div>
+  <div class="cta-strip-overlay"></div>
+  <div class="cta-strip-content">
+    <span class="eyebrow"><span class="dot"></span>Every week</span>
+    <h2>Sunday is<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">the main event.</span></h2>
+    <p class="cta-strip-lede">Every Sunday is an appointment worth keeping. Two services. One family. No dress code.</p>
+    <div class="cta-strip-actions">
+      <a href="visit.html" class="btn light">Plan a visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+<script src="js/crm.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generosity · Newlife United</title>
+<meta name="description" content="Give to Newlife United. EFT, online, or in person. Every gift funds the gospel going further.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="give">
+<div id="site-nav"></div>
+
+<div class="page-hero">
+  <div class="page-hero-bg"><img src="assets/signboard.png" alt="Newlife United signboard"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-kicker"><span class="eyebrow"><span class="dot"></span>Generosity</span></div>
+    <h1>Give.<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">Thank you.</span></h1>
+    <p class="page-hero-lede">Every gift funds the gospel going further — pressed down, shaken together, running over into homes, prisons, schools, and nations. Giving is always a response, never a requirement.</p>
+  </div>
+</div>
+
+<!-- Give flow -->
+<section class="section bordered" style="padding-top:120px;padding-bottom:120px">
+  <div class="container-md" style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Give online</span>
+      <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(56px,7vw,110px);letter-spacing:-.045em;line-height:.9;margin:24px 0 28px">
+        Sow.<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">reap.</span>
+      </h2>
+      <p style="font-size:17px;line-height:1.65;color:rgba(255,255,255,.78);margin:0 0 28px">
+        "Give, and it shall be given unto you — pressed down, shaken together, running over." Every rand sown lands in the lives of real people, in this city and the nations.
+      </p>
+      <div style="padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5);line-height:2.2">
+        LUKE 6:38 · MALACHI 3:10 · 2 COR 9:7
+      </div>
+    </div>
+
+    <div id="give-box">
+      <form id="give-form" style="border:1px solid rgba(255,255,255,.18);padding:40px">
+        <!-- Fund selector -->
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.55);margin-bottom:12px">FUND</div>
+        <div class="pill-group" style="margin-bottom:28px">
+          <button type="button" class="pill active" data-fund="Tithes &amp; Offerings">Tithes &amp; Offerings</button>
+          <button type="button" class="pill" data-fund="Apostolic Fund">Apostolic Fund</button>
+          <button type="button" class="pill" data-fund="Building Fund">Building Fund</button>
+          <button type="button" class="pill" data-fund="Caring for the Poor">Caring for the Poor</button>
+          <button type="button" class="pill" data-fund="Bible School">Bible School</button>
+        </div>
+
+        <!-- Amount -->
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.55);margin-bottom:12px">AMOUNT (ZAR)</div>
+        <div class="amount-grid" style="margin-bottom:10px">
+          <button type="button" class="amount-pill" data-amt="100">R100</button>
+          <button type="button" class="amount-pill" data-amt="250">R250</button>
+          <button type="button" class="amount-pill active" data-amt="500">R500</button>
+          <button type="button" class="amount-pill" data-amt="1000">R1 000</button>
+          <button type="button" class="amount-pill" data-amt="2500">R2 500</button>
+          <button type="button" class="amount-pill" data-amt="5000">R5 000</button>
+        </div>
+        <input id="custom-amount" type="number" value="500" min="1" placeholder="Or enter an amount" class="input-field" style="margin-bottom:24px">
+
+        <!-- Frequency -->
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.55);margin-bottom:12px">FREQUENCY</div>
+        <div class="freq-group" style="margin-bottom:28px">
+          <button type="button" class="freq-btn active" data-freq="Once">Once</button>
+          <button type="button" class="freq-btn" data-freq="Weekly">Weekly</button>
+          <button type="button" class="freq-btn" data-freq="Monthly">Monthly</button>
+        </div>
+
+        <!--
+          PAYMENT INTEGRATION POINT:
+          Replace the button below with your payment processor widget:
+          - PayFast (South Africa): https://www.payfast.co.za/
+          - Peach Payments: https://www.peachpayments.com/
+          - SnapScan: integrate their JS widget
+          The button below fires window.CRM.give() for tracking then redirects to payment.
+        -->
+        <button type="submit" id="give-submit" class="btn accent-bg full" data-crm-give-fund="Tithes &amp; Offerings" data-crm-give-amount="500" data-crm-give-frequency="Once">
+          <span id="give-label">Give R500</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <div style="margin-top:14px;font-size:12px;color:rgba(255,255,255,.45);text-align:center">Secure · Mastercard, Visa, EFT, SnapScan</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Funds breakdown -->
+<section class="section bordered" style="padding-top:120px;padding-bottom:120px">
+  <div class="container">
+    <span class="eyebrow"><span class="dot"></span>Where it goes</span>
+    <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,90px);letter-spacing:-.04em;line-height:.95;margin:24px 0 56px">
+      Every rand, <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">tracked.</span>
+    </h2>
+    <div style="display:grid;gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)">
+      <div style="background:var(--ink);padding:36px 40px;display:grid;grid-template-columns:220px 1fr 260px 80px;gap:32px;align-items:center">
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:600;letter-spacing:-.015em">Tithes &amp; Offerings</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.72)">Day-to-day life of the church — staff, ministry, building, weekly outreach.</p>
+        <div style="height:6px;background:rgba(255,255,255,.1);position:relative"><div style="position:absolute;inset:0;width:65%;background:var(--accent)"></div></div>
+        <div style="font-family:var(--font-mono);font-size:18px;color:var(--accent);text-align:right">65%</div>
+      </div>
+      <div style="background:var(--ink);padding:36px 40px;display:grid;grid-template-columns:220px 1fr 260px 80px;gap:32px;align-items:center">
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:600;letter-spacing:-.015em">Apostolic Fund</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.72)">Field workers and local outreach in Germiston &amp; Gauteng.</p>
+        <div style="height:6px;background:rgba(255,255,255,.1);position:relative"><div style="position:absolute;inset:0;width:18%;background:var(--accent)"></div></div>
+        <div style="font-family:var(--font-mono);font-size:18px;color:var(--accent);text-align:right">18%</div>
+      </div>
+      <div style="background:var(--ink);padding:36px 40px;display:grid;grid-template-columns:220px 1fr 260px 80px;gap:32px;align-items:center">
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:600;letter-spacing:-.015em">Building Fund</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.72)">A bigger room for what God is doing — sanctuary expansion 2026.</p>
+        <div style="height:6px;background:rgba(255,255,255,.1);position:relative"><div style="position:absolute;inset:0;width:12%;background:var(--accent)"></div></div>
+        <div style="font-family:var(--font-mono);font-size:18px;color:var(--accent);text-align:right">12%</div>
+      </div>
+      <div style="background:var(--ink);padding:36px 40px;display:grid;grid-template-columns:220px 1fr 260px 80px;gap:32px;align-items:center">
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:600;letter-spacing:-.015em">Caring for the Poor</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.72)">Practical help for church family in crisis — food, rent, medical.</p>
+        <div style="height:6px;background:rgba(255,255,255,.1);position:relative"><div style="position:absolute;inset:0;width:5%;background:var(--accent)"></div></div>
+        <div style="font-family:var(--font-mono);font-size:18px;color:var(--accent);text-align:right">5%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EFT details -->
+<section class="section dark bordered" style="padding-top:120px;padding-bottom:120px">
+  <div class="container">
+    <span class="eyebrow"><span class="dot"></span>EFT details</span>
+    <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,90px);letter-spacing:-.04em;line-height:.95;margin:24px 0 52px">
+      Direct <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">transfer.</span>
+    </h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.5);margin:0 0 32px;font-style:italic">Use the account number that matches your chosen fund. Reference: [Your name] + fund name.</p>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)">
+      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BANK</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">First National Bank (FNB)</div></div>
+      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BRANCH CODE</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">250 655 (Eastgate)</div></div>
+      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">TITHES &amp; OFFERINGS</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 814 049</div></div>
+      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">APOSTOLIC FUND</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 815 980</div></div>
+      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">CARING FOR THE POOR</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 818 405</div></div>
+      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BUILDING FUND</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 815 998</div></div>
+      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BIBLE SCHOOL</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 818 728</div></div>
+      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">REFERENCE</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Your name + fund</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-strip">
+  <div class="cta-strip-bg"><img src="assets/worship.png" alt=""></div>
+  <div class="cta-strip-overlay"></div>
+  <div class="cta-strip-content">
+    <span class="eyebrow"><span class="dot"></span>Walk it out</span>
+    <h2>Worship with us<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">this Sunday.</span></h2>
+    <p class="cta-strip-lede">Generosity flows from encounter. Come and meet the God who gives first.</p>
+    <div class="cta-strip-actions">
+      <a href="visit.html" class="btn light">Plan a visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+<script src="js/crm.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
