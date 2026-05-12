@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
+<script src="/js/slots.js" defer></script>
 </head>
 <body data-page="index">
 
@@ -17,7 +18,7 @@
 <!-- ── Hero ──────────────────────────────────────────────────────── -->
 <section style="position:relative;min-height:880px;padding:60px 40px 80px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between">
   <div style="position:absolute;inset:0">
-    <img src="assets/hero-index.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.4">
+    <img src="assets/hero-index.png" alt="" data-slot="home-hero" style="width:100%;height:100%;object-fit:cover;opacity:.4">
   </div>
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,15,13,.55) 0%,rgba(14,15,13,.85) 60%,rgba(14,15,13,.95) 100%)"></div>
   <!-- grain texture -->
@@ -86,7 +87,7 @@
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
     <!-- Pillar 1 -->
     <a href="about.html" style="position:relative;height:460px;border:1px solid rgba(255,255,255,.12);overflow:hidden;background:#121311;text-decoration:none;color:var(--paper);display:block">
-      <img src="assets/pillar-know-god.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:grayscale(.3)">
+      <img src="assets/pillar-know-god.png" alt="" data-slot="home-pillar-encounter" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:grayscale(.3)">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.85))"></div>
       <div style="position:absolute;inset:0;padding:28px;display:flex;flex-direction:column;justify-content:space-between">
         <div>
@@ -101,7 +102,7 @@
     </a>
     <!-- Pillar 2 -->
     <a href="small-groups.html" style="position:relative;height:460px;border:1px solid rgba(255,255,255,.12);overflow:hidden;background:#121311;text-decoration:none;color:var(--paper);display:block">
-      <img src="assets/pillar-find-freedom.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:grayscale(.3)">
+      <img src="assets/pillar-find-freedom.png" alt="" data-slot="home-pillar-discipleship" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:grayscale(.3)">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.85))"></div>
       <div style="position:absolute;inset:0;padding:28px;display:flex;flex-direction:column;justify-content:space-between">
         <div>
@@ -116,7 +117,7 @@
     </a>
     <!-- Pillar 3 -->
     <a href="next-steps.html" style="position:relative;height:460px;border:1px solid rgba(255,255,255,.12);overflow:hidden;background:#121311;text-decoration:none;color:var(--paper);display:block">
-      <img src="assets/pillar-discover-purpose.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:grayscale(.3)">
+      <img src="assets/pillar-discover-purpose.png" alt="" data-slot="home-pillar-calling" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:grayscale(.3)">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.85))"></div>
       <div style="position:absolute;inset:0;padding:28px;display:flex;flex-direction:column;justify-content:space-between">
         <div>
@@ -131,7 +132,7 @@
     </a>
     <!-- Pillar 4 -->
     <a href="connect.html" style="position:relative;height:460px;border:1px solid rgba(255,255,255,.12);overflow:hidden;background:#121311;text-decoration:none;color:var(--paper);display:block">
-      <img src="assets/pillar-make-difference.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:grayscale(.3)">
+      <img src="assets/pillar-make-difference.png" alt="" data-slot="home-pillar-sent" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:grayscale(.3)">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.85))"></div>
       <div style="position:absolute;inset:0;padding:28px;display:flex;flex-direction:column;justify-content:space-between">
         <div>
@@ -177,9 +178,9 @@
       </div>
     </div>
     <div style="display:grid;grid-template-rows:1.3fr 1fr;gap:12px;height:680px">
-      <div class="photo-cover"><img src="assets/worship-congregation.png" alt="Congregation in worship" data-crm-asset="worship"></div>
+      <div class="photo-cover"><img src="assets/worship-congregation.png" alt="Congregation in worship" data-slot="home-photo-worship" data-crm-asset="worship"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="photo-cover"><img src="assets/pastor-preaching.png" alt="Pastor preaching" data-crm-asset="pastor"></div>
+        <div class="photo-cover"><img src="assets/pastor-preaching.png" alt="Pastor preaching" data-slot="home-photo-pastor" data-crm-asset="pastor"></div>
         <a href="watch.html" style="border:1px solid rgba(255,255,255,.15);padding:24px;display:flex;flex-direction:column;justify-content:space-between;background:#0a0b09;text-decoration:none;color:var(--paper)">
           <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:var(--accent)">LIVE STREAM</div>
           <div>
@@ -207,7 +208,7 @@
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
     <!-- Sermon 1 -->
     <a href="watch.html" data-crm-sermon-id="s001" style="position:relative;height:480px;border:1px solid rgba(255,255,255,.1);background:var(--ink);text-decoration:none;color:var(--paper);overflow:hidden;display:block">
-      <img src="assets/sermon-thumb-01.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:grayscale(.4)">
+      <img src="assets/sermon-thumb-01.png" alt="" data-slot="home-sermon-1" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:grayscale(.4)">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,transparent 40%,rgba(0,0,0,.9))"></div>
       <div style="position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:space-between">
         <div style="display:flex;justify-content:space-between;align-items:center">
@@ -227,7 +228,7 @@
     </a>
     <!-- Sermon 2 -->
     <a href="watch.html" data-crm-sermon-id="s002" style="position:relative;height:480px;border:1px solid rgba(255,255,255,.1);background:var(--ink);text-decoration:none;color:var(--paper);overflow:hidden;display:block">
-      <img src="assets/sermon-thumb-02.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:grayscale(.4)">
+      <img src="assets/sermon-thumb-02.png" alt="" data-slot="home-sermon-2" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:grayscale(.4)">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,transparent 40%,rgba(0,0,0,.9))"></div>
       <div style="position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:space-between">
         <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">EP 06 · 13 APR</span>
@@ -244,7 +245,7 @@
     </a>
     <!-- Sermon 3 -->
     <a href="watch.html" data-crm-sermon-id="s003" style="position:relative;height:480px;border:1px solid rgba(255,255,255,.1);background:var(--ink);text-decoration:none;color:var(--paper);overflow:hidden;display:block">
-      <img src="assets/sermon-thumb-03.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:grayscale(.4)">
+      <img src="assets/sermon-thumb-03.png" alt="" data-slot="home-sermon-3" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:grayscale(.4)">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,transparent 40%,rgba(0,0,0,.9))"></div>
       <div style="position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:space-between">
         <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">EP 05 · 06 APR</span>
@@ -309,7 +310,7 @@
 
 <!-- ── Generosity ─────────────────────────────────────────────────── -->
 <section class="section bordered" style="position:relative;overflow:hidden;padding-top:160px;padding-bottom:160px">
-  <img src="assets/generosity-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.18;pointer-events:none">
+  <img src="assets/generosity-bg.png" alt="" data-slot="home-generosity-bg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.18;pointer-events:none">
   <div style="position:relative;max-width:1200px;margin:0 auto">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
       <div>
@@ -348,7 +349,7 @@
 
 <!-- ── CTA ────────────────────────────────────────────────────────── -->
 <div class="cta-strip">
-  <div class="cta-strip-bg"><img src="assets/cta-worship.png" alt=""></div>
+  <div class="cta-strip-bg"><img src="assets/cta-worship.png" alt="" data-slot="home-cta"></div>
   <div class="cta-strip-overlay"></div>
   <div class="cta-strip-content">
     <span class="eyebrow"><span class="dot"></span>Come, see Him move</span>

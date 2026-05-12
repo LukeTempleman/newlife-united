@@ -9,12 +9,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
+<script src="/js/slots.js" defer></script>
 </head>
 <body data-page="next-steps">
 <div id="site-nav"></div>
 
 <div class="page-hero">
-  <div class="page-hero-bg"><img src="assets/hero-next-steps.png" alt="Church lobby"></div>
+  <div class="page-hero-bg"><img src="assets/hero-next-steps.png" alt="Church lobby" data-slot="next-steps-hero"></div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
     <div class="page-hero-kicker"><span class="eyebrow"><span class="dot"></span>Your Next Step · Growth Track</span></div>
@@ -35,7 +36,7 @@
     <!-- Step 1 -->
     <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:center;padding:72px 0;border-bottom:1px solid rgba(255,255,255,.1)">
       <div style="position:relative;height:400px;overflow:hidden;background:#121311">
-        <img src="assets/step-know-god.png" alt="Step 1 - Know God" style="width:100%;height:100%;object-fit:cover;opacity:.5">
+        <img src="assets/step-know-god.png" alt="Step 1 - Know God" data-slot="next-steps-1-know-god" style="width:100%;height:100%;object-fit:cover;opacity:.5">
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.8))"></div>
         <div style="position:absolute;bottom:24px;left:24px;font-family:var(--font-sans);font-size:72px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">01</div>
       </div>
@@ -58,7 +59,7 @@
         </p>
       </div>
       <div style="position:relative;height:400px;overflow:hidden;background:#121311">
-        <img src="assets/step-find-freedom.png" alt="Step 2 - Find Freedom" style="width:100%;height:100%;object-fit:cover;opacity:.5">
+        <img src="assets/step-find-freedom.png" alt="Step 2 - Find Freedom" data-slot="next-steps-2-find-freedom" style="width:100%;height:100%;object-fit:cover;opacity:.5">
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.8))"></div>
         <div style="position:absolute;bottom:24px;right:24px;font-family:var(--font-sans);font-size:72px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">02</div>
       </div>
@@ -67,7 +68,7 @@
     <!-- Step 3 -->
     <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:center;padding:72px 0;border-bottom:1px solid rgba(255,255,255,.1)">
       <div style="position:relative;height:400px;overflow:hidden;background:#121311">
-        <img src="assets/step-discover-purpose.png" alt="Step 3 - Discover Purpose" style="width:100%;height:100%;object-fit:cover;opacity:.5">
+        <img src="assets/step-discover-purpose.png" alt="Step 3 - Discover Purpose" data-slot="next-steps-3-discover-purpose" style="width:100%;height:100%;object-fit:cover;opacity:.5">
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.8))"></div>
         <div style="position:absolute;bottom:24px;left:24px;font-family:var(--font-sans);font-size:72px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">03</div>
       </div>
@@ -90,7 +91,7 @@
         </p>
       </div>
       <div style="position:relative;height:400px;overflow:hidden;background:#121311">
-        <img src="assets/step-make-difference.png" alt="Step 4 - Make a Difference" style="width:100%;height:100%;object-fit:cover;opacity:.5">
+        <img src="assets/step-make-difference.png" alt="Step 4 - Make a Difference" data-slot="next-steps-4-make-difference" style="width:100%;height:100%;object-fit:cover;opacity:.5">
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.8))"></div>
         <div style="position:absolute;bottom:24px;right:24px;font-family:var(--font-sans);font-size:72px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">04</div>
       </div>
@@ -128,7 +129,7 @@
 </section>
 
 <div class="cta-strip">
-  <div class="cta-strip-bg"><img src="assets/cta-community.png" alt=""></div>
+  <div class="cta-strip-bg"><img src="assets/cta-community.png" alt="" data-slot="next-steps-cta"></div>
   <div class="cta-strip-overlay"></div>
   <div class="cta-strip-content">
     <span class="eyebrow"><span class="dot"></span>Step zero</span>

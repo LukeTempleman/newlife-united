@@ -321,7 +321,8 @@
   <div class="container">
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('events')">Events</button>
-      <button class="tab-btn" onclick="switchTab('images')">Images</button>
+      <button class="tab-btn" onclick="switchTab('images')">Image Library</button>
+      <button class="tab-btn" onclick="switchTab('slots')">Page Images</button>
       <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
     </div>
 
@@ -423,6 +424,17 @@
       </div>
     </div>
 
+    <!-- Page Images Tab -->
+    <div id="slots" class="tab-content">
+      <div id="slotsStatus" class="status-message"></div>
+      <h2>Page Images</h2>
+      <p style="color: #666; margin-bottom: 20px;">Replace any image on the public site. Pick a file and the new version goes live within a minute. Reset to revert to the original.</p>
+      <input type="file" id="slotFile" accept="image/*" style="display: none;">
+      <div id="slotsContainer">
+        <div class="loading"><div class="spinner"></div> Loading slots...</div>
+      </div>
+    </div>
+
     <!-- Settings Tab -->
     <div id="settings" class="tab-content">
       <h2>Settings</h2>
@@ -462,6 +474,7 @@
       }
       loadEvents();
       loadImages();
+      loadSlots();
     });
 
     function switchTab(tabName) {
@@ -742,6 +755,152 @@
       setTimeout(() => {
         element.classList.remove('show');
       }, 5000);
+    }
+
+    // ── Page Images (slots) ────────────────────────────────────────────
+    const PAGE_LABELS = {
+      'index': 'Home',
+      'about': 'About',
+      'watch': 'Watch',
+      'events': 'Events',
+      'next-steps': 'Next Steps',
+      'visit': 'Visit',
+      'contact': 'Contact',
+      'kids': 'Kids',
+      'youth': 'Youth',
+      'legacy': 'Legacy',
+      'small-groups': 'Small Groups',
+      'bible-school': 'Bible School',
+      'connect': 'Connect',
+      'give': 'Give',
+    };
+
+    async function loadSlots() {
+      const container = document.getElementById('slotsContainer');
+      container.innerHTML = '<div class="loading"><div class="spinner"></div> Loading slots...</div>';
+      try {
+        const response = await fetch(`${API_BASE}/api/slots?admin=1`, {
+          headers: { 'Authorization': `Bearer ${authToken}` },
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          container.innerHTML = `<p style="color: var(--danger);">${escapeHtml(data.error || 'Failed to load slots')}</p>`;
+          return;
+        }
+        renderSlots(data.data || []);
+      } catch (error) {
+        container.innerHTML = `<p style="color: var(--danger);">Error: ${escapeHtml(error.message)}</p>`;
+      }
+    }
+
+    function renderSlots(slots) {
+      const container = document.getElementById('slotsContainer');
+      const byPage = {};
+      slots.forEach(s => {
+        if (!byPage[s.page]) byPage[s.page] = [];
+        byPage[s.page].push(s);
+      });
+
+      const order = ['index','about','watch','events','next-steps','visit','contact','kids','youth','legacy','small-groups','bible-school','connect','give'];
+      const html = order.filter(p => byPage[p]).map(page => {
+        const label = PAGE_LABELS[page] || page;
+        const cards = byPage[page].map(slot => {
+          const current = slot.current_url || slot.default_url;
+          const isCustom = !!slot.current_url;
+          return `
+            <div style="background: white; border-radius: 8px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; gap: 12px; align-items: flex-start;">
+              <div style="width: 96px; height: 96px; flex-shrink: 0; background: var(--light); border-radius: 4px; overflow: hidden;">
+                <img src="${escapeHtml(current)}" alt="${escapeHtml(slot.label)}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.opacity='0.3'">
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">${escapeHtml(slot.label)}</div>
+                <div style="font-size: 11px; color: #888; font-family: monospace; margin-bottom: 4px; word-break: break-all;">${escapeHtml(slot.slot_id)}</div>
+                <div style="font-size: 11px; color: ${isCustom ? 'var(--success, #28a745)' : '#888'}; margin-bottom: 8px;">${isCustom ? '✓ Customised' : 'Default image'}</div>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <button type="button" onclick="pickSlotImage('${escapeHtml(slot.slot_id)}')" style="padding: 6px 10px; font-size: 12px; border: none; background: var(--primary); color: white; border-radius: 4px; cursor: pointer;">Upload</button>
+                  ${isCustom ? `<button type="button" onclick="resetSlot('${escapeHtml(slot.slot_id)}')" style="padding: 6px 10px; font-size: 12px; border: 1px solid #ccc; background: white; color: #555; border-radius: 4px; cursor: pointer;">Reset</button>` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+        return `
+          <details open style="margin-bottom: 24px;">
+            <summary style="cursor: pointer; padding: 8px 12px; background: var(--light); border-radius: 4px; font-weight: 600; user-select: none;">${escapeHtml(label)} <span style="font-weight: normal; color: #888;">(${byPage[page].length})</span></summary>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-top: 12px;">
+              ${cards}
+            </div>
+          </details>
+        `;
+      }).join('');
+
+      container.innerHTML = html || '<p style="color: #888;">No slots configured.</p>';
+    }
+
+    let pendingSlotId = null;
+    function pickSlotImage(slotId) {
+      pendingSlotId = slotId;
+      const fileInput = document.getElementById('slotFile');
+      fileInput.value = '';
+      fileInput.click();
+    }
+
+    document.getElementById('slotFile').addEventListener('change', async (e) => {
+      const file = e.target.files && e.target.files[0];
+      const slotId = pendingSlotId;
+      pendingSlotId = null;
+      if (!file || !slotId) return;
+
+      try {
+        showStatus('slotsStatus', `Uploading ${file.name}…`, 'success');
+
+        const form = new FormData();
+        form.append('file', file);
+        const uploadRes = await fetch(`${API_BASE}/api/images/upload`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${authToken}` },
+          body: form,
+        });
+        const uploadData = await uploadRes.json();
+        if (!uploadRes.ok) {
+          showStatus('slotsStatus', uploadData.error || 'Upload failed', 'error');
+          return;
+        }
+
+        const setRes = await fetch(`${API_BASE}/api/slots/${encodeURIComponent(slotId)}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+          body: JSON.stringify({ current_url: uploadData.url }),
+        });
+        const setData = await setRes.json();
+        if (!setRes.ok) {
+          showStatus('slotsStatus', setData.error || 'Failed to assign image to slot', 'error');
+          return;
+        }
+        showStatus('slotsStatus', `Updated ${slotId}`, 'success');
+        loadSlots();
+      } catch (error) {
+        showStatus('slotsStatus', 'Error: ' + error.message, 'error');
+      }
+    });
+
+    async function resetSlot(slotId) {
+      if (!confirm(`Reset "${slotId}" to its default image?`)) return;
+      try {
+        const response = await fetch(`${API_BASE}/api/slots/${encodeURIComponent(slotId)}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${authToken}` },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          showStatus('slotsStatus', `Reset ${slotId}`, 'success');
+          loadSlots();
+        } else {
+          showStatus('slotsStatus', data.error || 'Failed to reset slot', 'error');
+        }
+      } catch (error) {
+        showStatus('slotsStatus', 'Error: ' + error.message, 'error');
+      }
     }
   </script>
 </body>
