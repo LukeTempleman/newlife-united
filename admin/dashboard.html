@@ -651,10 +651,87 @@
       }
     }
 
+    function formatBytes(n) {
+      if (n < 1024) return n + ' B';
+      if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+      return (n / 1024 / 1024).toFixed(2) + ' MB';
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
     async function loadImages() {
-      // Placeholder: In a real implementation, you'd fetch the list from your R2 bucket
       const imagesList = document.getElementById('imagesList');
-      imagesList.innerHTML = '<p style="color: #888; grid-column: 1/-1;">Image management coming soon...</p>';
+      imagesList.innerHTML = '<div class="loading"><div class="spinner"></div> Loading images...</div>';
+
+      try {
+        const response = await fetch(`${API_BASE}/api/images`, {
+          headers: { 'Authorization': `Bearer ${authToken}` },
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          imagesList.innerHTML = `<p style="color: var(--danger); grid-column: 1/-1;">${escapeHtml(data.error || 'Failed to load images')}</p>`;
+          return;
+        }
+
+        const images = data.data || [];
+        if (images.length === 0) {
+          imagesList.innerHTML = '<p style="color: #888; grid-column: 1/-1;">No images uploaded yet.</p>';
+          return;
+        }
+
+        imagesList.innerHTML = images.map(img => `
+          <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+            <a href="${escapeHtml(img.url)}" target="_blank" style="display: block; background: var(--light); aspect-ratio: 1; overflow: hidden;">
+              <img src="${escapeHtml(img.url)}" alt="${escapeHtml(img.key)}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </a>
+            <div style="padding: 10px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+              <div style="font-size: 12px; color: #555; word-break: break-all;" title="${escapeHtml(img.key)}">${escapeHtml(img.key)}</div>
+              <div style="font-size: 11px; color: #888;">${formatBytes(img.size)} · ${new Date(img.uploaded).toLocaleDateString()}</div>
+              <div style="display: flex; gap: 6px; margin-top: auto;">
+                <button type="button" onclick="copyImageUrl('${encodeURIComponent(img.url)}', this)" style="flex:1; padding: 6px 8px; font-size: 12px; border: 1px solid var(--primary); background: white; color: var(--primary); border-radius: 4px; cursor: pointer;">Copy URL</button>
+                <button type="button" onclick="deleteImage('${encodeURIComponent(img.key)}')" style="flex:1; padding: 6px 8px; font-size: 12px; border: none; background: var(--danger); color: white; border-radius: 4px; cursor: pointer;">Delete</button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } catch (error) {
+        imagesList.innerHTML = `<p style="color: var(--danger); grid-column: 1/-1;">Error loading images: ${escapeHtml(error.message)}</p>`;
+      }
+    }
+
+    async function copyImageUrl(encodedUrl, btn) {
+      const url = decodeURIComponent(encodedUrl);
+      try {
+        await navigator.clipboard.writeText(url);
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      } catch {
+        prompt('Copy this URL:', url);
+      }
+    }
+
+    async function deleteImage(encodedKey) {
+      const key = decodeURIComponent(encodedKey);
+      if (!confirm(`Delete image "${key}"? This cannot be undone.`)) return;
+      try {
+        const response = await fetch(`${API_BASE}/api/images/${encodeURIComponent(key)}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${authToken}` },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          showStatus('imagesStatus', 'Image deleted', 'success');
+          loadImages();
+        } else {
+          showStatus('imagesStatus', data.error || 'Failed to delete image', 'error');
+        }
+      } catch (error) {
+        showStatus('imagesStatus', 'Error deleting image: ' + error.message, 'error');
+      }
     }
 
     function showStatus(elementId, message, type) {
