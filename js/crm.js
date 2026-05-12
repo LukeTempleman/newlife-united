@@ -148,6 +148,87 @@ window.CRM = (function () {
       const id = localStorage.getItem('nlu_visitor_id');
       if (id) log('identify', { id });
     },
+
+    /**
+     * Fetch events from the D1 database and render them.
+     * Call this on pages that display events (events.html, watch.html, youth.html, etc.)
+     * @param {string} containerSelector - the container element where events will be rendered
+     * @param {string} page - optional: filter events by page name (default: 'events')
+     * @param {number} limit - optional: limit number of events (default: 50)
+     */
+    loadEvents: async function (containerSelector, page = null, limit = 50) {
+      try {
+        log('loadEvents', { containerSelector, page, limit });
+        const response = await fetch('/api/events');
+        if (!response.ok) throw new Error('Failed to fetch events');
+        
+        const data = await response.json();
+        let events = data.data || [];
+
+        // Filter by page if specified
+        if (page) {
+          events = events.filter(e => e.page === page);
+        }
+
+        // Limit results
+        events = events.slice(0, limit);
+
+        // Sort by date
+        events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        const container = document.querySelector(containerSelector);
+        if (!container) {
+          console.error('[CRM] Container not found:', containerSelector);
+          return;
+        }
+
+        // Render events
+        container.innerHTML = events.map(event => {
+          const eventDate = new Date(event.date);
+          const dayOfWeek = eventDate.toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
+          const day = String(eventDate.getDate()).padStart(2, '0');
+          const month = eventDate.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+
+          const tag = this._getEventTag(event);
+          const tagStyle = tag === 'WEEKLY' 
+            ? 'border:1px solid rgba(255,255,255,.4);' 
+            : tag === 'SPECIAL' 
+            ? 'border:1px solid #D4847A;color:#D4847A;'
+            : 'border:1px solid var(--accent);color:var(--accent);';
+
+          return \`
+            <a href="#" data-crm-event-id="\${event.id}" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
+              <div style="display:flex;align-items:baseline;gap:8px;min-width:130px">
+                <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">\${dayOfWeek}</span>
+                <span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">\${day}</span>
+                <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">\${month}</span>
+              </div>
+              <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">\${event.title}</div>
+              <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">\${event.time}</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.55)">\${event.location || 'TBD'}</div>
+              <span style="padding:4px 10px;\${tagStyle}font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;">\${tag}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          \`;
+        }).join('');
+
+        log('loadEvents complete', { count: events.length });
+      } catch (err) {
+        console.error('[CRM] loadEvents error:', err);
+      }
+    },
+
+    /**
+     * Helper: determine event tag based on frequency or type
+     * @private
+     */
+    _getEventTag: function (event) {
+      if (event.title && event.title.toLowerCase().includes('weekly')) return 'WEEKLY';
+      if (event.title && event.title.toLowerCase().includes('sunday')) return 'WEEKLY';
+      if (event.title && event.title.toLowerCase().includes('conference')) return 'CONFERENCE';
+      if (event.title && event.title.toLowerCase().includes('special')) return 'SPECIAL';
+      return 'WEEKLY'; // Default
+    },
   };
 })();
 

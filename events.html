@@ -64,40 +64,10 @@
     </h2>
     <!--
       CRM INTEGRATION POINT:
-      Replace the static rows below with a dynamic fetch from your events system.
-      Shape: [{ id, date, title, time, location, tag }]
+      Events are loaded dynamically from D1 database via the admin dashboard.
+      See script tag at bottom of page.
     -->
-    <div>
-      <a href="#" data-crm-event-id="sun-service" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
-        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">SUN</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">26</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">APR</span></div>
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Sunday Morning Service</div>
-        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">09:00 — 10:30</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
-        <span style="padding:4px 10px;border:1px solid rgba(255,255,255,.4);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.5)">WEEKLY</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#" data-crm-event-id="wed-prayer" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
-        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">WED</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">29</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">APR</span></div>
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Corporate Prayer Night</div>
-        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">19:00 — 20:30</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.55)">Upper Room</div>
-        <span style="padding:4px 10px;border:1px solid rgba(255,255,255,.4);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.5)">WEEKLY</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#" data-crm-event-id="youth-night-0501" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
-        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">FRI</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">01</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">MAY</span></div>
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Youth Worship Night</div>
-        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">19:00 — 21:00</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.55)">Youth Hall</div>
-        <span style="padding:4px 10px;border:1px solid #D4847A;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:#D4847A">SPECIAL</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#" data-crm-event-id="baptism-0531" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
-        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">SUN</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">31</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">MAY</span></div>
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Water Baptism Sunday</div>
-        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">10:30 — 11:30</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
-        <span style="padding:4px 10px;border:1px solid #D4847A;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:#D4847A">SPECIAL</span>
+    <div id="eventsList"></div>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
       <a href="#" data-crm-event-id="awake2026-d1" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
@@ -144,5 +114,14 @@
 <div id="site-footer"></div>
 <script src="js/crm.js"></script>
 <script src="js/site.js"></script>
+
+<!-- Load events from D1 database -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.CRM && window.CRM.loadEvents) {
+      window.CRM.loadEvents('#eventsList', 'events', 50);
+    }
+  });
+</script>
 </body>
 </html>
