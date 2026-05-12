@@ -4,30 +4,30 @@
 
   // ── Nav data ────────────────────────────────────────────────────
   const NAV = [
-    { slug: 'about',   label: 'About',       href: 'about.html' },
-    { slug: 'watch',   label: 'Watch',        href: 'watch.html' },
+    { slug: 'about',   label: 'About',       href: '#about' },
+    { slug: 'watch',   label: 'Watch',        href: '#watch' },
     {
-      slug: 'involved', label: 'Get Involved', href: 'connect.html',
+      slug: 'involved', label: 'Get Involved', href: '#connect',
       children: [
-        { slug: 'connect',    label: 'Connect',             href: 'connect.html',      desc: 'Find your place. Get plugged in.' },
-        { slug: 'next-steps', label: 'Your Next Step',      href: 'next-steps.html',   desc: 'Growth Track — a four-step journey.' },
-        { slug: 'bible',      label: 'Bible School & Care', href: 'bible-school.html', desc: 'Equipping & care ministries.' },
-        { slug: 'kids',       label: 'Kids For Christ',     href: 'kids.html',         desc: 'Babies through Seniors.' },
-        { slug: 'youth',      label: 'Youth United',        href: 'youth.html',        desc: 'High school ministry — Fridays.' },
-        { slug: 'groups',     label: 'Small Groups',        href: 'small-groups.html', desc: 'Mondays at 18:00 across the city.' },
+        { slug: 'connect',      label: 'Connect',             href: '#connect',      desc: 'Find your place. Get plugged in.' },
+        { slug: 'next-steps',   label: 'Your Next Step',      href: '#next-steps',   desc: 'Growth Track — a four-step journey.' },
+        { slug: 'bible-school', label: 'Bible School & Care', href: '#bible-school', desc: 'Equipping & care ministries.' },
+        { slug: 'kids',         label: 'Kids For Christ',     href: '#kids',         desc: 'Babies through Seniors.' },
+        { slug: 'youth',        label: 'Youth United',        href: '#youth',        desc: 'High school ministry — Fridays.' },
+        { slug: 'small-groups', label: 'Small Groups',        href: '#small-groups', desc: 'Mondays at 18:00 across the city.' },
       ],
     },
-    { slug: 'legacy',  label: 'Legacy Team', href: 'legacy.html' },
-    { slug: 'give',    label: 'Generosity',  href: 'give.html' },
-    { slug: 'events',  label: 'Events',      href: 'events.html' },
-    { slug: 'contact', label: 'Contact',     href: 'contact.html' },
+    { slug: 'legacy',  label: 'Legacy Team', href: '#legacy' },
+    { slug: 'give',    label: 'Generosity',  href: '#give' },
+    { slug: 'events',  label: 'Events',      href: '#events' },
+    { slug: 'contact', label: 'Contact',     href: '#contact' },
   ];
 
   const FOOTER_COLS = [
-    { heading: 'Visit',       links: [['Sundays', 'visit.html'], ['Plan your visit', 'visit.html'], ['What to expect', 'visit.html'], ['Contact', 'contact.html']] },
-    { heading: 'Get Involved',links: [['Connect', 'connect.html'], ['Next Steps', 'next-steps.html'], ['Small Groups', 'small-groups.html'], ['Bible School', 'bible-school.html']] },
-    { heading: 'Family',      links: [['Kids For Christ', 'kids.html'], ['Youth United', 'youth.html'], ['Legacy Team', 'legacy.html'], ['Events', 'events.html']] },
-    { heading: 'Generosity',  links: [['Tithes & Offerings', 'give.html'], ['Building Fund', 'give.html'], ['Apostolic Fund', 'give.html'], ['Bible School Fund', 'give.html']] },
+    { heading: 'Visit',       links: [['Sundays', '#visit'], ['Plan your visit', '#visit'], ['What to expect', '#visit'], ['Contact', '#contact']] },
+    { heading: 'Get Involved',links: [['Connect', '#connect'], ['Next Steps', '#next-steps'], ['Small Groups', '#small-groups'], ['Bible School', '#bible-school']] },
+    { heading: 'Family',      links: [['Kids For Christ', '#kids'], ['Youth United', '#youth'], ['Legacy Team', '#legacy'], ['Events', '#events']] },
+    { heading: 'Generosity',  links: [['Tithes & Offerings', '#give'], ['Building Fund', '#give'], ['Apostolic Fund', '#give'], ['Bible School Fund', '#give']] },
   ];
 
   // ── Arrow SVG ───────────────────────────────────────────────────
@@ -38,7 +38,7 @@
 
   // ── Inject Nav ──────────────────────────────────────────────────
   function buildNav(page) {
-    const inDropdown = ['connect','next-steps','bible','kids','youth','groups'];
+    const inDropdown = ['connect','next-steps','bible-school','kids','youth','small-groups'];
     const isInvolved = inDropdown.includes(page);
 
     const links = NAV.map(function (n) {
@@ -81,8 +81,8 @@
     if (!navEl) return;
     navEl.innerHTML = `
       <div class="nav-inner">
-        <a href="index.html" class="nav-logo" aria-label="Newlife United Home">
-          <img src="assets/logo.png" alt="Newlife United" data-crm-asset="logo">
+        <a href="#" class="nav-logo" aria-label="Newlife United Home">
+          <img src="assets/logo1.png" alt="Newlife United" data-crm-asset="logo">
         </a>
         <ul class="nav-links">${links}</ul>
         <div class="nav-cta">
@@ -96,7 +96,7 @@
         </div>
       </div>
       <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
-        <a href="index.html" ${page === 'index' ? 'class="active"' : ''}>Home</a>
+        <a href="#" ${page === 'index' ? 'class="active"' : ''}>Home</a>
         ${mobileLinks}
         <a href="visit.html" class="btn accent-bg" style="margin-top:16px;justify-content:center">Plan a visit ${arrow(12)}</a>
       </div>`;
@@ -132,7 +132,7 @@
       <div class="footer-inner">
         <div class="footer-grid">
           <div class="footer-brand">
-            <div class="footer-brand-logo"><img src="assets/logo.png" alt="Newlife United" data-crm-asset="logo"></div>
+            <div class="footer-brand-logo"><img src="assets/logo1.png" alt="Newlife United" data-crm-asset="logo"></div>
             <div class="footer-tagline">A house of prayer for all nations.</div>
             <div class="footer-address">
               129, 12th Avenue, Edenvale, 1609<br>
@@ -321,16 +321,28 @@
     });
   }
 
+  // ── SPA Router ───────────────────────────────────────────────────
+  function router() {
+    var hash = (window.location.hash || '').slice(1) || 'index';
+    var pages = document.querySelectorAll('.spa-page');
+    pages.forEach(function (p) {
+      p.classList.toggle('spa-active', p.id === 'page-' + hash);
+    });
+    document.body.dataset.page = hash;
+    buildNav(hash);
+    window.scrollTo(0, 0);
+  }
+
   // ── Init ─────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
-    const page = document.body.dataset.page || 'index';
-    buildNav(page);
     buildFooter();
     initFAQs();
     initGive();
     initGroupFilter();
     initCountdown();
     initForms();
+    router();
+    window.addEventListener('hashchange', router);
   });
 
 })();
