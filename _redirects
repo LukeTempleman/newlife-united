@@ -1,0 +1,11 @@
+/* Redirect all routes to app.html for SPA routing */
+/* This is for Cloudflare Pages */
+/*
+  If you want to use index.html instead, change the destination below.
+*/
+/*
+  /watch    /app.html   200
+  /*        /app.html   200
+*/
+/watch    /app.html   200
+/*        /app.html   200

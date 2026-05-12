@@ -321,9 +321,22 @@
     });
   }
 
+
   // ── SPA Router ───────────────────────────────────────────────────
   function router() {
-    var hash = (window.location.hash || '').slice(1) || 'index';
+    var hash = (window.location.hash || '').slice(1);
+    // If no hash, try to use the pathname for deep links
+    if (!hash) {
+      var path = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
+      // Only use the first segment (e.g., /watch or /about)
+      if (path && path !== 'app.html' && path !== 'index.html') {
+        hash = path.split('/')[0];
+        // Update the hash in the URL for consistency
+        window.location.hash = '#' + hash;
+      } else {
+        hash = 'index';
+      }
+    }
     var pages = document.querySelectorAll('.spa-page');
     pages.forEach(function (p) {
       p.classList.toggle('spa-active', p.id === 'page-' + hash);
