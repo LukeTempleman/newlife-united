@@ -398,22 +398,183 @@ select.input-field option { background: #0E0F0D; }
 .group-row:hover { background: rgba(255,255,255,0.03); }
 .group-row.hidden { display: none; }
 
-/* ── Responsive ─────────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  .nav-links, .nav-service-time { display: none; }
-  .nav-hamburger { display: flex; }
-  .nav-inner { padding: 18px 24px; }
-  .section { padding: 72px 24px; }
-  .page-hero { padding: 72px 24px 56px; min-height: auto; }
-  .page-hero h1 { font-size: clamp(48px, 12vw, 100px); }
-  .cta-strip { padding: 100px 24px; }
-  .cta-strip h2 { font-size: clamp(48px, 10vw, 100px); }
-  #site-footer { padding: 72px 24px 28px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .footer-brand { grid-column: 1 / -1; }
-  .footer-tagline { font-size: 28px; }
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   The bulk of the site uses inline grid-template-columns, so the
+   selectors below intentionally use [style*="..."] + !important to
+   beat inline styles. This is the pragmatic choice given the inline-
+   styled markup; the alternative would be touching every HTML file.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Tablet (≤ 1024px) ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  /* 4-up pillar grid becomes 2-up */
+  [style*="grid-template-columns:repeat(4,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* 3-up sermon grid becomes 2-up */
+  [style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* Tighten section gutters */
+  .section { padding: 96px 32px; }
+  .container, .container-md { padding: 0 8px; }
 }
-@media (max-width: 600px) {
-  .footer-grid { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; text-align: center; }
+
+/* ── Mobile (≤ 768px) ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* ── Nav ──────────────────────────────────────────────────── */
+  .nav-links, .nav-service-time { display: none; }
+  .nav-cta .btn { display: none; }       /* hide Plan-a-visit pill on mobile */
+  .nav-hamburger { display: flex; }
+  .nav-inner { padding: 14px 20px; }
+  .nav-mobile-sub { padding-left: 12px; }
+
+  /* ── Sections ─────────────────────────────────────────────── */
+  .section { padding: 64px 20px !important; }
+  .container, .container-md { padding: 0 !important; }
+
+  /* ── Typography (universal scale-down) ────────────────────── */
+  h1 { font-size: clamp(40px, 11vw, 72px) !important; line-height: .92 !important; }
+  h2 { font-size: clamp(32px, 8vw, 56px) !important; line-height: .95 !important; }
+  h3 { font-size: clamp(20px, 5vw, 28px) !important; }
+  .page-hero h1 { font-size: clamp(40px, 11vw, 80px) !important; }
+
+  /* ── Heroes ───────────────────────────────────────────────── */
+  .page-hero { padding: 80px 20px 56px !important; min-height: auto !important; }
+  .page-hero-lede { font-size: 16px !important; }
+  /* Home hero (uses bespoke inline styling, not .page-hero) */
+  section[style*="min-height:880px"] {
+    min-height: auto !important;
+    padding: 90px 20px 60px !important;
+  }
+  section[style*="min-height:880px"] h1 {
+    margin-top: 48px !important;
+    font-size: clamp(54px, 16vw, 110px) !important;
+  }
+
+  /* ── Generic multi-column collapses ───────────────────────── */
+  [style*="grid-template-columns:repeat(4,1fr)"],
+  [style*="grid-template-columns:repeat(3,1fr)"],
+  [style*="grid-template-columns:repeat(2,1fr)"],
+  [style*="grid-template-columns:1.6fr 1fr"],
+  [style*="grid-template-columns:1.4fr 1fr"],
+  [style*="grid-template-columns:1.2fr 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1.2fr"],
+  [style*="grid-template-columns:1fr 1.6fr"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns:220px 1fr 260px 80px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  /* Sunday-services schedule grid: 2-col + 3 fixed rows → vertical strip */
+  [style*="grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,120px)"] {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+  }
+  /* Photo grid in Sunday "homecoming" section */
+  [style*="grid-template-rows:1.3fr 1fr"] {
+    grid-template-rows: auto !important;
+    height: auto !important;
+    gap: 8px !important;
+  }
+  /* Watch page sermon archive row */
+  [style*="grid-template-columns:56px 1fr 200px 200px 100px auto"] {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+    padding: 18px 16px !important;
+  }
+  /* Events calendar row */
+  [style*="grid-template-columns:auto 2fr 1fr 1fr 140px"] {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    padding: 18px 14px !important;
+  }
+  /* Generic auto-fill / minmax patterns are already responsive */
+
+  /* ── Tall fixed-height cards ──────────────────────────────── */
+  [style*="height:480px"] { height: 340px !important; }
+  [style*="height:540px"] { height: 360px !important; }
+  [style*="height:680px"] { height: auto !important; }
+  [style*="min-height:540px"] { min-height: 360px !important; }
+  [style*="min-height:540px"][style*="padding:60px"] { padding: 32px 20px !important; }
+  .pillar-card { height: 320px !important; }
+
+  /* ── Padding on inline-styled inner panels ────────────────── */
+  [style*="padding:60px"] { padding: 28px 20px !important; }
+  [style*="padding:40px"] { padding: 24px 20px !important; }
+  [style*="padding:56px 36px"] { padding: 28px 20px !important; }
+  [style*="padding:36px 40px"] { padding: 22px 18px !important; }
+  [style*="padding:32px 36px"] { padding: 22px 18px !important; }
+  [style*="padding:28px 8px"] { padding: 18px 14px !important; }
+
+  /* ── Ticker ──────────────────────────────────────────────── */
+  .ticker-rail { padding: 10px 0; }
+  .ticker-track { font-size: 12px; gap: 22px !important; }
+  .ticker-item-main, .ticker-item-muted, .ticker-item-accent { white-space: nowrap; }
+
+  /* ── CTA strip ───────────────────────────────────────────── */
+  .cta-strip { padding: 80px 24px !important; }
+  .cta-strip h2 { font-size: clamp(36px, 9vw, 64px) !important; }
+  .cta-strip-lede { font-size: 15px !important; }
+  .cta-strip-actions { flex-direction: column !important; align-items: stretch !important; }
+  .cta-strip-actions .btn { width: 100%; justify-content: center; }
+
+  /* ── Buttons ─────────────────────────────────────────────── */
+  /* Stretch buttons inside the hero CTA cluster */
+  section[style*="min-height:880px"] [style*="display:flex"][style*="gap:14px"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  section[style*="min-height:880px"] [style*="display:flex"][style*="gap:14px"] .btn {
+    width: 100%; justify-content: center;
+  }
+  /* Make sure buttons in the page-hero are visible-friendly */
+  .page-hero .btn { min-height: 44px; }
+
+  /* ── Footer ──────────────────────────────────────────────── */
+  #site-footer { padding: 56px 20px 24px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-tagline { font-size: 26px !important; }
+  .footer-bottom { flex-direction: column; text-align: center; gap: 16px; }
+
+  /* ── Forms ───────────────────────────────────────────────── */
+  /* Two-column form rows (first / last name etc) stack */
+  form [style*="grid-template-columns:1fr 1fr"],
+  form [style*="grid-template-columns:repeat(2,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+  .input-field { font-size: 16px !important; } /* prevents iOS zoom on focus */
+
+  /* ── Stats / scoreboard panels ──────────────────────────── */
+  /* The "38 years on mission" stats: huge number scales down */
+  [style*="font-size:110px"] { font-size: 64px !important; }
+
+  /* ── Eyebrows / kickers ──────────────────────────────────── */
+  .page-hero-kicker { margin-bottom: 18px; }
+
+  /* ── Admin dashboard ─────────────────────────────────────── */
+  /* Tab buttons wrap and shrink */
+  .tab-btn { padding: 10px 14px !important; font-size: 13px !important; }
+  .grid-2 { grid-template-columns: 1fr !important; }
+}
+
+/* ── Small phones (≤ 480px) ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  h1 { font-size: clamp(34px, 11vw, 56px) !important; }
+  h2 { font-size: clamp(28px, 9vw, 48px) !important; }
+  section[style*="min-height:880px"] h1 {
+    font-size: clamp(44px, 16vw, 84px) !important;
+    margin-top: 32px !important;
+  }
+  .section { padding: 48px 18px !important; }
+  .ticker-track { font-size: 11px; }
+  .pillar-card { height: 280px !important; }
+  [style*="padding:28px"] { padding: 18px 14px !important; }
+
+  /* Keep the home hero usable */
+  section[style*="min-height:880px"] {
+    padding: 72px 18px 48px !important;
+  }
 }
