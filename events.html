@@ -24,35 +24,11 @@
   </div>
 </div>
 
-<!-- Featured event: AWAKE 2026 -->
-<section class="section bordered" style="padding-top:80px;padding-bottom:80px">
+<!-- Featured event (admin-managed: mark an event as featured in the dashboard) -->
+<section id="events-featured-section" class="section bordered" style="padding-top:80px;padding-bottom:80px;display:none">
   <div class="container">
     <span class="eyebrow"><span class="dot"></span>Featured · Don't miss</span>
-    <div style="margin-top:32px;position:relative;min-height:540px;overflow:hidden;border:1px solid rgba(255,255,255,.12)">
-      <img src="assets/event-awake.png" alt="AWAKE 2026 conference" data-slot="events-awake" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">
-      <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.5) 60%,transparent 100%)"></div>
-      <div style="position:relative;padding:60px;display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:end;min-height:540px">
-        <div>
-          <span data-crm-event-id="awake2026" style="display:inline-block;padding:6px 14px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:28px">FLAGSHIP CONFERENCE</span>
-          <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(64px,9vw,130px);letter-spacing:-.045em;line-height:.88;margin:0">
-            AWAKE<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">2026.</span>
-          </h2>
-          <p style="margin-top:24px;font-size:18px;line-height:1.55;color:rgba(255,255,255,.8);max-width:520px">Three days. One generation. A revival summit at Newlife United — worship, prayer and prophetic teaching from leaders across Africa.</p>
-        </div>
-        <div style="background:rgba(0,0,0,.5);backdrop-filter:blur(8px);padding:32px;border:1px solid rgba(255,255,255,.18)">
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.55);margin-bottom:6px">FRI 19 — SUN 21 JUN 2026</div>
-          <div style="font-size:14px;color:rgba(255,255,255,.7);margin-bottom:24px">Newlife United · 129, 12th Ave, Edenvale</div>
-          <!-- Live countdown -->
-          <div id="countdown" class="countdown-grid">
-            <div class="countdown-cell"><div class="countdown-num" id="cd-days">--</div><div class="countdown-label">DAYS</div></div>
-            <div class="countdown-cell"><div class="countdown-num" id="cd-hrs">--</div><div class="countdown-label">HRS</div></div>
-            <div class="countdown-cell"><div class="countdown-num" id="cd-min">--</div><div class="countdown-label">MIN</div></div>
-            <div class="countdown-cell"><div class="countdown-num" id="cd-sec">--</div><div class="countdown-label">SEC</div></div>
-          </div>
-          <a href="contact.html" class="btn accent-bg full" data-crm-event-id="awake2026" data-crm-action="register">Reserve your seat <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-    </div>
+    <div id="events-featured" style="margin-top:32px"></div>
   </div>
 </section>
 
@@ -63,39 +39,7 @@
     <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(56px,7vw,110px);letter-spacing:-.045em;line-height:.9;margin:24px 0 44px">
       What's <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">next.</span>
     </h2>
-    <!--
-      CRM INTEGRATION POINT:
-      Events are loaded dynamically from D1 database via the admin dashboard.
-      See script tag at bottom of page.
-    -->
-    <div id="eventsList"></div>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#" data-crm-event-id="awake2026-d1" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
-        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">FRI</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">19</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">JUN</span></div>
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">AWAKE 2026 — Day 1</div>
-        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">19:00 — 22:00</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
-        <span style="padding:4px 10px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent)">CONFERENCE</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#" data-crm-event-id="awake2026-d2" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
-        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">SAT</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">20</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">JUN</span></div>
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">AWAKE 2026 — Day 2</div>
-        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">09:00 — 22:00</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
-        <span style="padding:4px 10px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent)">CONFERENCE</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#" data-crm-event-id="awake2026-d3" style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px auto;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper);text-decoration:none">
-        <div style="display:flex;align-items:baseline;gap:8px;min-width:130px"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">SUN</span><span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">21</span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">JUN</span></div>
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">AWAKE 2026 — Closing</div>
-        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">09:00 — 13:00</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.55)">Main Auditorium</div>
-        <span style="padding:4px 10px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent)">CONFERENCE</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
+    <div id="eventsList"><div style="color:rgba(255,255,255,.5);font-family:var(--font-mono);font-size:12px;letter-spacing:.14em">LOADING…</div></div>
   </div>
 </section>
 
@@ -118,11 +62,97 @@
 
 <!-- Load events from D1 database -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (window.CRM && window.CRM.loadEvents) {
-      window.CRM.loadEvents('#eventsList', 'events', 50);
+  (function () {
+    const featuredWrap = document.getElementById('events-featured-section');
+    const featuredEl = document.getElementById('events-featured');
+    const listEl = document.getElementById('eventsList');
+    if (!listEl) return;
+
+    const DOW = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+    const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+
+    function escapeHtml(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
-  });
+    function parseDate(iso) {
+      const d = new Date(iso);
+      return isNaN(d.getTime()) ? null : d;
+    }
+    function fmtRange(start, end) {
+      if (!start) return '';
+      const out = [start];
+      if (end && end !== start) out.push(end);
+      return out.join(' — ');
+    }
+    function dateChip(date) {
+      return `<div style="display:flex;align-items:baseline;gap:8px;min-width:130px">
+        <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">${DOW[date.getDay()]}</span>
+        <span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">${String(date.getDate()).padStart(2,'0')}</span>
+        <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">${MONTHS[date.getMonth()]}</span>
+      </div>`;
+    }
+
+    function renderRow(ev) {
+      const d = parseDate(ev.date);
+      if (!d) return '';
+      const tag = ev.tag ? `<span style="padding:4px 10px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);justify-self:start">${escapeHtml(ev.tag)}</span>` : '<span></span>';
+      const time = fmtRange(ev.time, ev.end_time);
+      return `<div style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper)">
+        ${dateChip(d)}
+        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">${escapeHtml(ev.title)}</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">${escapeHtml(time)}</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55)">${escapeHtml(ev.location || '')}</div>
+        ${tag}
+      </div>`;
+    }
+
+    function renderFeatured(ev) {
+      const d = parseDate(ev.date);
+      if (!d || !featuredEl) return;
+      const time = fmtRange(ev.time, ev.end_time);
+      const dateLine = `${DOW[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+      const bg = ev.image_url ? `<img src="${escapeHtml(ev.image_url)}" alt="${escapeHtml(ev.title)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">` : `<img src="assets/event-awake.png" alt="" data-slot="events-awake" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">`;
+      const tag = ev.tag ? `<span style="display:inline-block;padding:6px 14px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:28px">${escapeHtml(ev.tag)}</span>` : '';
+      featuredEl.innerHTML = `
+        <div style="position:relative;min-height:540px;overflow:hidden;border:1px solid rgba(255,255,255,.12)">
+          ${bg}
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.5) 60%,transparent 100%)"></div>
+          <div style="position:relative;padding:60px;display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:end;min-height:540px">
+            <div>
+              ${tag}
+              <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(64px,9vw,130px);letter-spacing:-.045em;line-height:.88;margin:0">${escapeHtml(ev.title)}</h2>
+              <p style="margin-top:24px;font-size:18px;line-height:1.55;color:rgba(255,255,255,.8);max-width:520px">${escapeHtml(ev.description || '')}</p>
+            </div>
+            <div style="background:rgba(0,0,0,.5);backdrop-filter:blur(8px);padding:32px;border:1px solid rgba(255,255,255,.18)">
+              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.55);margin-bottom:6px">${escapeHtml(dateLine)}${time ? ' · ' + escapeHtml(time) : ''}</div>
+              <div style="font-size:14px;color:rgba(255,255,255,.7);margin-bottom:24px">${escapeHtml(ev.location || '')}</div>
+              <a href="contact.html" class="btn accent-bg full">Reserve your seat <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </div>
+        </div>
+      `;
+      featuredWrap.style.display = '';
+      if (window.applySlots) window.applySlots();
+    }
+
+    fetch('/api/events?page=events').then(r => r.ok ? r.json() : null).then(data => {
+      if (!data || !data.success) {
+        listEl.innerHTML = '<p style="color:rgba(255,255,255,.5)">Couldn\'t load events right now.</p>';
+        return;
+      }
+      const all = (data.data || []);
+      const featured = all.find(e => e.featured);
+      const calendar = all.filter(e => !e.featured);
+      if (featured) renderFeatured(featured);
+      if (!calendar.length) {
+        listEl.innerHTML = '<p style="color:rgba(255,255,255,.5)">No events on the calendar yet — check back soon.</p>';
+        return;
+      }
+      listEl.innerHTML = calendar.map(renderRow).join('');
+    }).catch(() => {
+      listEl.innerHTML = '<p style="color:rgba(255,255,255,.5)">Couldn\'t load events right now.</p>';
+    });
+  })();
 </script>
 </body>
 </html>

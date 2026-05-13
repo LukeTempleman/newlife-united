@@ -82,7 +82,7 @@
     navEl.innerHTML = `
       <div class="nav-inner">
         <a href="index.html" class="nav-logo" aria-label="Newlife United Home">
-          <img src="assets/logo.png" alt="Newlife United" data-crm-asset="logo">
+          <img src="assets/logo.png" alt="Newlife United" data-slot="site-logo" data-crm-asset="logo">
         </a>
         <ul class="nav-links">${links}</ul>
         <div class="nav-cta">
@@ -132,7 +132,7 @@
       <div class="footer-inner">
         <div class="footer-grid">
           <div class="footer-brand">
-            <div class="footer-brand-logo"><img src="assets/logo.png" alt="Newlife United" data-crm-asset="logo"></div>
+            <div class="footer-brand-logo"><img src="assets/logo.png" alt="Newlife United" data-slot="site-logo" data-crm-asset="logo"></div>
             <div class="footer-tagline">A house of prayer for all nations.</div>
             <div class="footer-address">
               129, 12th Avenue, Edenvale, 1609<br>
@@ -331,6 +331,7 @@
     initGroupFilter();
     initCountdown();
     initForms();
+    if (typeof window.applySlots === 'function') window.applySlots();
   });
 
 })();

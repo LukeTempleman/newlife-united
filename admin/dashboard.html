@@ -314,13 +314,14 @@
 </head>
 <body>
   <header>
-    <h1>🙏 Newlife United Admin</h1>
+    <h1>Newlife United Admin</h1>
     <button class="logout-btn" onclick="logout()">Logout</button>
   </header>
 
   <div class="container">
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('events')">Events</button>
+      <button class="tab-btn" onclick="switchTab('testimonies')">Testimonies</button>
       <button class="tab-btn" onclick="switchTab('images')">Image Library</button>
       <button class="tab-btn" onclick="switchTab('slots')">Page Images</button>
       <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
@@ -367,8 +368,20 @@
             </div>
 
             <div class="form-group">
-              <label for="eventTime">Time *</label>
+              <label for="eventTime">Start time *</label>
               <input type="time" id="eventTime" name="time" required>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label for="eventEndTime">End time</label>
+              <input type="time" id="eventEndTime" name="end_time">
+            </div>
+
+            <div class="form-group">
+              <label for="eventTag">Tag / badge</label>
+              <input type="text" id="eventTag" name="tag" placeholder="e.g., CONFERENCE, WORSHIP NIGHT">
             </div>
           </div>
 
@@ -379,7 +392,14 @@
 
           <div class="form-group">
             <label for="eventImage">Image URL</label>
-            <input type="url" id="eventImage" name="image_url" placeholder="https://...">
+            <input type="url" id="eventImage" name="image_url" placeholder="Tip: upload via Image Library, then paste URL here">
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+              <input type="checkbox" id="eventFeatured" name="featured" style="width:auto;margin:0">
+              <span>Featured event (shown in the hero block at the top of the events page)</span>
+            </label>
           </div>
 
           <div class="button-group">
@@ -392,6 +412,48 @@
       <h3>All Events</h3>
       <div id="eventsList" class="events-list">
         <div class="loading"><div class="spinner"></div> Loading events...</div>
+      </div>
+    </div>
+
+    <!-- Testimonies Tab -->
+    <div id="testimonies" class="tab-content">
+      <div id="testimoniesStatus" class="status-message"></div>
+      <h2>Manage Testimonies</h2>
+
+      <div style="margin-bottom: 30px;">
+        <h3 style="margin-bottom: 16px;">Add a Testimony</h3>
+        <form id="testimonyForm" onsubmit="handleAddTestimony(event)">
+          <div class="grid-2">
+            <div class="form-group">
+              <label for="testimonyName">Name *</label>
+              <input type="text" id="testimonyName" name="name" required placeholder="First name or initial">
+            </div>
+            <div class="form-group">
+              <label for="testimonyLocation">Location / context</label>
+              <input type="text" id="testimonyLocation" name="location" placeholder="e.g., Edenvale · Healed from anxiety">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="testimonyBody">Story *</label>
+            <textarea id="testimonyBody" name="body" rows="6" required placeholder="Their words, as told."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="testimonyImage">Image URL (optional)</label>
+            <input type="url" id="testimonyImage" name="image_url" placeholder="Tip: upload via Image Library, then paste URL here">
+          </div>
+
+          <div class="button-group">
+            <button type="submit" class="btn-primary">Add Testimony</button>
+            <button type="reset" class="btn-secondary">Clear</button>
+          </div>
+        </form>
+      </div>
+
+      <h3>All Testimonies</h3>
+      <div id="testimoniesList" style="display: grid; gap: 12px;">
+        <div class="loading"><div class="spinner"></div> Loading testimonies...</div>
       </div>
     </div>
 
@@ -473,6 +535,7 @@
         return;
       }
       loadEvents();
+      loadTestimonies();
       loadImages();
       loadSlots();
     });
@@ -513,9 +576,12 @@
         description: formData.get('description'),
         date: formData.get('date'),
         time: formData.get('time'),
+        end_time: formData.get('end_time') || '',
         location: formData.get('location'),
         image_url: formData.get('image_url'),
         page: formData.get('page'),
+        tag: formData.get('tag') || '',
+        featured: !!formData.get('featured'),
       };
 
       try {
@@ -747,6 +813,86 @@
       }
     }
 
+    // ── Testimonies ────────────────────────────────────────────────────
+    async function handleAddTestimony(e) {
+      e.preventDefault();
+      const form = e.target;
+      const fd = new FormData(form);
+      const payload = {
+        name: fd.get('name'),
+        body: fd.get('body'),
+        location: fd.get('location') || '',
+        image_url: fd.get('image_url') || '',
+      };
+      try {
+        const response = await fetch(`${API_BASE}/api/testimonies`, {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify(payload),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          showStatus('testimoniesStatus', 'Testimony added', 'success');
+          form.reset();
+          loadTestimonies();
+        } else {
+          showStatus('testimoniesStatus', data.error || 'Failed to add testimony', 'error');
+        }
+      } catch (error) {
+        showStatus('testimoniesStatus', 'Error: ' + error.message, 'error');
+      }
+    }
+
+    async function loadTestimonies() {
+      const list = document.getElementById('testimoniesList');
+      if (!list) return;
+      try {
+        const response = await fetch(`${API_BASE}/api/testimonies`);
+        const data = await response.json();
+        if (!response.ok) {
+          list.innerHTML = `<p style="color: var(--danger);">${escapeHtml(data.error || 'Failed to load')}</p>`;
+          return;
+        }
+        const rows = data.data || [];
+        if (!rows.length) {
+          list.innerHTML = '<p style="color:#888">No testimonies yet.</p>';
+          return;
+        }
+        list.innerHTML = rows.map(t => `
+          <div style="background:white;border-radius:8px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;gap:14px">
+            ${t.image_url ? `<img src="${escapeHtml(t.image_url)}" alt="" style="width:72px;height:72px;object-fit:cover;border-radius:4px;flex-shrink:0">` : ''}
+            <div style="flex:1;min-width:0">
+              <div style="font-weight:600;font-size:14px;margin-bottom:2px">${escapeHtml(t.name)}</div>
+              ${t.location ? `<div style="font-size:12px;color:#888;margin-bottom:6px">${escapeHtml(t.location)}</div>` : ''}
+              <div style="font-size:13px;color:#444;line-height:1.5;white-space:pre-wrap">${escapeHtml(t.body)}</div>
+            </div>
+            <button type="button" onclick="deleteTestimony('${escapeHtml(t.id)}')" style="align-self:flex-start;padding:6px 10px;font-size:12px;border:none;background:var(--danger);color:white;border-radius:4px;cursor:pointer;flex-shrink:0">Delete</button>
+          </div>
+        `).join('');
+      } catch (error) {
+        list.innerHTML = `<p style="color: var(--danger);">Error: ${escapeHtml(error.message)}</p>`;
+      }
+    }
+
+    async function deleteTestimony(id) {
+      if (!confirm('Delete this testimony? This cannot be undone.')) return;
+      try {
+        const response = await fetch(`${API_BASE}/api/testimonies/${encodeURIComponent(id)}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${authToken}` },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          showStatus('testimoniesStatus', 'Deleted', 'success');
+          loadTestimonies();
+        } else {
+          showStatus('testimoniesStatus', data.error || 'Failed to delete', 'error');
+        }
+      } catch (error) {
+        showStatus('testimoniesStatus', 'Error: ' + error.message, 'error');
+      }
+    }
+
     function showStatus(elementId, message, type) {
       const element = document.getElementById(elementId);
       element.textContent = message;
@@ -759,6 +905,7 @@
 
     // ── Page Images (slots) ────────────────────────────────────────────
     const PAGE_LABELS = {
+      '_global': 'Site-wide',
       'index': 'Home',
       'about': 'About',
       'watch': 'Watch',
@@ -801,7 +948,7 @@
         byPage[s.page].push(s);
       });
 
-      const order = ['index','about','watch','events','next-steps','visit','contact','kids','youth','legacy','small-groups','bible-school','connect','give'];
+      const order = ['_global','index','about','watch','events','next-steps','visit','contact','kids','youth','legacy','small-groups','bible-school','connect','give'];
       const html = order.filter(p => byPage[p]).map(page => {
         const label = PAGE_LABELS[page] || page;
         const cards = byPage[page].map(slot => {

@@ -29,49 +29,58 @@
 <section class="section bordered" style="padding-top:80px;padding-bottom:80px">
   <div class="container">
     <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:48px;align-items:start">
-      <!-- Video placeholder — replace with YouTube embed or your video player -->
-      <div data-crm-video-id="[TBD]" style="position:relative;aspect-ratio:16/9;background:#0a0b09;border:1px solid rgba(255,255,255,.12);overflow:hidden">
+      <div id="watch-featured-player" style="position:relative;aspect-ratio:16/9;background:#0a0b09;border:1px solid rgba(255,255,255,.12);overflow:hidden">
         <img src="assets/sermon-featured.png" alt="Latest sermon" data-slot="watch-featured" style="width:100%;height:100%;object-fit:cover;opacity:.5">
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
-          <div style="width:72px;height:72px;border-radius:50%;border:1px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4);cursor:pointer">
+          <div style="width:72px;height:72px;border-radius:50%;border:1px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4)">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>
           </div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.6)">
-            <!--
-              TO WIRE UP VIDEO:
-              Replace this div with:
-              <iframe src="https://www.youtube.com/embed/[VIDEO_ID]?rel=0"
-                frameborder="0" allowfullscreen
-                style="position:absolute;inset:0;width:100%;height:100%"></iframe>
-            -->
-            [VIDEO PLAYER — CONNECT YOUTUBE / VIMEO]
-          </div>
-        </div>
-        <div style="position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15)">
-          <span class="live-dot"></span>
-          <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;color:var(--paper)">LIVE SUN 09:00</span>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.6)">LOADING LATEST…</div>
         </div>
       </div>
-      <!-- Info panel -->
       <div>
-        <span class="eyebrow"><span class="dot"></span>Now playing</span>
-        <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(32px,4vw,56px);letter-spacing:-.03em;line-height:.95;margin:20px 0 16px">Arise, Shine</h2>
-        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--accent);margin-bottom:20px">SERIES · [TBD] · EP 07</div>
+        <span class="eyebrow"><span class="dot"></span>Latest sermon</span>
+        <h2 id="watch-featured-title" style="font-family:var(--font-sans);font-weight:500;font-size:clamp(32px,4vw,56px);letter-spacing:-.03em;line-height:.95;margin:20px 0 16px">Loading…</h2>
+        <div id="watch-featured-meta" style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--accent);margin-bottom:20px">NEWLIFE UNITED · YOUTUBE</div>
         <p style="font-size:15px;line-height:1.65;color:rgba(255,255,255,.75);margin:0 0 28px">
-          <!-- Replace with real sermon description from your CRM -->
-          [Sermon description — add from your message series]
+          Sunday morning — preached live, recorded for whenever you can join. Pull up a chair and press play.
         </p>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <a href="#" class="btn accent-bg full" data-crm-sermon-id="s001">Watch now <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="#" class="btn ghost full" style="color:var(--paper);border-color:rgba(255,255,255,.25)" data-crm-action="subscribe-podcast">Subscribe · Podcast <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a id="watch-featured-link" href="https://www.youtube.com/@newlifeunited" target="_blank" rel="noopener" class="btn accent-bg full">Watch on YouTube <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="https://www.youtube.com/@newlifeunited" target="_blank" rel="noopener" class="btn ghost full" style="color:var(--paper);border-color:rgba(255,255,255,.25)">Open the channel <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
         <div style="margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:rgba(255,255,255,.5);line-height:2">
-          <div>LIVE: Every Sunday · 09:00 & 18:00 SAST</div>
-          <div style="margin-top:8px">PLATFORM: <a href="#" style="color:var(--accent);text-decoration:none">[YouTube / Facebook TBD]</a></div>
+          <div>LIVE: Every Sunday · 09:00 SAST</div>
+          <div style="margin-top:8px">PLATFORM: <a href="https://www.youtube.com/@newlifeunited" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">YouTube · @newlifeunited</a></div>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      const player = document.getElementById('watch-featured-player');
+      const titleEl = document.getElementById('watch-featured-title');
+      const metaEl = document.getElementById('watch-featured-meta');
+      const linkEl = document.getElementById('watch-featured-link');
+      if (!player) return;
+
+      fetch('/api/youtube/latest').then(r => r.ok ? r.json() : null).then(data => {
+        if (!data || !data.success || !data.videos || !data.videos[0]) return;
+        const v = data.videos[0];
+        player.innerHTML = `
+          <iframe src="https://www.youtube.com/embed/${encodeURIComponent(v.id)}?rel=0"
+            title="${(v.title || '').replace(/"/g, '&quot;')}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+        `;
+        if (titleEl) titleEl.textContent = v.title;
+        if (metaEl) metaEl.textContent = (v.author || 'NEWLIFE UNITED').toUpperCase() + ' · YOUTUBE';
+        if (linkEl) linkEl.href = v.url;
+      }).catch(() => {});
+    })();
+  </script>
 </section>
 
 <!-- Sermon archive -->
@@ -124,32 +133,6 @@
     </div>
     <div style="margin-top:28px;text-align:center;font-size:14px;color:rgba(255,255,255,.5);font-family:var(--font-mono);letter-spacing:.1em">
       More sermons available on <a href="#" style="color:var(--accent);text-decoration:none" data-crm-link="youtube-channel">[YouTube channel TBD]</a>
-    </div>
-  </div>
-</section>
-
-<!-- Subscribe / Podcast -->
-<section class="section bordered" style="padding-top:120px;padding-bottom:120px">
-  <div class="container-md" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
-    <div>
-      <span class="eyebrow"><span class="dot"></span>Never miss a message</span>
-      <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,90px);letter-spacing:-.04em;line-height:.92;margin:24px 0 24px">
-        Subscribe<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">to the podcast.</span>
-      </h2>
-      <p style="font-size:16px;line-height:1.65;color:rgba(255,255,255,.75);margin:0">
-        Every sermon lands in your podcast player the day it's recorded. Listen in the car, at the gym, wherever you are.
-      </p>
-    </div>
-    <div style="display:grid;gap:12px">
-      <a href="#" class="btn ghost full" style="color:var(--paper);border-color:rgba(255,255,255,.25);font-size:16px;padding:18px 24px" data-crm-action="subscribe-spotify">
-        <span>Spotify</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#" class="btn ghost full" style="color:var(--paper);border-color:rgba(255,255,255,.25);font-size:16px;padding:18px 24px" data-crm-action="subscribe-apple">
-        <span>Apple Podcasts</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#" class="btn ghost full" style="color:var(--paper);border-color:rgba(255,255,255,.25);font-size:16px;padding:18px 24px" data-crm-action="subscribe-youtube">
-        <span>YouTube</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
     </div>
   </div>
 </section>
