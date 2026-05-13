@@ -46,7 +46,7 @@
     </p>
     <div style="display:flex;gap:14px;flex-wrap:wrap">
       <a href="visit.html" class="btn light">Plan your visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a href="watch.html" class="btn ghost" style="color:var(--paper);border-color:rgba(255,255,255,.4)">Watch live</a>
+      <a href="https://www.youtube.com/@newlifeunited" target="_blank" rel="noopener" class="btn ghost" style="color:var(--paper);border-color:rgba(255,255,255,.4)">Watch live</a>
     </div>
     <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5);text-align:right;line-height:1.9">
       SCROLL ↓<br>4 PILLARS · 1 MISSION
@@ -62,14 +62,14 @@
     <span class="ticker-item-muted">SUN 09:00 · EDENVALE</span>
     <span class="ticker-item-main">WATER BAPTISM · LAST SUN OF MAY</span>
     <span class="ticker-item-accent">● YOUTH NIGHT · FRI 19:00</span>
-    <span class="ticker-item-muted">WED PRAYER · 19:00</span>
+    <span class="ticker-item-muted">WED PRAYER · 18:00</span>
     <span class="ticker-item-main">SMALL GROUPS · MON 18:00</span>
     <span class="ticker-item-accent">● THIS SUNDAY</span>
     <span class="ticker-item-main">KNOW HIM. MAKE HIM KNOWN.</span>
     <span class="ticker-item-muted">SUN 09:00 · EDENVALE</span>
     <span class="ticker-item-main">WATER BAPTISM · LAST SUN OF MAY</span>
     <span class="ticker-item-accent">● YOUTH NIGHT · FRI 19:00</span>
-    <span class="ticker-item-muted">WED PRAYER · 19:00</span>
+    <span class="ticker-item-muted">WED PRAYER · 18:00</span>
     <span class="ticker-item-main">SMALL GROUPS · MON 18:00</span>
   </div>
 </div>
@@ -165,13 +165,8 @@
           <div style="font-size:14px;font-weight:500">Morning Service<div style="font-size:12px;color:rgba(255,255,255,.55);font-weight:400;margin-top:4px">Kids church · Coffee</div></div>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="visit.html" style="background:var(--ink);display:grid;grid-template-columns:auto 1fr auto;gap:28px;padding:22px 24px;align-items:center;text-decoration:none;color:var(--paper)">
-          <div style="font-family:var(--font-sans);font-size:40px;font-weight:500;letter-spacing:-.03em">18:00</div>
-          <div style="font-size:14px;font-weight:500">Evening Service<div style="font-size:12px;color:rgba(255,255,255,.55);font-weight:400;margin-top:4px">Extended worship</div></div>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
         <a href="contact.html" style="background:var(--ink);display:grid;grid-template-columns:auto 1fr auto;gap:28px;padding:22px 24px;align-items:center;text-decoration:none;color:var(--paper)">
-          <div style="font-family:var(--font-sans);font-size:40px;font-weight:500;letter-spacing:-.03em">19:00</div>
+          <div style="font-family:var(--font-sans);font-size:40px;font-weight:500;letter-spacing:-.03em">18:00</div>
           <div style="font-size:14px;font-weight:500">Wed · Prayer Night<div style="font-size:12px;color:rgba(255,255,255,.55);font-weight:400;margin-top:4px">Corporate intercession</div></div>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -205,7 +200,7 @@
     </div>
     <a href="watch.html" class="link-hover" style="color:var(--paper);font-size:14px;font-weight:500">All sermons →</a>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+  <div id="sermon-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
     <!-- Sermon 1 -->
     <a href="watch.html" data-crm-sermon-id="s001" style="position:relative;height:480px;border:1px solid rgba(255,255,255,.1);background:var(--ink);text-decoration:none;color:var(--paper);overflow:hidden;display:block">
       <img src="assets/sermon-thumb-01.png" alt="" data-slot="home-sermon-1" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:grayscale(.4)">
@@ -262,6 +257,61 @@
     </a>
   </div>
 </section>
+
+<script>
+  (function () {
+    const grid = document.getElementById('sermon-grid');
+    if (!grid) return;
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return '';
+      const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      return d.getDate() + ' ' + months[d.getMonth()];
+    }
+
+    function card(v, isLatest) {
+      const date = formatDate(v.published);
+      const meta = date ? date : '';
+      const badge = isLatest
+        ? '<span style="padding:4px 10px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;color:var(--accent)">LATEST</span>'
+        : '';
+      const metaColor = isLatest ? 'var(--accent)' : 'rgba(255,255,255,.5)';
+      return `
+        <a href="${escapeHtml(v.url)}" target="_blank" rel="noopener" style="position:relative;height:480px;border:1px solid rgba(255,255,255,.1);background:var(--ink);text-decoration:none;color:var(--paper);overflow:hidden;display:block">
+          <img src="${escapeHtml(v.thumbnail)}" alt="${escapeHtml(v.title)}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:grayscale(.4)">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,transparent 40%,rgba(0,0,0,.9))"></div>
+          <div style="position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:space-between">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:${metaColor}">${escapeHtml(meta)}</span>
+              ${badge}
+            </div>
+            <div style="width:60px;height:60px;border-radius:50%;border:1px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;margin:auto;background:rgba(0,0,0,.3)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>
+            </div>
+            <div>
+              <div style="font-family:var(--font-sans);font-size:28px;font-weight:500;letter-spacing:-.03em;line-height:1.05">${escapeHtml(v.title)}</div>
+              <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.1em">
+                ${escapeHtml(v.author || 'NEWLIFE UNITED')}
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+    }
+
+    fetch('/api/youtube/latest').then((r) => r.ok ? r.json() : null).then((data) => {
+      if (!data || !data.success || !Array.isArray(data.videos) || !data.videos.length) return;
+      grid.innerHTML = data.videos.slice(0, 3).map((v, i) => card(v, i === 0)).join('');
+    }).catch(() => {
+      // network failure — keep the static fallback cards
+    });
+  })();
+</script>
 
 <!-- ── Connect Grid ───────────────────────────────────────────────── -->
 <section class="section bordered" style="background:var(--paper);color:var(--ink);border-bottom-color:rgba(14,15,13,.1);padding-top:140px;padding-bottom:140px">
@@ -357,7 +407,7 @@
     <p class="cta-strip-lede">Two services. One family. No dress code, no judgement — just hungry hearts and a God who shows up.</p>
     <div class="cta-strip-actions">
       <a href="visit.html" class="btn light">Plan your visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a href="watch.html" class="btn ghost" style="color:var(--paper);border-color:rgba(255,255,255,.4)">Watch live</a>
+      <a href="https://www.youtube.com/@newlifeunited" target="_blank" rel="noopener" class="btn ghost" style="color:var(--paper);border-color:rgba(255,255,255,.4)">Watch live</a>
     </div>
   </div>
 </div>
