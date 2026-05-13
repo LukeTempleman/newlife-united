@@ -136,7 +136,9 @@ input, textarea, select { font-family: inherit; }
 .nav-mobile {
   display: none; position: fixed; inset: var(--nav-h) 0 0 0;
   background: var(--ink); z-index: 99; overflow-y: auto;
-  padding: 32px 24px; flex-direction: column; gap: 4px;
+  padding: 18px 24px calc(32px + env(safe-area-inset-bottom)) 24px;
+  flex-direction: column; gap: 4px;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 .nav-mobile.open { display: flex; }
 .nav-mobile a { color: var(--paper); text-decoration: none; font-size: 20px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -424,11 +426,16 @@ select.input-field option { background: #0E0F0D; }
 /* ── Mobile (≤ 768px) ───────────────────────────────────────────── */
 @media (max-width: 768px) {
   /* ── Nav ──────────────────────────────────────────────────── */
+  :root { --nav-h: 64px; }              /* mobile nav is shorter than 73px desktop */
   .nav-links, .nav-service-time { display: none; }
   .nav-cta .btn { display: none; }       /* hide Plan-a-visit pill on mobile */
   .nav-hamburger { display: flex; }
   .nav-inner { padding: 14px 20px; }
+  .nav-logo img { height: 32px; }
+  .nav-mobile { padding: 14px 20px calc(40px + env(safe-area-inset-bottom)) 20px; }
+  .nav-mobile a { font-size: 18px; padding: 12px 0; }
   .nav-mobile-sub { padding-left: 12px; }
+  .nav-mobile-sub a { font-size: 14px; padding: 8px 0; }
 
   /* ── Sections ─────────────────────────────────────────────── */
   .section { padding: 64px 20px !important; }

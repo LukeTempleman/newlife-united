@@ -1,6 +1,11 @@
 import { Env, json, requireAuth } from '../_utils';
 
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+// Images for general use + short looping videos for hero slots. Videos
+// should be MP4/WebM/MOV, kept small (a few seconds, muted, ~10 MB or less).
+const ALLOWED_TYPES = [
+  'image/jpeg', 'image/png', 'image/webp', 'image/gif',
+  'video/mp4', 'video/webm', 'video/quicktime',
+];
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!requireAuth(request, env)) return json({ error: 'Unauthorized' }, 401);
@@ -14,7 +19,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     }
 
     if (!ALLOWED_TYPES.includes(file.type)) {
-      return json({ error: 'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.' }, 400);
+      return json({ error: 'Invalid file type. Allowed: JPEG, PNG, WebP, GIF, MP4, WebM, MOV.' }, 400);
     }
 
     const timestamp = Date.now();

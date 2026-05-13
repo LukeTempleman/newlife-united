@@ -511,8 +511,8 @@
     <div id="slots" class="tab-content">
       <div id="slotsStatus" class="status-message"></div>
       <h2>Page Images</h2>
-      <p style="color: #666; margin-bottom: 20px;">Replace any image on the public site. Pick a file and the new version goes live within a minute. Reset to revert to the original.</p>
-      <input type="file" id="slotFile" accept="image/*" style="display: none;">
+      <p style="color: #666; margin-bottom: 20px;">Replace any image on the public site. Drop in a JPEG / PNG / WebP for a still, or a short MP4 / WebM clip for a looping video hero (the site plays videos muted, on loop, no controls). Keep videos under ~15 MB. Reset reverts to the original asset.</p>
+      <input type="file" id="slotFile" accept="image/*,video/mp4,video/webm,video/quicktime" style="display: none;">
       <div id="slotsContainer">
         <div class="loading"><div class="spinner"></div> Loading slots...</div>
       </div>
@@ -1112,15 +1112,20 @@
         const cards = byPage[page].map(slot => {
           const current = slot.current_url || slot.default_url;
           const isCustom = !!slot.current_url;
+          const isVideo = /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(current);
+          const thumb = isVideo
+            ? `<video src="${escapeHtml(current)}" muted loop playsinline autoplay style="width: 100%; height: 100%; object-fit: cover;"></video>
+               <div style="position:absolute;bottom:2px;right:2px;background:rgba(0,0,0,.6);color:#fff;font-size:9px;padding:1px 4px;border-radius:2px;letter-spacing:.05em">VIDEO</div>`
+            : `<img src="${escapeHtml(current)}" alt="${escapeHtml(slot.label)}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.opacity='0.3'">`;
           return `
             <div style="background: white; border-radius: 8px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; gap: 12px; align-items: flex-start;">
-              <div style="width: 96px; height: 96px; flex-shrink: 0; background: var(--light); border-radius: 4px; overflow: hidden;">
-                <img src="${escapeHtml(current)}" alt="${escapeHtml(slot.label)}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.opacity='0.3'">
+              <div style="position:relative; width: 96px; height: 96px; flex-shrink: 0; background: var(--light); border-radius: 4px; overflow: hidden;">
+                ${thumb}
               </div>
               <div style="flex: 1; min-width: 0;">
                 <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">${escapeHtml(slot.label)}</div>
                 <div style="font-size: 11px; color: #888; font-family: monospace; margin-bottom: 4px; word-break: break-all;">${escapeHtml(slot.slot_id)}</div>
-                <div style="font-size: 11px; color: ${isCustom ? 'var(--success, #28a745)' : '#888'}; margin-bottom: 8px;">${isCustom ? '✓ Customised' : 'Default image'}</div>
+                <div style="font-size: 11px; color: ${isCustom ? 'var(--success, #28a745)' : '#888'}; margin-bottom: 8px;">${isCustom ? (isVideo ? '✓ Customised (video)' : '✓ Customised') : 'Default image'}</div>
                 <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                   <button type="button" onclick="pickSlotImage('${escapeHtml(slot.slot_id)}')" style="padding: 6px 10px; font-size: 12px; border: none; background: var(--primary); color: white; border-radius: 4px; cursor: pointer;">Upload</button>
                   ${isCustom ? `<button type="button" onclick="resetSlot('${escapeHtml(slot.slot_id)}')" style="padding: 6px 10px; font-size: 12px; border: 1px solid #ccc; background: white; color: #555; border-radius: 4px; cursor: pointer;">Reset</button>` : ''}
