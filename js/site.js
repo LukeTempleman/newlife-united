@@ -299,14 +299,52 @@
   }
 
   // ── Generic form submissions ─────────────────────────────────────
+  // Every <form data-crm-form="X"> gets wired up: serialise the fields,
+  // await the POST to /api/forms (via window.CRM.submit), then show the
+  // thank-you UI only if the request actually landed. If it fails we
+  // re-enable the button and tell the user, so submissions never look
+  // like they worked when they didn't.
   function initForms() {
     document.querySelectorAll('[data-crm-form]').forEach(function (form) {
-      form.addEventListener('submit', function (e) {
+      form.addEventListener('submit', async function (e) {
         e.preventDefault();
         const type = form.dataset.crmForm;
         const data = {};
         new FormData(form).forEach(function (v, k) { data[k] = v; });
-        window.CRM && window.CRM.submit(type, data);
+
+        const submitBtn = form.querySelector('button[type="submit"], button:not([type])');
+        const originalLabel = submitBtn ? submitBtn.innerHTML : '';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = 'Sending…';
+        }
+
+        let ok = false;
+        try {
+          if (window.CRM && typeof window.CRM.submit === 'function') {
+            ok = await window.CRM.submit(type, data);
+          }
+        } catch (err) {
+          console.error('[form] submit failed', err);
+          ok = false;
+        }
+
+        if (!ok) {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalLabel || 'Try again';
+          }
+          let errEl = form.querySelector('.form-error');
+          if (!errEl) {
+            errEl = document.createElement('div');
+            errEl.className = 'form-error';
+            errEl.style.cssText = 'margin-top:14px;padding:12px 16px;border:1px solid #e74c3c;color:#e74c3c;font-size:14px;background:rgba(231,76,60,.08)';
+            form.appendChild(errEl);
+          }
+          errEl.textContent = "Couldn't send right now. Please try again, or call us on 078 000 2965.";
+          return;
+        }
+
         const success = form.nextElementSibling;
         if (success && success.classList.contains('form-success')) {
           form.style.display = 'none';

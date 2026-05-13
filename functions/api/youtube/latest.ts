@@ -6,7 +6,8 @@
 import { Env, json } from '../_utils';
 
 const HANDLE = 'newlifeunited';
-const MAX_VIDEOS = 3;
+const DEFAULT_LIMIT = 3;
+const MAX_LIMIT = 15;
 
 interface Video {
   id: string;
@@ -31,8 +32,8 @@ async function resolveChannelId(handle: string): Promise<string | null> {
   return match ? match[1] : null;
 }
 
-function parseRss(xml: string): Video[] {
-  const entries = xml.split(/<entry[\s>]/).slice(1, 1 + MAX_VIDEOS);
+function parseRss(xml: string, limit: number): Video[] {
+  const entries = xml.split(/<entry[\s>]/).slice(1, 1 + limit);
   return entries.map((entry) => {
     const get = (re: RegExp) => {
       const m = entry.match(re);
@@ -53,8 +54,14 @@ function parseRss(xml: string): Video[] {
   }).filter((v) => v.id);
 }
 
-export const onRequestGet: PagesFunction<Env> = async () => {
+export const onRequestGet: PagesFunction<Env> = async ({ request }) => {
   try {
+    const url = new URL(request.url);
+    const requested = parseInt(url.searchParams.get('limit') || '', 10);
+    const limit = Number.isFinite(requested) && requested > 0
+      ? Math.min(requested, MAX_LIMIT)
+      : DEFAULT_LIMIT;
+
     const channelId = await resolveChannelId(HANDLE);
     if (!channelId) {
       return json({ error: 'Could not resolve channel ID for @' + HANDLE }, 502);
@@ -67,7 +74,7 @@ export const onRequestGet: PagesFunction<Env> = async () => {
       return json({ error: 'YouTube RSS fetch failed', status: feedRes.status }, 502);
     }
     const xml = await feedRes.text();
-    const videos = parseRss(xml);
+    const videos = parseRss(xml, limit);
 
     return new Response(JSON.stringify({ success: true, channelId, videos }), {
       status: 200,

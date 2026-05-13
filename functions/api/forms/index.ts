@@ -26,7 +26,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const name = pick('name') || [pick('first_name'), pick('last_name')].filter(Boolean).join(' ');
     const email = pick('email');
     const phone = pick('phone') || pick('whatsapp');
-    const message = pick('message') || pick('notes') || pick('prayer_request') || pick('comments') || '';
+    const message = pick('message') || pick('notes') || pick('prayer') || pick('prayer_request') || pick('comments') || pick('reason') || pick('course_interest') || '';
 
     await env.DB.prepare(
       `INSERT INTO form_submissions (id, form_type, name, email, phone, message, data_json, is_archived, created_at)
