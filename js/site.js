@@ -53,14 +53,14 @@
         const parentActive = isInvolved ? 'active' : '';
         return `<li class="nav-dropdown">
           <a href="${n.href}" class="${parentActive}" data-crm-nav="involved">
-            ${n.label}
+            <span class="nav-link-label">${n.label}</span>
             <svg class="nav-dropdown-chevron" width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg>
           </a>
           <div class="nav-dropdown-menu">${dropItems}</div>
         </li>`;
       }
       const active = n.slug === page ? 'active' : '';
-      return `<li><a href="${n.href}" class="${active}" data-crm-nav="${n.slug}">${n.label}</a></li>`;
+      return `<li><a href="${n.href}" class="${active}" data-crm-nav="${n.slug}"><span class="nav-link-label">${n.label}</span></a></li>`;
     }).join('');
 
     // Mobile links

@@ -4,7 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Generosity · Newlife United</title>
-<meta name="description" content="Give to Newlife United. EFT, online, or in person. Every gift funds the gospel going further.">
+<meta name="description" content="Give to Newlife United. EFT or in person — every gift fuels the work of the gospel in Edenvale and beyond.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://newlife-united.pages.dev/give">
+<meta name="theme-color" content="#0E0F0D">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Newlife United">
+<meta property="og:locale" content="en_ZA">
+<meta property="og:title" content="Generosity · Newlife United">
+<meta property="og:description" content="Give to Newlife United. EFT or in person — every gift fuels the work of the gospel in Edenvale and beyond.">
+<meta property="og:url" content="https://newlife-united.pages.dev/give">
+<meta property="og:image" content="https://newlife-united.pages.dev/assets/hero-index.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Generosity · Newlife United">
+<meta name="twitter:description" content="Give to Newlife United. EFT or in person — every gift fuels the work of the gospel in Edenvale and beyond.">
+<meta name="twitter:image" content="https://newlife-united.pages.dev/assets/hero-index.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -19,117 +33,131 @@
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
     <div class="page-hero-kicker"><span class="eyebrow"><span class="dot"></span>Generosity</span></div>
-    <h1>Give.<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">Thank you.</span></h1>
-    <p class="page-hero-lede">Every gift funds the gospel going further — pressed down, shaken together, running over into homes, prisons, schools, and nations. Giving is always a response, never a requirement.</p>
+    <h1>Thank you for<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">partnering with us.</span></h1>
+    <p class="page-hero-lede">Newlife United is built by a family of generous people. Your giving keeps the lights on, the doors open, and the gospel going further — here in Edenvale and into the East Rand.</p>
   </div>
 </div>
 
-<!-- Give flow -->
+<!-- Why we give -->
 <section class="section bordered" style="padding-top:120px;padding-bottom:120px">
-  <div class="container-md" style="max-width:640px;margin:0 auto">
-    <div id="give-box">
-      <form id="give-form" style="border:1px solid rgba(255,255,255,.18);padding:40px">
-        <!-- Fund selector -->
-        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.55);margin-bottom:12px">FUND</div>
-        <div class="pill-group" style="margin-bottom:28px">
-          <button type="button" class="pill active" data-fund="Tithes &amp; Offerings">Tithes &amp; Offerings</button>
-          <button type="button" class="pill" data-fund="Apostolic Fund">Apostolic Fund</button>
-          <button type="button" class="pill" data-fund="Building Fund">Building Fund</button>
-          <button type="button" class="pill" data-fund="Caring for the Poor">Caring for the Poor</button>
-          <button type="button" class="pill" data-fund="Bible School">Bible School</button>
-        </div>
-
-        <!-- Amount -->
-        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.55);margin-bottom:12px">AMOUNT (ZAR)</div>
-        <div class="amount-grid" style="margin-bottom:10px">
-          <button type="button" class="amount-pill" data-amt="100">R100</button>
-          <button type="button" class="amount-pill" data-amt="250">R250</button>
-          <button type="button" class="amount-pill active" data-amt="500">R500</button>
-          <button type="button" class="amount-pill" data-amt="1000">R1 000</button>
-          <button type="button" class="amount-pill" data-amt="2500">R2 500</button>
-          <button type="button" class="amount-pill" data-amt="5000">R5 000</button>
-        </div>
-        <input id="custom-amount" type="number" value="500" min="1" placeholder="Or enter an amount" class="input-field" style="margin-bottom:24px">
-
-        <!-- Frequency -->
-        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.55);margin-bottom:12px">FREQUENCY</div>
-        <div class="freq-group" style="margin-bottom:28px">
-          <button type="button" class="freq-btn active" data-freq="Once">Once</button>
-          <button type="button" class="freq-btn" data-freq="Weekly">Weekly</button>
-          <button type="button" class="freq-btn" data-freq="Monthly">Monthly</button>
-        </div>
-
-        <!--
-          PAYMENT INTEGRATION POINT:
-          Replace the button below with your payment processor widget:
-          - PayFast (South Africa): https://www.payfast.co.za/
-          - Peach Payments: https://www.peachpayments.com/
-          - SnapScan: integrate their JS widget
-          The button below fires window.CRM.give() for tracking then redirects to payment.
-        -->
-        <button type="submit" id="give-submit" class="btn accent-bg full" data-crm-give-fund="Tithes &amp; Offerings" data-crm-give-amount="500" data-crm-give-frequency="Once">
-          <span id="give-label">Give R500</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-        <div style="margin-top:14px;font-size:12px;color:rgba(255,255,255,.45);text-align:center">Secure · Mastercard, Visa, EFT, SnapScan</div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- Funds breakdown -->
-<section class="section bordered" style="padding-top:120px;padding-bottom:120px">
-  <div class="container">
-    <span class="eyebrow"><span class="dot"></span>Where it goes</span>
-    <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,90px);letter-spacing:-.04em;line-height:.95;margin:24px 0 56px">
-      Every rand, <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">tracked.</span>
+  <div class="container-md" style="max-width:760px;margin:0 auto;text-align:center">
+    <span class="eyebrow"><span class="dot"></span>A response, not a requirement</span>
+    <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,96px);letter-spacing:-.04em;line-height:.95;margin:24px 0 28px">
+      Why we <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">give.</span>
     </h2>
-    <div style="display:grid;gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)">
-      <div style="background:var(--ink);padding:36px 40px;display:grid;grid-template-columns:220px 1fr 260px 80px;gap:32px;align-items:center">
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:600;letter-spacing:-.015em">Tithes &amp; Offerings</div>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.72)">Day-to-day life of the church — staff, ministry, building, weekly outreach.</p>
-        <div style="height:6px;background:rgba(255,255,255,.1);position:relative"><div style="position:absolute;inset:0;width:65%;background:var(--accent)"></div></div>
-        <div style="font-family:var(--font-mono);font-size:18px;color:var(--accent);text-align:right">65%</div>
-      </div>
-      <div style="background:var(--ink);padding:36px 40px;display:grid;grid-template-columns:220px 1fr 260px 80px;gap:32px;align-items:center">
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:600;letter-spacing:-.015em">Apostolic Fund</div>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.72)">Field workers and local outreach in Germiston &amp; Gauteng.</p>
-        <div style="height:6px;background:rgba(255,255,255,.1);position:relative"><div style="position:absolute;inset:0;width:18%;background:var(--accent)"></div></div>
-        <div style="font-family:var(--font-mono);font-size:18px;color:var(--accent);text-align:right">18%</div>
-      </div>
-      <div style="background:var(--ink);padding:36px 40px;display:grid;grid-template-columns:220px 1fr 260px 80px;gap:32px;align-items:center">
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:600;letter-spacing:-.015em">Building Fund</div>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.72)">A bigger room for what God is doing — sanctuary expansion 2026.</p>
-        <div style="height:6px;background:rgba(255,255,255,.1);position:relative"><div style="position:absolute;inset:0;width:12%;background:var(--accent)"></div></div>
-        <div style="font-family:var(--font-mono);font-size:18px;color:var(--accent);text-align:right">12%</div>
-      </div>
-      <div style="background:var(--ink);padding:36px 40px;display:grid;grid-template-columns:220px 1fr 260px 80px;gap:32px;align-items:center">
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:600;letter-spacing:-.015em">Caring for the Poor</div>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.72)">Practical help for church family in crisis — food, rent, medical.</p>
-        <div style="height:6px;background:rgba(255,255,255,.1);position:relative"><div style="position:absolute;inset:0;width:5%;background:var(--accent)"></div></div>
-        <div style="font-family:var(--font-mono);font-size:18px;color:var(--accent);text-align:right">5%</div>
-      </div>
+    <p style="font-size:17px;line-height:1.7;color:rgba(255,255,255,.78);margin:0 0 28px">
+      Generosity is one of the clearest pictures of who God is. He gave first. Everything we have is His to begin with — and when we give back, we're agreeing with that. There's no pressure to give, and visitors should feel absolutely none. If you call Newlife United home, this is how we fund the family.
+    </p>
+    <div style="margin-top:40px;padding:28px 24px;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);font-family:var(--font-display);font-style:italic;font-weight:300;font-size:22px;line-height:1.55;color:rgba(255,255,255,.85)">
+      "Each one must give as he has decided in his heart, not reluctantly or under compulsion, for God loves a cheerful giver."
     </div>
+    <div style="margin-top:14px;font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5)">2 CORINTHIANS 9:7</div>
   </div>
 </section>
 
-<!-- EFT details -->
+<!-- Ways to give -->
 <section class="section dark bordered" style="padding-top:120px;padding-bottom:120px">
   <div class="container">
-    <span class="eyebrow"><span class="dot"></span>EFT details</span>
-    <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,90px);letter-spacing:-.04em;line-height:.95;margin:24px 0 52px">
-      Direct <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">transfer.</span>
-    </h2>
-    <p style="font-size:14px;color:rgba(255,255,255,.5);margin:0 0 32px;font-style:italic">Use the account number that matches your chosen fund. Reference: [Your name] + fund name.</p>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)">
-      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BANK</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">First National Bank (FNB)</div></div>
-      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BRANCH CODE</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">250 655 (Eastgate)</div></div>
-      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">TITHES &amp; OFFERINGS</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 814 049</div></div>
-      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">APOSTOLIC FUND</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 815 980</div></div>
-      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">CARING FOR THE POOR</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 818 405</div></div>
-      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BUILDING FUND</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 815 998</div></div>
-      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BIBLE SCHOOL</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">62 850 818 728</div></div>
-      <div style="background:var(--ink-3);padding:32px 36px"><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">REFERENCE</div><div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">Your name + fund</div></div>
+    <div style="margin-bottom:64px">
+      <span class="eyebrow"><span class="dot"></span>Three simple ways</span>
+      <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,96px);letter-spacing:-.04em;line-height:.95;margin:24px 0 0">
+        Ways to <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">give.</span>
+      </h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)">
+      <div style="background:var(--ink-3);padding:40px 36px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;color:var(--accent)">01 · RECOMMENDED</div>
+        <div style="font-family:var(--font-sans);font-size:28px;font-weight:500;letter-spacing:-.02em;line-height:1.1">EFT / Bank transfer</div>
+        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.7)">The simplest and most cost-effective way. Use your banking app, pick the fund you want to give to, and use your name as the reference. Details below.</p>
+        <a href="#banking" style="margin-top:auto;color:var(--accent);font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-decoration:none">SEE BANKING DETAILS ↓</a>
+      </div>
+      <div style="background:var(--ink-3);padding:40px 36px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.55)">02 · IN PERSON</div>
+        <div style="font-family:var(--font-sans);font-size:28px;font-weight:500;letter-spacing:-.02em;line-height:1.1">On a Sunday</div>
+        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.7)">There's a drop box at the back of the auditorium. Cash or envelopes welcome. Speak to a team member at the welcome desk if you'd like a receipt for tax.</p>
+        <div style="margin-top:auto;font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.45)">SUN · 09:00</div>
+      </div>
+      <div style="background:var(--ink-3);padding:40px 36px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.55)">03 · ASK</div>
+        <div style="font-family:var(--font-sans);font-size:28px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Anything specific?</div>
+        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.7)">Want to give towards a specific need, leave a legacy gift, or talk through stewardship? We'd love to chat. No agenda, no pressure.</p>
+        <a href="contact.html" style="margin-top:auto;color:var(--accent);font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-decoration:none">CONTACT US →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Banking details -->
+<section id="banking" class="section bordered" style="padding-top:120px;padding-bottom:120px;scroll-margin-top:80px">
+  <div class="container">
+    <div style="margin-bottom:48px">
+      <span class="eyebrow"><span class="dot"></span>Banking details</span>
+      <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,96px);letter-spacing:-.04em;line-height:.95;margin:24px 0 16px">
+        Direct <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">transfer.</span>
+      </h2>
+      <p style="font-size:16px;line-height:1.6;color:rgba(255,255,255,.7);max-width:640px;margin:0">Use the account number that matches the fund you'd like to give to. Add your name (and the fund) as the reference so we can track it correctly.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);margin-bottom:32px">
+      <div style="background:var(--ink);padding:28px 32px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BANK</div>
+        <div style="font-family:var(--font-sans);font-size:22px;font-weight:500;letter-spacing:-.015em">First National Bank (FNB)</div>
+      </div>
+      <div style="background:var(--ink);padding:28px 32px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">BRANCH CODE</div>
+        <div style="font-family:var(--font-sans);font-size:22px;font-weight:500;letter-spacing:-.015em">250 655 · Eastgate</div>
+      </div>
+      <div style="background:var(--ink);padding:28px 32px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:10px">REFERENCE</div>
+        <div style="font-family:var(--font-sans);font-size:22px;font-weight:500;letter-spacing:-.015em">Your name + fund</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)">
+      <div style="background:var(--ink);padding:36px 36px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">TITHES &amp; OFFERINGS</div>
+        <div style="font-family:var(--font-sans);font-size:28px;font-weight:500;letter-spacing:-.02em;color:var(--paper)">62 850 814 049</div>
+        <p style="margin:14px 0 0;font-size:13px;line-height:1.55;color:rgba(255,255,255,.6)">The day-to-day life of the church — staff, ministry, building, weekly outreach.</p>
+      </div>
+      <div style="background:var(--ink);padding:36px 36px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">BUILDING FUND</div>
+        <div style="font-family:var(--font-sans);font-size:28px;font-weight:500;letter-spacing:-.02em;color:var(--paper)">62 850 815 998</div>
+        <p style="margin:14px 0 0;font-size:13px;line-height:1.55;color:rgba(255,255,255,.6)">A bigger room for what God is doing — sanctuary, infrastructure, future home.</p>
+      </div>
+      <div style="background:var(--ink);padding:36px 36px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">CARING FOR THE POOR</div>
+        <div style="font-family:var(--font-sans);font-size:28px;font-weight:500;letter-spacing:-.02em;color:var(--paper)">62 850 818 405</div>
+        <p style="margin:14px 0 0;font-size:13px;line-height:1.55;color:rgba(255,255,255,.6)">Practical help for our church family and community in crisis — food, rent, medical.</p>
+      </div>
+      <div style="background:var(--ink);padding:36px 36px">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">BIBLE SCHOOL</div>
+        <div style="font-family:var(--font-sans);font-size:28px;font-weight:500;letter-spacing:-.02em;color:var(--paper)">62 850 818 728</div>
+        <p style="margin:14px 0 0;font-size:13px;line-height:1.55;color:rgba(255,255,255,.6)">Equipping the saints — training, materials, scholarships for our Bible School.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stewardship note -->
+<section class="section dark bordered" style="padding-top:100px;padding-bottom:100px">
+  <div class="container-md" style="max-width:760px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px">
+      <div>
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">STEWARDSHIP</div>
+        <h3 style="font-family:var(--font-sans);font-weight:500;font-size:22px;letter-spacing:-.015em;margin:0 0 10px">Handled with care.</h3>
+        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.7)">Every gift is overseen by our elders and church finance team and audited annually. We answer first to God, then to the family that gives.</p>
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">TAX</div>
+        <h3 style="font-family:var(--font-sans);font-weight:500;font-size:22px;letter-spacing:-.015em;margin:0 0 10px">Section 18A receipts.</h3>
+        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.7)">We're a registered PBO. If you'd like a Section 18A certificate for SARS, send us an email and we'll get one to you.</p>
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">QUESTIONS</div>
+        <h3 style="font-family:var(--font-sans);font-weight:500;font-size:22px;letter-spacing:-.015em;margin:0 0 10px">Talk to us.</h3>
+        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.7)">Anything from "how do I start tithing" to "I want to leave a legacy gift" — we'd love to walk it through with you. <a href="contact.html" style="color:var(--accent)">Contact us</a>.</p>
+      </div>
     </div>
   </div>
 </section>

@@ -85,12 +85,19 @@ input, textarea, select { font-family: inherit; }
 }
 .nav-links a:hover { color: rgba(255,255,255,0.7); }
 .nav-links a.active { color: var(--accent); }
-.nav-links a.active::after {
+.nav-link-label { position: relative; display: inline-block; }
+.nav-links a.active .nav-link-label::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: -22px;
   height: 2px; background: var(--accent);
 }
 .nav-cta { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .nav-service-time { font-size: 12px; font-family: var(--font-mono); color: rgba(255,255,255,0.5); }
+
+/* Pillar cards on home page — lift, brighten, accent-glow on hover */
+.pillar-card { transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
+.pillar-card img { transition: opacity .4s ease, filter .4s ease, transform .6s ease; }
+.pillar-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 18px 40px rgba(0,0,0,.45); }
+.pillar-card:hover img { opacity: .7; filter: grayscale(0); transform: scale(1.04); }
 
 /* Dropdown */
 .nav-dropdown { position: relative; padding-bottom: 16px; margin-bottom: -16px; }

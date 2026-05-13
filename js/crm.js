@@ -41,9 +41,7 @@ window.CRM = (function () {
 
   /* ── CONFIG ──────────────────────────────────────────────────── */
   const CONFIG = {
-    // Replace with your Cloudflare Worker or CRM webhook URL:
-    webhookUrl: null, // e.g. 'https://newlife-worker.workers.dev/submit'
-    debug: true,      // set false in production
+    debug: false,
   };
 
   function log(label, data) {
@@ -51,21 +49,21 @@ window.CRM = (function () {
   }
 
   /* ── Core dispatcher ─────────────────────────────────────────── */
-  async function post(endpoint, payload) {
-    log('post', { endpoint, payload });
-    if (!CONFIG.webhookUrl) {
-      log('⚠ No webhookUrl configured — data captured locally only');
-      return;
-    }
+  // Every form on the site funnels through here. type → form_type column;
+  // payload → data_json column on form_submissions in D1.
+  async function submitForm(type, data) {
+    log('submit', { type, data });
     try {
-      const res = await fetch(CONFIG.webhookUrl + endpoint, {
+      const res = await fetch('/api/forms', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ form_type: type, data: data }),
       });
       if (!res.ok) console.error('[CRM] HTTP error', res.status);
+      return res.ok;
     } catch (err) {
       console.error('[CRM] Network error', err);
+      return false;
     }
   }
 
@@ -78,55 +76,23 @@ window.CRM = (function () {
      * @param {Object} data - key/value pairs from the form
      */
     submit: function (type, data) {
-      log('submit', { type, data });
-      post('/form', { type, data, timestamp: new Date().toISOString() });
+      return submitForm(type, data);
     },
 
-    /**
-     * Dedicated: Plan-a-Visit form
-     * Triggered by the visit.html plan form.
-     */
     planVisit: function (data) {
-      log('planVisit', data);
-      post('/visit', { ...data, source: 'website-visit-form', timestamp: new Date().toISOString() });
+      return submitForm('visit-plan', data);
     },
 
-    /**
-     * Dedicated: Prayer request
-     * Triggered by connect.html / contact.html prayer forms.
-     */
     submitPrayer: function (data) {
-      log('submitPrayer', data);
-      post('/prayer', { ...data, source: 'website-prayer-form', timestamp: new Date().toISOString() });
+      return submitForm('prayer', data);
     },
 
-    /**
-     * Dedicated: General contact message
-     */
     contact: function (data) {
-      log('contact', data);
-      post('/contact', { ...data, source: 'website-contact-form', timestamp: new Date().toISOString() });
+      return submitForm('contact', data);
     },
 
-    /**
-     * Dedicated: Online giving
-     * NOTE: For real payments use a payment processor (PayFast, Peach Payments,
-     * Stripe) — this hook fires AFTER the payment processor redirects back.
-     * @param {Object} data - { fund, amount, freq }
-     */
-    give: function (data) {
-      log('give', data);
-      post('/give', { ...data, source: 'website-give-flow', timestamp: new Date().toISOString() });
-    },
-
-    /**
-     * Track when a visitor clicks to join a specific small group.
-     * @param {string} groupId - the data-crm-group-id value
-     * @param {string} groupName - display name
-     */
     joinGroup: function (groupId, groupName) {
-      log('joinGroup', { groupId, groupName });
-      post('/group-interest', { groupId, groupName, source: 'website-group-finder', timestamp: new Date().toISOString() });
+      return submitForm('group-interest', { group_id: groupId, group_name: groupName });
     },
 
     /**

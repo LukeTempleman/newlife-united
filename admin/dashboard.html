@@ -321,6 +321,7 @@
   <div class="container">
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('events')">Events</button>
+      <button class="tab-btn" onclick="switchTab('submissions')">Inbox</button>
       <button class="tab-btn" onclick="switchTab('testimonies')">Testimonies</button>
       <button class="tab-btn" onclick="switchTab('images')">Image Library</button>
       <button class="tab-btn" onclick="switchTab('slots')">Page Images</button>
@@ -412,6 +413,26 @@
       <h3>All Events</h3>
       <div id="eventsList" class="events-list">
         <div class="loading"><div class="spinner"></div> Loading events...</div>
+      </div>
+    </div>
+
+    <!-- Inbox / Submissions Tab -->
+    <div id="submissions" class="tab-content">
+      <div id="submissionsStatus" class="status-message"></div>
+      <h2>Inbox</h2>
+      <p style="color:#666;margin-bottom:16px">Every form submitted on the public site lands here. Use the filters to focus on one form type.</p>
+
+      <div id="submissionsFilters" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"></div>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;font-size:13px;color:#666">
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+          <input type="checkbox" id="submissionsShowArchived" style="width:auto;margin:0" onchange="loadSubmissions()">
+          <span>Show archived</span>
+        </label>
+        <span id="submissionsCount" style="margin-left:auto;font-family:monospace;color:#888"></span>
+      </div>
+
+      <div id="submissionsList" style="display:grid;gap:10px">
+        <div class="loading"><div class="spinner"></div> Loading submissions...</div>
       </div>
     </div>
 
@@ -538,6 +559,7 @@
       loadTestimonies();
       loadImages();
       loadSlots();
+      loadSubmissions();
     });
 
     function switchTab(tabName) {
@@ -810,6 +832,142 @@
         }
       } catch (error) {
         showStatus('imagesStatus', 'Error deleting image: ' + error.message, 'error');
+      }
+    }
+
+    // ── Submissions (Inbox) ────────────────────────────────────────────
+    const SUBMISSION_TYPES = [
+      { key: '',                       label: 'All' },
+      { key: 'prayer',                 label: 'Prayer' },
+      { key: 'contact',                label: 'Contact' },
+      { key: 'bible-school-enquiry',   label: 'Bible School' },
+      { key: 'group-interest',         label: 'Small Groups' },
+      { key: 'visit-plan',             label: 'Plan a Visit' },
+      { key: 'next-steps-signup',      label: 'Next Steps' },
+      { key: 'kids-registration',      label: 'Kids' },
+      { key: 'youth-connect',          label: 'Youth' },
+      { key: 'legacy-connect',         label: 'Legacy Team' },
+    ];
+
+    let submissionsFilter = '';
+
+    function renderSubmissionFilters() {
+      const wrap = document.getElementById('submissionsFilters');
+      if (!wrap) return;
+      wrap.innerHTML = SUBMISSION_TYPES.map(t => `
+        <button type="button" class="sub-filter ${t.key === submissionsFilter ? 'active' : ''}"
+          onclick="setSubmissionsFilter('${escapeHtml(t.key)}')"
+          style="padding:6px 12px;font-size:12px;border:1px solid ${t.key === submissionsFilter ? 'var(--primary)' : '#ccc'};background:${t.key === submissionsFilter ? 'var(--primary)' : 'white'};color:${t.key === submissionsFilter ? 'white' : '#555'};border-radius:14px;cursor:pointer">${escapeHtml(t.label)}</button>
+      `).join('');
+    }
+
+    function setSubmissionsFilter(key) {
+      submissionsFilter = key;
+      renderSubmissionFilters();
+      loadSubmissions();
+    }
+
+    async function loadSubmissions() {
+      renderSubmissionFilters();
+      const list = document.getElementById('submissionsList');
+      const countEl = document.getElementById('submissionsCount');
+      if (!list) return;
+
+      const showArchived = document.getElementById('submissionsShowArchived')?.checked;
+      const params = new URLSearchParams();
+      if (submissionsFilter) params.set('type', submissionsFilter);
+      if (!showArchived) params.set('archived', '0');
+
+      try {
+        const response = await fetch(`${API_BASE}/api/forms?${params.toString()}`, {
+          headers: { 'Authorization': `Bearer ${authToken}` },
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          list.innerHTML = `<p style="color: var(--danger);">${escapeHtml(data.error || 'Failed to load')}</p>`;
+          return;
+        }
+        const rows = data.data || [];
+        if (countEl) countEl.textContent = `${rows.length} ${rows.length === 1 ? 'submission' : 'submissions'}`;
+
+        if (!rows.length) {
+          list.innerHTML = '<p style="color:#888">No submissions yet.</p>';
+          return;
+        }
+
+        const typeLabel = (k) => (SUBMISSION_TYPES.find(t => t.key === k)?.label) || k;
+        list.innerHTML = rows.map(r => {
+          const created = new Date(r.created_at).toLocaleString();
+          const fields = r.data || {};
+          const fieldHtml = Object.entries(fields)
+            .filter(([k]) => !['_t', 'timestamp', 'source'].includes(k))
+            .map(([k, v]) => `<div style="display:grid;grid-template-columns:140px 1fr;gap:12px;padding:4px 0;border-top:1px solid #eee;font-size:13px">
+              <div style="color:#888;font-family:monospace;font-size:11px">${escapeHtml(k)}</div>
+              <div style="color:#333;white-space:pre-wrap">${escapeHtml(String(v))}</div>
+            </div>`).join('');
+
+          const archiveLabel = r.is_archived ? 'Unarchive' : 'Archive';
+
+          return `
+            <div style="background:white;border-radius:8px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px">
+                <div>
+                  <span style="display:inline-block;padding:3px 10px;font-size:11px;font-weight:600;background:var(--light);border-radius:10px;letter-spacing:.04em">${escapeHtml(typeLabel(r.form_type))}</span>
+                  <span style="margin-left:8px;font-size:14px;font-weight:600">${escapeHtml(r.name || '(no name)')}</span>
+                  ${r.is_archived ? '<span style="margin-left:8px;font-size:11px;color:#888">· archived</span>' : ''}
+                </div>
+                <span style="font-size:11px;color:#888;white-space:nowrap">${created}</span>
+              </div>
+              ${r.email || r.phone ? `<div style="font-size:13px;color:#666;margin-bottom:8px">${[r.email, r.phone].filter(Boolean).map(escapeHtml).join(' · ')}</div>` : ''}
+              ${r.message ? `<div style="font-size:14px;color:#222;line-height:1.55;background:#fafafa;padding:10px 12px;border-radius:4px;margin-bottom:10px;white-space:pre-wrap">${escapeHtml(r.message)}</div>` : ''}
+              ${fieldHtml ? `<details style="margin-top:6px"><summary style="cursor:pointer;font-size:12px;color:#888">All fields</summary><div style="margin-top:6px">${fieldHtml}</div></details>` : ''}
+              <div style="display:flex;gap:6px;margin-top:12px">
+                <button type="button" onclick="archiveSubmission('${escapeHtml(r.id)}', ${r.is_archived ? 0 : 1})" style="padding:6px 10px;font-size:12px;border:1px solid #ccc;background:white;color:#555;border-radius:4px;cursor:pointer">${archiveLabel}</button>
+                <button type="button" onclick="deleteSubmission('${escapeHtml(r.id)}')" style="padding:6px 10px;font-size:12px;border:none;background:var(--danger);color:white;border-radius:4px;cursor:pointer">Delete</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (error) {
+        list.innerHTML = `<p style="color: var(--danger);">Error: ${escapeHtml(error.message)}</p>`;
+      }
+    }
+
+    async function archiveSubmission(id, isArchived) {
+      try {
+        const response = await fetch(`${API_BASE}/api/forms/${encodeURIComponent(id)}`, {
+          method: 'PUT',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({ is_archived: !!isArchived }),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          showStatus('submissionsStatus', isArchived ? 'Archived' : 'Unarchived', 'success');
+          loadSubmissions();
+        } else {
+          showStatus('submissionsStatus', data.error || 'Failed', 'error');
+        }
+      } catch (error) {
+        showStatus('submissionsStatus', 'Error: ' + error.message, 'error');
+      }
+    }
+
+    async function deleteSubmission(id) {
+      if (!confirm('Delete this submission permanently?')) return;
+      try {
+        const response = await fetch(`${API_BASE}/api/forms/${encodeURIComponent(id)}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${authToken}` },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          showStatus('submissionsStatus', 'Deleted', 'success');
+          loadSubmissions();
+        } else {
+          showStatus('submissionsStatus', data.error || 'Failed', 'error');
+        }
+      } catch (error) {
+        showStatus('submissionsStatus', 'Error: ' + error.message, 'error');
       }
     }
 
