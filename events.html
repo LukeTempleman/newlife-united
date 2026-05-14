@@ -6,7 +6,7 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <title>Events · Newlife United</title>
-<meta name="description" content="What's on at Newlife United — weekly services, special events, and the AWAKE 2026 conference.">
+<meta name="description" content="What's on at Newlife United — sermon series, monthly rhythms, and the special events that shape our year.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://newlife-united.pages.dev/events">
 <meta name="theme-color" content="#0E0F0D">
@@ -14,12 +14,12 @@
 <meta property="og:site_name" content="Newlife United">
 <meta property="og:locale" content="en_ZA">
 <meta property="og:title" content="Events · Newlife United">
-<meta property="og:description" content="What's on at Newlife United — weekly services, special events, and the AWAKE 2026 conference.">
+<meta property="og:description" content="What's on at Newlife United — sermon series, monthly rhythms, and the special events that shape our year.">
 <meta property="og:url" content="https://newlife-united.pages.dev/events">
 <meta property="og:image" content="https://newlife-united.pages.dev/assets/hero-index.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Events · Newlife United">
-<meta name="twitter:description" content="What's on at Newlife United — weekly services, special events, and the AWAKE 2026 conference.">
+<meta name="twitter:description" content="What's on at Newlife United — sermon series, monthly rhythms, and the special events that shape our year.">
 <meta name="twitter:image" content="https://newlife-united.pages.dev/assets/hero-index.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,11 +86,21 @@
 
     const DOW = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
     const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const MONTHS_FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    // A sermon series spans a whole month; recurring tags are month-wide rhythms.
+    // Everything else is a single dated event and gets a calendar chip.
+    const SERIES_TAG = 'SERMON SERIES';
+    const RECURRING_TAGS = ['GROWTH TRACK', 'BABY DEDICATIONS'];
 
     function escapeHtml(s) {
       return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
+    // Parse YYYY-MM-DD as a local date — avoids the UTC shift new Date('YYYY-MM-DD') causes.
     function parseDate(iso) {
+      if (!iso) return null;
+      const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso));
+      if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
       const d = new Date(iso);
       return isNaN(d.getTime()) ? null : d;
     }
@@ -101,25 +111,81 @@
       return out.join(' — ');
     }
     function dateChip(date) {
-      return `<div style="display:flex;align-items:baseline;gap:8px;min-width:130px">
-        <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">${DOW[date.getDay()]}</span>
-        <span style="font-family:var(--font-sans);font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent)">${String(date.getDate()).padStart(2,'0')}</span>
-        <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5)">${MONTHS[date.getMonth()]}</span>
+      return `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:74px;flex-shrink:0;border:1px solid rgba(255,255,255,.14);padding:10px 0">
+        <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.5)">${DOW[date.getDay()]}</span>
+        <span style="font-family:var(--font-sans);font-size:34px;font-weight:500;letter-spacing:-.03em;line-height:1.05;color:var(--accent)">${String(date.getDate()).padStart(2,'0')}</span>
+        <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.5)">${MONTHS[date.getMonth()]}</span>
       </div>`;
     }
 
-    function renderRow(ev) {
-      const d = parseDate(ev.date);
-      if (!d) return '';
-      const tag = ev.tag ? `<span style="padding:4px 10px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);justify-self:start">${escapeHtml(ev.tag)}</span>` : '<span></span>';
-      const time = fmtRange(ev.time, ev.end_time);
-      return `<div style="display:grid;grid-template-columns:auto 2fr 1fr 1fr 140px;gap:28px;padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);align-items:center;color:var(--paper)">
-        ${dateChip(d)}
-        <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.015em">${escapeHtml(ev.title)}</div>
-        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em">${escapeHtml(time)}</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.55)">${escapeHtml(ev.location || '')}</div>
-        ${tag}
+    // ── Per-month building blocks ─────────────────────────────────────
+    function seriesBanner(ev) {
+      const img = ev.image_url
+        ? `<img src="${escapeHtml(ev.image_url)}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3">`
+        : '';
+      return `<div style="position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.14)">
+        ${img}
+        <div style="position:absolute;inset:0;background:linear-gradient(120deg,rgba(0,0,0,.82),rgba(0,0,0,.4))"></div>
+        <div style="position:relative;padding:clamp(28px,5vw,44px)">
+          <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:var(--accent)">SERMON SERIES</span>
+          <div style="font-family:var(--font-sans);font-size:clamp(28px,4vw,46px);font-weight:500;letter-spacing:-.03em;line-height:1.02;margin-top:14px;color:var(--paper)">${escapeHtml(ev.title)}</div>
+          ${ev.description ? `<p style="margin:14px 0 0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.72);max-width:560px">${escapeHtml(ev.description)}</p>` : ''}
+        </div>
       </div>`;
+    }
+
+    function datedRow(ev, date) {
+      const sub = [fmtRange(ev.time, ev.end_time), ev.location, ev.description]
+        .filter(Boolean).map(escapeHtml).join(' · ');
+      return `<div style="display:flex;gap:20px;align-items:center;background:var(--ink);padding:20px 24px;border:1px solid rgba(255,255,255,.1);margin-top:1px">
+        ${dateChip(date)}
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-family:var(--font-sans);font-size:20px;font-weight:500;letter-spacing:-.015em;color:var(--paper)">${escapeHtml(ev.title)}</span>
+            ${ev.tag ? `<span style="padding:3px 9px;border:1px solid rgba(255,255,255,.22);font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;color:rgba(255,255,255,.6)">${escapeHtml(ev.tag)}</span>` : ''}
+          </div>
+          ${sub ? `<div style="font-size:13px;line-height:1.55;color:rgba(255,255,255,.55);margin-top:5px">${sub}</div>` : ''}
+        </div>
+      </div>`;
+    }
+
+    function rhythmItem(ev) {
+      return `<div style="display:flex;gap:12px;align-items:baseline;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08)">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;transform:translateY(-1px)"></span>
+        <div style="flex:1;min-width:0">
+          <span style="font-family:var(--font-sans);font-size:15px;font-weight:500;color:var(--paper)">${escapeHtml(ev.title)}</span>
+          ${ev.description ? `<span style="font-size:13px;color:rgba(255,255,255,.5);margin-left:8px">${escapeHtml(ev.description)}</span>` : ''}
+        </div>
+      </div>`;
+    }
+
+    function monthBlock(key, evs) {
+      const parts = key.split('-');
+      const year = Number(parts[0]);
+      const monthIdx = Number(parts[1]) - 1;
+      const series = evs.filter(e => (e.tag || '').toUpperCase() === SERIES_TAG);
+      const recurring = evs.filter(e => RECURRING_TAGS.indexOf((e.tag || '').toUpperCase()) !== -1);
+      const dated = evs
+        .filter(e => {
+          const t = (e.tag || '').toUpperCase();
+          return t !== SERIES_TAG && RECURRING_TAGS.indexOf(t) === -1;
+        })
+        .sort((a, b) => (a.date || '').localeCompare(b.date || '') || (a.time || '').localeCompare(b.time || ''));
+
+      let html = `<section style="margin-bottom:72px">
+        <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.18)">
+          <h3 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(28px,3.4vw,42px);letter-spacing:-.03em;margin:0;color:var(--paper)">${MONTHS_FULL[monthIdx]}</h3>
+          <span style="font-family:var(--font-mono);font-size:13px;letter-spacing:.16em;color:var(--accent)">${year}</span>
+        </div>`;
+      series.forEach(ev => { html += seriesBanner(ev); });
+      dated.forEach(ev => { const d = parseDate(ev.date); if (d) html += datedRow(ev, d); });
+      if (recurring.length) {
+        html += `<div style="margin-top:24px">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.4);margin-bottom:2px">MONTHLY RHYTHM</div>
+          ${recurring.map(rhythmItem).join('')}
+        </div>`;
+      }
+      return html + `</section>`;
     }
 
     function renderFeatured(ev) {
@@ -127,7 +193,7 @@
       if (!d || !featuredEl) return;
       const time = fmtRange(ev.time, ev.end_time);
       const dateLine = `${DOW[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
-      const bg = ev.image_url ? `<img src="${escapeHtml(ev.image_url)}" alt="${escapeHtml(ev.title)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">` : `<img src="assets/event-awake.png" alt="" data-slot="events-awake" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">`;
+      const bg = ev.image_url ? `<img src="${escapeHtml(ev.image_url)}" alt="${escapeHtml(ev.title)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">` : `<img src="assets/worship.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">`;
       const tag = ev.tag ? `<span style="display:inline-block;padding:6px 14px;border:1px solid var(--accent);font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:28px">${escapeHtml(ev.tag)}</span>` : '';
       featuredEl.innerHTML = `
         <div style="position:relative;min-height:540px;overflow:hidden;border:1px solid rgba(255,255,255,.12)">
@@ -160,11 +226,20 @@
       const featured = all.find(e => e.featured);
       const calendar = all.filter(e => !e.featured);
       if (featured) renderFeatured(featured);
-      if (!calendar.length) {
+
+      // Group the calendar by month so each month reads as its own block.
+      const byMonth = {};
+      calendar.forEach(e => {
+        const key = (e.date || '').slice(0, 7);
+        if (!/^\d{4}-\d{2}$/.test(key)) return;
+        (byMonth[key] = byMonth[key] || []).push(e);
+      });
+      const keys = Object.keys(byMonth).sort();
+      if (!keys.length) {
         listEl.innerHTML = '<p style="color:rgba(255,255,255,.5)">No events on the calendar yet — check back soon.</p>';
         return;
       }
-      listEl.innerHTML = calendar.map(renderRow).join('');
+      listEl.innerHTML = keys.map(k => monthBlock(k, byMonth[k])).join('');
     }).catch(() => {
       listEl.innerHTML = '<p style="color:rgba(255,255,255,.5)">Couldn\'t load events right now.</p>';
     });

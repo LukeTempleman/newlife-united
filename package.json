@@ -6,7 +6,8 @@
     "dev": "wrangler pages dev .",
     "deploy": "wrangler pages deploy . --project-name=newlife-united",
     "db:migrate": "wrangler d1 execute newlife-crm --remote --file=./db/schema.sql",
-    "db:seed": "wrangler d1 execute newlife-crm --remote --file=./db/seed.sql"
+    "db:seed": "wrangler d1 execute newlife-crm --remote --file=./db/seed.sql",
+    "db:events": "wrangler d1 execute newlife-crm --remote --file=./db/events-2026.sql"
   },
   "keywords": [
     "cloudflare",
