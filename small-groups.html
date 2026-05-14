@@ -60,244 +60,6 @@
   </div>
 </section>
 
-<!-- Group finder -->
-<section class="section dark bordered" style="padding-top:140px;padding-bottom:140px">
-  <div class="container">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:40px;flex-wrap:wrap">
-      <div>
-        <span class="eyebrow"><span class="dot"></span>Find your group</span>
-        <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(56px,7vw,110px);letter-spacing:-.04em;line-height:.9;margin:20px 0 0">
-          THE <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">groups.</span>
-        </h2>
-      </div>
-    </div>
-
-    <!-- Filter -->
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px">
-      <button class="pill active" data-filter="group" data-val="Any">All groups</button>
-      <button class="pill" data-filter="group" data-val="monday">Monday</button>
-      <button class="pill" data-filter="group" data-val="tuesday">Tuesday</button>
-      <button class="pill" data-filter="group" data-val="wednesday">Wednesday</button>
-      <button class="pill" data-filter="group" data-val="thursday">Thursday</button>
-      <button class="pill" data-filter="group" data-val="friday">Friday</button>
-    </div>
-
-    <div id="groups-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)">
-
-      <!-- Nicolas & Cynthia -->
-      <div data-group="monday"
-           data-crm-group-id="group-nicolas-cynthia"
-           data-crm-group-name="Nicolas & Cynthia's Group"
-           data-crm-member-id="leader-nicolas"
-           data-crm-member-name="Nicolas"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">MON EVENING</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Nicolas &amp; Cynthia</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">Edenvale area</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">A mixed group for all life stages. Bible study, prayer, and the kind of hospitality that makes you feel at home before the end of the first meeting.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-nicolas-cynthia" data-crm-group-name="Nicolas & Cynthia's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-      <!-- Anton & Meegan -->
-      <div data-group="tuesday"
-           data-crm-group-id="group-anton-meegan"
-           data-crm-group-name="Anton & Meegan's Group"
-           data-crm-member-id="leader-anton"
-           data-crm-member-name="Anton"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">TUE EVENING</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Anton &amp; Meegan</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">East Rand</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">A young families group that balances discipleship with the chaos of raising kids. You'll be fed well and your children will be welcomed.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-anton-meegan" data-crm-group-name="Anton & Meegan's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-      <!-- Carlos & Fatima -->
-      <div data-group="wednesday"
-           data-crm-group-id="group-carlos-fatima"
-           data-crm-group-name="Carlos & Fatima's Group"
-           data-crm-member-id="leader-carlos"
-           data-crm-member-name="Carlos"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">WED EVENING</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Carlos &amp; Fatima</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">Bedfordview area</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">Word-focused and prayerful. This group digs into Scripture verse by verse and then prays through what they've found. Recommended for those wanting to go deeper.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-carlos-fatima" data-crm-group-name="Carlos & Fatima's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-      <!-- Barry & Cathy -->
-      <div data-group="thursday"
-           data-crm-group-id="group-barry-cathy"
-           data-crm-group-name="Barry & Cathy's Group"
-           data-crm-member-id="leader-barry"
-           data-crm-member-name="Barry"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">THU EVENING</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Barry &amp; Cathy</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">Germiston area</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">For the seasoned believer and the brand-new convert alike. Barry and Cathy have been leading for years and have a gift for making both feel at home.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-barry-cathy" data-crm-group-name="Barry & Cathy's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-      <!-- Jonathan & Monika -->
-      <div data-group="monday"
-           data-crm-group-id="group-jonathan-monika"
-           data-crm-group-name="Jonathan & Monika's Group"
-           data-crm-member-id="leader-jonathan"
-           data-crm-member-name="Jonathan"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">MON EVENING</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Jonathan &amp; Monika</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">Edenvale area</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">A group built around friendship and the Word. Come for the study, stay for the conversation — and the food. Jonathan and Monika are known for both.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-jonathan-monika" data-crm-group-name="Jonathan & Monika's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-      <!-- Dimitri & Angela -->
-      <div data-group="wednesday"
-           data-crm-group-id="group-dimitri-angela"
-           data-crm-group-name="Dimitri & Angela's Group"
-           data-crm-member-id="leader-dimitri"
-           data-crm-member-name="Dimitri"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">WED EVENING</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Dimitri &amp; Angela</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">Boksburg area</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">Lively, Spirit-filled, and anchored in the Word. If you want a group where prayer can go long and worship sometimes breaks out in someone's lounge — this is it.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-dimitri-angela" data-crm-group-name="Dimitri & Angela's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-      <!-- Lance & Paula -->
-      <div data-group="thursday"
-           data-crm-group-id="group-lance-paula"
-           data-crm-group-name="Lance & Paula's Group"
-           data-crm-member-id="leader-lance"
-           data-crm-member-name="Lance"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">THU EVENING</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Lance &amp; Paula</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">Edenvale area</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">Couples and singles, young and not-so-young. Lance and Paula lead a group that knows how to hold both celebration and hardship in the same room.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-lance-paula" data-crm-group-name="Lance & Paula's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-      <!-- Natali -->
-      <div data-group="tuesday"
-           data-crm-group-id="group-natali"
-           data-crm-group-name="Natali's Group"
-           data-crm-member-id="leader-natali"
-           data-crm-member-name="Natali"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">TUE EVENING · WOMEN</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Natali</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">Edenvale area</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">A women's group that goes deep — into the Word and into each other's lives. Safe, honest, and full of the kind of sisterhood that carries you through the hard seasons.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-natali" data-crm-group-name="Natali's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-      <!-- Craig & Delilah -->
-      <div data-group="friday"
-           data-crm-group-id="group-craig-delilah"
-           data-crm-group-name="Craig & Delilah's Group"
-           data-crm-member-id="leader-craig"
-           data-crm-member-name="Craig"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">FRI EVENING</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Craig &amp; Delilah</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">East Rand</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">A group for those who work late during the week. Friday evenings, food, and community that makes the weekend feel like it starts right.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-craig-delilah" data-crm-group-name="Craig & Delilah's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-      <!-- Duane & Lauren -->
-      <div data-group="wednesday"
-           data-crm-group-id="group-duane-lauren"
-           data-crm-group-name="Duane & Lauren's Group"
-           data-crm-member-id="leader-duane"
-           data-crm-member-name="Duane"
-           style="background:var(--ink-2);padding:40px 36px;display:flex;flex-direction:column;gap:20px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px">WED EVENING</div>
-            <div style="font-family:var(--font-sans);font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1">Duane &amp; Lauren</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);text-align:right;padding-top:4px">Germiston area</div>
-        </div>
-        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.72);flex:1">A discipleship-focused group for those who want more than a Bible study — practical application, accountability, and growth that shows up in your Monday.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn ghost" style="font-size:13px;padding:8px 16px" data-crm-group-join="group-duane-lauren" data-crm-group-name="Duane & Lauren's Group">I'm interested</button>
-          <a href="https://wa.me/+27780002965" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500">WhatsApp us →</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- ── Leaders Directory ─────────────────────────────────────────── -->
 <section class="section bordered" style="padding-top:120px;padding-bottom:120px;background:#0f100e">
   <div class="container-md">
@@ -319,10 +81,10 @@
   <script>
     (function () {
       const MAIN = [
-        { name: 'Anton Boshoff', sub: 'Intercessory Team', contacts: [['Anton', '082 440 5494']] },
+        { name: 'Anton', sub: 'Intercessory Team', contacts: [['Anton', '082 440 5494']] },
         { name: 'Bruno and Adesia', contacts: [['Bruno', '083 715 3734'], ['Adesia', '083 704 3682']] },
         { name: 'Carlos and Fatima', contacts: [['Carlos', '082 573 2050'], ['Fatima', '076 321 9454']] },
-        { name: 'Christina Vougiouklis', contacts: [['Christina', '082 494 5491']] },
+        { name: 'Christina', contacts: [['Christina', '082 494 5491']] },
         { name: 'Clayton', contacts: [['Clayton', '066 333 4872']] },
         { name: 'Craig and Delilah', contacts: [['Craig', '072 645 4803'], ['Delilah', '082 979 0005']] },
         { name: 'Dimitri and Angela', contacts: [['Dimitri', '082 330 9979'], ['Angela', '072 246 1320']] },
@@ -356,10 +118,10 @@
 
       const NEW_GROUPS = [
         { name: 'Youth Leaders', contacts: [['Jason', '083 415 9327'], ['James', '063 847 3367'], ['Gabby', '066 200 9894'], ['Tara', '073 478 6019']] },
-        { name: 'Morris Slabbert', contacts: [['Morris', '082 368 6919']] },
-        { name: 'Bill Siziba', contacts: [['Bill', '073 087 1064']] },
+        { name: 'Morris', contacts: [['Morris', '082 368 6919']] },
+        { name: 'Bill', contacts: [['Bill', '073 087 1064']] },
         { name: 'Charl and Adre', contacts: [['Charl', '082 498 2521'], ['Adre', '082 822 0773']] },
-        { name: 'Nic Fester', contacts: [['Nic', '082 820 6268']] },
+        { name: 'Nic', contacts: [['Nic', '082 820 6268']] },
         { name: 'Mike and Christine', contacts: [['Christine', '083 287 5368']] },
       ];
 
