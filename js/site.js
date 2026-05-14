@@ -101,11 +101,20 @@
         <a href="visit.html" class="btn accent-bg" style="margin-top:16px;justify-content:center">Plan a visit ${arrow(12)}</a>
       </div>`;
 
+    // Keep --nav-h synced to the real bar height so the mobile menu
+    // sits flush under it — no gap, no overlap, no cut-off.
+    function syncNavHeight() {
+      document.documentElement.style.setProperty('--nav-h', navEl.offsetHeight + 'px');
+    }
+    syncNavHeight();
+    window.addEventListener('resize', syncNavHeight);
+
     // Hamburger toggle
     const btn = navEl.querySelector('.nav-hamburger');
     const mob = document.getElementById('nav-mobile');
     if (btn && mob) {
       btn.addEventListener('click', function () {
+        syncNavHeight();
         const open = mob.classList.toggle('open');
         btn.setAttribute('aria-expanded', open);
         mob.setAttribute('aria-hidden', !open);

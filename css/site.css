@@ -134,8 +134,11 @@ input, textarea, select { font-family: inherit; }
 }
 .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: currentColor; transition: transform .2s, opacity .2s; }
 .nav-mobile {
-  display: none; position: fixed; inset: var(--nav-h) 0 0 0;
-  background: var(--ink); z-index: 99; overflow-y: auto;
+  display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+  height: calc(100vh - var(--nav-h));
+  height: calc(100dvh - var(--nav-h));   /* dvh tracks the shrinking mobile viewport */
+  background: var(--ink); z-index: 99;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
   padding: 18px 24px calc(32px + env(safe-area-inset-bottom)) 24px;
   flex-direction: column; gap: 4px;
   border-top: 1px solid rgba(255,255,255,0.08);
