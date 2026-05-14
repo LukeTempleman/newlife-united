@@ -469,11 +469,13 @@ select.input-field option { background: #0E0F0D; }
   [style*="grid-template-columns:repeat(2,1fr)"],
   [style*="grid-template-columns:1.6fr 1fr"],
   [style*="grid-template-columns:1.4fr 1fr"],
+  [style*="grid-template-columns:1fr 1.4fr"],
   [style*="grid-template-columns:1.2fr 1fr 1fr"],
   [style*="grid-template-columns:1fr 1.2fr"],
   [style*="grid-template-columns:1fr 1.6fr"],
   [style*="grid-template-columns:1fr 1fr"],
-  [style*="grid-template-columns:220px 1fr 260px 80px"] {
+  [style*="grid-template-columns:220px 1fr 260px 80px"],
+  [style*="grid-template-columns:100px 1fr 1.2fr 220px"] {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
@@ -514,6 +516,7 @@ select.input-field option { background: #0E0F0D; }
   [style*="padding:60px"] { padding: 28px 20px !important; }
   [style*="padding:40px"] { padding: 24px 20px !important; }
   [style*="padding:56px 36px"] { padding: 28px 20px !important; }
+  [style*="padding:44px 40px"] { padding: 24px 18px !important; }
   [style*="padding:36px 40px"] { padding: 22px 18px !important; }
   [style*="padding:32px 36px"] { padding: 22px 18px !important; }
   [style*="padding:28px 8px"] { padding: 18px 14px !important; }
@@ -568,6 +571,18 @@ select.input-field option { background: #0E0F0D; }
   /* Tab buttons wrap and shrink */
   .tab-btn { padding: 10px 14px !important; font-size: 13px !important; }
   .grid-2 { grid-template-columns: 1fr !important; }
+
+  /* ── About page ──────────────────────────────────────────── */
+  /* Leader photos: 4-up → 2-up rather than one very tall column */
+  body[data-page="about"] [style*="grid-template-columns:repeat(4,1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  /* Story pull-quote: scale the oversized display type + indent down */
+  body[data-page="about"] blockquote {
+    font-size: 24px !important;
+    padding-left: 18px !important;
+    margin-top: 32px !important;
+  }
 }
 
 /* ── Small phones (≤ 480px) ─────────────────────────────────────── */
