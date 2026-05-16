@@ -36,6 +36,15 @@ function normalizeTitle(t: string): string {
   return t.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
+// Live-stream archives on this channel are titled with an inline date stamp
+// like "Sunday | 10-May-26 | ..." and don't appear on YouTube's public Videos
+// tab. The channel re-uploads them later under a clean title. Drop the dated
+// ones so the site matches the Videos tab.
+const DATE_IN_TITLE = /\b\d{1,2}[\s\-](jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i;
+function isLiveArchiveTitle(title: string): boolean {
+  return DATE_IN_TITLE.test(title);
+}
+
 function parseRss(xml: string, limit: number): Video[] {
   // Pull ALL entries from the feed, then dedupe to one video per calendar
   // date — the channel often uploads the same service twice (raw + cleaned
@@ -59,7 +68,7 @@ function parseRss(xml: string, limit: number): Video[] {
       published,
       author,
     };
-  }).filter((v) => v.id);
+  }).filter((v) => v.id && !isLiveArchiveTitle(v.title));
 
   parsed.sort((a, b) => (b.published || '').localeCompare(a.published || ''));
 
