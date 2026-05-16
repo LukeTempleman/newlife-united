@@ -32,9 +32,16 @@ async function resolveChannelId(handle: string): Promise<string | null> {
   return match ? match[1] : null;
 }
 
+function normalizeTitle(t: string): string {
+  return t.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
 function parseRss(xml: string, limit: number): Video[] {
-  const entries = xml.split(/<entry[\s>]/).slice(1, 1 + limit);
-  return entries.map((entry) => {
+  // Pull ALL entries from the feed, dedupe, then slice — RSS gives us
+  // every upload (including same-service re-uploads with identical titles),
+  // but the public YouTube channel page collapses those. Match that view.
+  const entries = xml.split(/<entry[\s>]/).slice(1);
+  const parsed = entries.map((entry) => {
     const get = (re: RegExp) => {
       const m = entry.match(re);
       return m ? m[1] : '';
@@ -52,6 +59,19 @@ function parseRss(xml: string, limit: number): Video[] {
       author,
     };
   }).filter((v) => v.id);
+
+  parsed.sort((a, b) => (b.published || '').localeCompare(a.published || ''));
+
+  const seen = new Set<string>();
+  const unique: Video[] = [];
+  for (const v of parsed) {
+    const key = normalizeTitle(v.title);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(v);
+    if (unique.length >= limit) break;
+  }
+  return unique;
 }
 
 export const onRequestGet: PagesFunction<Env> = async ({ request }) => {

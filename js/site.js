@@ -15,6 +15,7 @@
         { slug: 'kids',       label: 'Kids For Christ',     href: 'kids.html',         desc: 'Babies through Seniors.' },
         { slug: 'youth',      label: 'Youth United',        href: 'youth.html',        desc: 'High school ministry — Fridays.' },
         { slug: 'groups',     label: 'Small Groups',        href: 'small-groups.html', desc: 'Mondays at 18:00 across the city.' },
+        { slug: 'dream-teams',label: 'Dream Teams',         href: 'dream-teams.html',  desc: 'Areas to serve and make a difference.' },
       ],
     },
     { slug: 'legacy',  label: 'Legacy Team', href: 'legacy.html' },
@@ -25,7 +26,7 @@
 
   const FOOTER_COLS = [
     { heading: 'Visit',       links: [['Sundays', 'visit.html'], ['Plan your visit', 'visit.html'], ['What to expect', 'visit.html'], ['Contact', 'contact.html']] },
-    { heading: 'Get Involved',links: [['Connect', 'connect.html'], ['Next Steps', 'next-steps.html'], ['Small Groups', 'small-groups.html'], ['Bible School', 'bible-school.html']] },
+    { heading: 'Get Involved',links: [['Connect', 'connect.html'], ['Next Steps', 'next-steps.html'], ['Small Groups', 'small-groups.html'], ['Dream Teams', 'dream-teams.html'], ['Bible School', 'bible-school.html']] },
     { heading: 'Family',      links: [['Kids For Christ', 'kids.html'], ['Youth United', 'youth.html'], ['Legacy Team', 'legacy.html'], ['Events', 'events.html']] },
     { heading: 'Generosity',  links: [['Tithes & Offerings', 'give.html'], ['Building Fund', 'give.html'], ['Apostolic Fund', 'give.html'], ['Bible School Fund', 'give.html']] },
   ];
@@ -38,7 +39,7 @@
 
   // ── Inject Nav ──────────────────────────────────────────────────
   function buildNav(page) {
-    const inDropdown = ['connect','next-steps','bible','kids','youth','groups'];
+    const inDropdown = ['connect','next-steps','bible','kids','youth','groups','dream-teams'];
     const isInvolved = inDropdown.includes(page);
 
     const links = NAV.map(function (n) {

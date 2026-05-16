@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="icon" type="image/png" href="assets/favicon-dark.png">
+<link rel="apple-touch-icon" href="assets/favicon-dark.png">
 <title>Small Groups · Newlife United</title>
 <meta name="description" content="Find a Small Group at Newlife United. Living-room gatherings across the East Rand — the place where a face on Sunday becomes someone known and loved.">
 <meta name="robots" content="index, follow">
@@ -69,58 +69,51 @@
       <p style="font-size:17px;line-height:1.55;color:rgba(255,255,255,.7);max-width:560px;margin:0">A friendly hello goes a long way. Call or WhatsApp the leader whose group sounds closest to your season — they'll take it from there.</p>
     </div>
 
-    <h3 style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin:0 0 20px">Established groups</h3>
-    <div id="small-groups-main" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:64px"></div>
-
-    <h3 style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--accent);margin:0 0 20px">New focus groups <span style="color:rgba(255,255,255,.4);font-weight:400">· extra prayer support needed</span></h3>
-    <div id="small-groups-new" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
+    <div id="small-groups-main" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
   </div>
 
   <script>
     (function () {
       const MAIN = [
         { name: 'Anton', sub: 'Intercessory Team', contacts: [['Anton', '082 440 5494']] },
+        { name: 'Bill', contacts: [['Bill', '073 087 1064']] },
         { name: 'Bruno and Adesia', contacts: [['Bruno', '083 715 3734'], ['Adesia', '083 704 3682']] },
         { name: 'Carlos and Fatima', contacts: [['Carlos', '082 573 2050'], ['Fatima', '076 321 9454']] },
+        { name: 'Catia Saturday', contacts: [['Catia', '083 442 5612']] },
+        { name: 'Charl and Adre', contacts: [['Charl', '082 498 2521'], ['Adre', '082 822 0773']] },
         { name: 'Christina', contacts: [['Christina', '082 494 5491']] },
         { name: 'Clayton', contacts: [['Clayton', '066 333 4872']] },
+        { name: 'Craft Group', contacts: [['Anel', '']] },
         { name: 'Craig and Delilah', contacts: [['Craig', '072 645 4803'], ['Delilah', '082 979 0005']] },
         { name: 'Dimitri and Angela', contacts: [['Dimitri', '082 330 9979'], ['Angela', '072 246 1320']] },
-        { name: 'Stanley and Sarah', contacts: [['Stanley', '073 373 2464'], ['Sarah', '083 414 2269']] },
-        { name: 'Ryan and Melody', contacts: [['Ryan', '073 059 7008'], ['Melody', '061 474 7500']] },
-        { name: 'Duane and Lauren', contacts: [['Duane', '083 380 1993'], ['Lauren', '073 146 7291']] },
-        { name: 'Lance and Paula', contacts: [['Lance', '071 898 4879'], ['Paula', '083 326 7386']] },
-        { name: 'The Elders', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Natali', contacts: [['Natali', '060 804 0301']] },
-        { name: 'Nicholas and Cynthia', contacts: [['Nicholas', '071 613 6872'], ['Cynthia', '076 044 7537']] },
-        { name: 'Joanne / Karen', sub: 'GriefShare · Divorce Care', contacts: [['Joanne', '064 511 0315']] },
         { name: 'Dimitri and Angela', sub: 'Marriage Enrichment', contacts: [['Dimitri', '082 330 9979'], ['Angela', '072 246 1320']] },
-        { name: 'NLU Staff', contacts: [['Natali', '060 804 0301']] },
-        { name: 'Bible School — Track 1', contacts: [['Angela', '072 246 1320']] },
-        { name: 'Bible School — Track 2', contacts: [['Angela', '072 246 1320']] },
+        { name: 'Dream Team Wednesday Meeting', contacts: [['Jonathan', '078 000 2965']] },
         { name: 'Driaan and Sonja', contacts: [['Driaan', '061 435 5799'], ['Sonja', '082 950 8785']] },
-        { name: 'Saints on Mission', contacts: [['Fatima', '076 321 9454']] },
-        { name: 'Youth on Mission', contacts: [['Jason', '083 415 9327']] },
-        { name: 'Legacy Team', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'The Way Mens', contacts: [['Craig', '072 645 4803']] },
-        { name: 'Monika Saturday', contacts: [['Monika', '082 781 9369']] },
-        { name: 'Catia Saturday', contacts: [['Catia', '083 442 5612']] },
-        { name: 'Craft Group', contacts: [['Anel', '']] },
-        { name: 'Parking', contacts: [['Charles', '079 889 0048']] },
+        { name: 'Duane and Lauren', contacts: [['Duane', '083 380 1993'], ['Lauren', '073 146 7291']] },
+        { name: 'Joanne / Karen', sub: 'GriefShare · Divorce Care', contacts: [['Joanne', '064 511 0315']] },
         { name: 'Kids Ministry', contacts: [['Natali', '060 804 0301']] },
-        { name: 'Prayer Chain', contacts: [['Lance', '071 898 4879'], ['Paula', '083 326 7386']] },
+        { name: 'Lance and Paula', contacts: [['Lance', '071 898 4879'], ['Paula', '083 326 7386']] },
+        { name: 'Legacy Team', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Mike and Christine', contacts: [['Mike', '083 230 1532'], ['Christine', '083 287 5368']] },
+        { name: 'Monika Saturday', contacts: [['Monika', '082 781 9369']] },
+        { name: 'Morris', contacts: [['Morris', '082 368 6919']] },
+        { name: 'Natali', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Nic', contacts: [['Nic', '082 820 6268']] },
+        { name: 'Nicholas and Cynthia', contacts: [['Nicholas', '071 613 6872'], ['Cynthia', '076 044 7537']] },
         { name: 'NLU Café Team', contacts: [['Fatima', '076 321 9454']] },
         { name: 'NLU Prophetic', contacts: [['Christine', '083 287 5368']] },
-        { name: 'Dream Team Wednesday Meeting', contacts: [['Jonathan', '078 000 2965']] },
-      ];
-
-      const NEW_GROUPS = [
+        { name: 'NLU Staff', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Parking', contacts: [['Charles', '079 889 0048']] },
+        { name: 'Prayer Chain', contacts: [['Lance', '071 898 4879'], ['Paula', '083 326 7386']] },
+        { name: 'Ryan and Melody', contacts: [['Ryan', '073 059 7008'], ['Melody', '061 474 7500']] },
+        { name: 'Saints on Mission', contacts: [['Fatima', '076 321 9454']] },
+        { name: 'Stanley and Sarah', contacts: [['Stanley', '073 373 2464'], ['Sarah', '083 414 2269']] },
+        { name: 'The Elders', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'The Way Mens', contacts: [['Craig', '072 645 4803']] },
+        { name: 'Bible School — Track 1', contacts: [['Angela', '072 246 1320']] },
+        { name: 'Bible School — Track 2', contacts: [['Angela', '072 246 1320']] },
         { name: 'Youth Leaders', contacts: [['Jason', '083 415 9327'], ['James', '063 847 3367'], ['Gabby', '066 200 9894'], ['Tara', '073 478 6019']] },
-        { name: 'Morris', contacts: [['Morris', '082 368 6919']] },
-        { name: 'Bill', contacts: [['Bill', '073 087 1064']] },
-        { name: 'Charl and Adre', contacts: [['Charl', '082 498 2521'], ['Adre', '082 822 0773']] },
-        { name: 'Nic', contacts: [['Nic', '082 820 6268']] },
-        { name: 'Mike and Christine', contacts: [['Mike', '083 230 1532'], ['Christine', '083 287 5368']] },
+        { name: 'Youth on Mission', contacts: [['Jason', '083 415 9327']] },
       ];
 
       function telHref(num) {
@@ -156,7 +149,6 @@
       }
 
       document.getElementById('small-groups-main').innerHTML = MAIN.map(card).join('');
-      document.getElementById('small-groups-new').innerHTML = NEW_GROUPS.map(card).join('');
     })();
   </script>
 </section>
@@ -198,98 +190,6 @@
       <p>Our Groups Pastor will reach out within a few days. In the meantime, come to a Sunday service — groups always feel better when you already know a few faces.</p>
     </div>
   </div>
-</section>
-
-<!-- ── Dream Teams ─────────────────────────────────────── -->
-<section class="section bordered" style="padding-top:120px;padding-bottom:120px;background:#0f100e">
-  <div class="container-md">
-    <div style="margin-bottom:48px">
-      <span class="eyebrow"><span class="dot"></span>Find your place to serve</span>
-      <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,90px);letter-spacing:-.04em;line-height:.92;margin:24px 0 16px">
-        Areas to serve<br>and <span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">make a difference.</span>
-      </h2>
-      <p style="font-size:17px;line-height:1.55;color:rgba(255,255,255,.7);max-width:560px;margin:0">Please contact the leader of whichever team your gifting points you toward — every team has a place for you.</p>
-    </div>
-    <div id="dream-teams" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
-  </div>
-
-  <script>
-    (function () {
-      const TEAMS = [
-        { name: 'Parking', contacts: [['Charles', '079 889 0048']] },
-        { name: 'Greet and Meet', contacts: [['Lance', '071 898 4879'], ['Paula', '083 326 7386']] },
-        { name: 'Welcome Desk and Bookshop', contacts: [['Lauren', '073 146 7291']] },
-        { name: 'Media — Visual / Flyers / Editing', contacts: [['Monika', '082 781 9369']] },
-        { name: 'Media — Facebook, YouTube, Zoom', contacts: [['Natali', '060 804 0301']] },
-        { name: 'Announcement Team', contacts: [] },
-        { name: 'Guests and Salvations', contacts: [['Anton', '082 440 5494']] },
-        { name: 'Hospitality', contacts: [['Monika', '082 781 9369']] },
-        { name: 'NLU Café', contacts: [['Fatima', '076 321 9454']] },
-        { name: 'K4C', contacts: [['Natali', '060 804 0301']] },
-        { name: 'K4C — Worship / AV', contacts: [['Natali', '060 804 0301']] },
-        { name: 'K4C — Helpers', contacts: [['Natali', '060 804 0301']] },
-        { name: 'K4C — Tithing & Offerings', contacts: [['Natali', '060 804 0301']] },
-        { name: 'K4C — Fun', contacts: [['Natali', '060 804 0301']] },
-        { name: 'Youth', contacts: [['Jason', '083 415 9327']] },
-        { name: 'Back Seat Connectors', contacts: [['Craig', '072 645 4803'], ['Delilah', '082 979 0005']] },
-        { name: 'Growth Track', contacts: [['Carlos', '082 573 2050']] },
-        { name: 'Bible School — Teachers', contacts: [['Angela', '072 246 1320']] },
-        { name: 'Bible School — Atmosphere & Welcoming', contacts: [['Angela', '072 246 1320']] },
-        { name: 'Bible School — Prayer Team', contacts: [['Angela', '072 246 1320']] },
-        { name: 'Bible School — Hospitality', contacts: [['Angela', '072 246 1320']] },
-        { name: 'Bible School — Care Team', contacts: [['Angela', '072 246 1320']] },
-        { name: 'Worship', contacts: [['Dimitri', '082 330 9979'], ['Angela', '072 246 1320']] },
-        { name: 'AV', contacts: [['Derek', '082 536 6345']] },
-        { name: 'Sound', contacts: [['Derek', '082 536 6345']] },
-        { name: 'Media Production', contacts: [['Bill', '073 087 1064']] },
-        { name: 'Intercessory Team', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Care Ministry', contacts: [['Joanne', '064 511 0315']] },
-        { name: 'Toddler Room', contacts: [['Vanessa', '065 886 8196']] },
-        { name: "Men's Ministry", contacts: [['Craig', '072 645 4803']] },
-        { name: 'Kids Outside Crew', contacts: [['Bruno', '083 715 3734'], ['Adesia', '083 704 3682']] },
-        { name: 'Finances — Tithes & Offerings', contacts: [['Carlos', '082 573 2050']] },
-        { name: 'Church Finance Bible Governance', contacts: [] },
-        { name: 'Legacy Team (Business)', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Youth Security', contacts: [['Craig', '072 645 4803']] },
-        { name: 'Prayer Chain', contacts: [['Lance', '071 898 4879'], ['Paula', '083 326 7386']] },
-        { name: 'Cleaning', contacts: [['Fatima', '076 321 9454']] },
-        { name: 'Building Excellence', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Admin', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Office', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Youth Leaders', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Prophetic', contacts: [['Christine', '083 287 5368']] },
-      ];
-
-      function telHref(num) { return 'tel:' + num.replace(/\s+/g, ''); }
-      function waHref(num) {
-        const digits = num.replace(/\D/g, '');
-        const intl = digits.startsWith('0') ? '27' + digits.slice(1) : digits;
-        return 'https://wa.me/' + intl;
-      }
-      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-      function card(t) {
-        const contacts = t.contacts.filter(c => c[1]);
-        const contactRows = contacts.length ? contacts.map(c => `
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border-top:1px solid rgba(255,255,255,.06)">
-            <span style="font-size:13px;color:rgba(255,255,255,.85)">${esc(c[0])}</span>
-            <span style="display:flex;gap:8px;align-items:center">
-              <a href="${telHref(c[1])}" style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);text-decoration:none;letter-spacing:.04em">${esc(c[1])}</a>
-              <a href="${waHref(c[1])}" target="_blank" rel="noopener" title="WhatsApp ${esc(c[0])}" style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.18);border-radius:50%;color:var(--accent);text-decoration:none" aria-label="WhatsApp ${esc(c[0])}">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.4 11.4 0 0 0 12 0 11.4 11.4 0 0 0 .6 11.4c0 2 .5 4 1.5 5.7L.5 24l7.1-1.9a11.4 11.4 0 0 0 5.4 1.4h.1A11.4 11.4 0 0 0 24 12.1a11.4 11.4 0 0 0-3.5-8.6Zm-8.5 18a9.5 9.5 0 0 1-4.9-1.3l-.4-.2-4.2 1.1 1.1-4.1-.2-.4a9.5 9.5 0 1 1 8.7 4.9Zm5.2-7.1c-.3-.1-1.7-.8-2-.9s-.5-.1-.7.1c-.2.3-.8 1-1 1.2-.2.2-.4.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.4.1-.5.1-.1.3-.4.4-.5l.3-.5c.1-.2 0-.3 0-.5l-.7-1.7c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.2.3-1 .9-1 2.3 0 1.3 1 2.7 1.1 2.8.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
-              </a>
-            </span>
-          </div>`).join('') : `<div style="font-size:12px;color:rgba(255,255,255,.4);padding:6px 0;border-top:1px solid rgba(255,255,255,.06)">Contact via the church office</div>`;
-        return `
-          <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);padding:14px 16px">
-            <div style="font-family:var(--font-sans);font-size:16px;font-weight:500;letter-spacing:-.01em">${esc(t.name)}</div>
-            <div style="margin-top:10px">${contactRows}</div>
-          </div>`;
-      }
-
-      document.getElementById('dream-teams').innerHTML = TEAMS.map(card).join('');
-    })();
-  </script>
 </section>
 
 <div class="cta-strip">

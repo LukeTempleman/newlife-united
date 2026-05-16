@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="assets/favicon-dark.png">
+<link rel="apple-touch-icon" href="assets/favicon-dark.png">
+<title>Dream Teams · Newlife United</title>
+<meta name="description" content="Areas to serve and make a difference at Newlife United. Find your Dream Team and use your gifts to impact lives.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://newlife-united.pages.dev/dream-teams">
+<meta name="theme-color" content="#0E0F0D">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Newlife United">
+<meta property="og:locale" content="en_ZA">
+<meta property="og:title" content="Dream Teams · Newlife United">
+<meta property="og:description" content="Areas to serve and make a difference at Newlife United. Find your Dream Team and use your gifts to impact lives.">
+<meta property="og:url" content="https://newlife-united.pages.dev/dream-teams">
+<meta property="og:image" content="https://newlife-united.pages.dev/assets/hero-index.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dream Teams · Newlife United">
+<meta name="twitter:description" content="Areas to serve and make a difference at Newlife United. Find your Dream Team and use your gifts to impact lives.">
+<meta name="twitter:image" content="https://newlife-united.pages.dev/assets/hero-index.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=8">
+<script src="/js/slots.js?v=8" defer></script>
+</head>
+<body data-page="dream-teams">
+<div id="site-nav"></div>
+
+<div class="page-hero">
+  <div class="page-hero-bg"><img src="assets/hero-connect.png" alt="Dream Teams serving" data-slot="dream-teams-hero"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-kicker"><span class="eyebrow"><span class="dot"></span>04 / 04 · Make a Difference</span></div>
+    <h1>Make a<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">difference.</span></h1>
+    <p class="page-hero-lede">We are passionate about building healthy Dream Teams where people use their gifts to serve others, build God's house, and help people Know Jesus and Make Him Known.</p>
+  </div>
+</div>
+
+<!-- Looking to serve banner -->
+<section class="section bordered" style="padding-top:120px;padding-bottom:120px">
+  <div class="container-md" style="display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Looking to serve?</span>
+      <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(40px,5vw,72px);letter-spacing:-.04em;line-height:.92;margin:24px 0 24px">
+        Join a<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">Dream Team.</span>
+      </h2>
+      <p style="font-size:16px;line-height:1.65;color:rgba(255,255,255,.75);margin:0 0 28px">Use your gifts to impact lives. From parking to worship, hospitality to media — there's a team for you.</p>
+      <a href="#dream-teams-directory" class="btn accent-bg">See all Dream Teams <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.4);line-height:1.9">
+      <div style="font-size:120px;font-weight:500;letter-spacing:-.05em;color:var(--accent);line-height:.9;font-family:var(--font-sans)">42</div>
+      <div style="margin-top:16px;color:rgba(255,255,255,.7);font-family:var(--font-sans);font-size:16px;letter-spacing:0">DREAM TEAMS · ONE FAMILY</div>
+    </div>
+  </div>
+</section>
+
+<!-- Dream Teams directory -->
+<section id="dream-teams-directory" class="section bordered" style="padding-top:120px;padding-bottom:120px;background:#0f100e">
+  <div class="container-md">
+    <div style="margin-bottom:48px">
+      <span class="eyebrow"><span class="dot"></span>Find your place to serve</span>
+      <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,90px);letter-spacing:-.04em;line-height:.92;margin:24px 0 16px">
+        Dream<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">Teams.</span>
+      </h2>
+      <p style="font-size:17px;line-height:1.55;color:rgba(255,255,255,.7);max-width:560px;margin:0">A friendly hello goes a long way. Call or WhatsApp the leader whose team sounds closest to your gifting — they'll take it from there.</p>
+    </div>
+    <div id="dream-teams" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
+  </div>
+
+  <script>
+    (function () {
+      const TEAMS = [
+        { name: 'Parking', contacts: [['Charles', '079 889 0048']] },
+        { name: 'Greet and Meet', contacts: [['Lance', '071 898 4879'], ['Paula', '083 326 7386']] },
+        { name: 'Welcome Desk and Bookshop', contacts: [['Lauren', '073 146 7291']] },
+        { name: 'Media — Visual / Flyers / Editing', contacts: [['Monika', '082 781 9369']] },
+        { name: 'Media — Facebook, YouTube, Zoom', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Announcement Team', contacts: [] },
+        { name: 'Guests and Salvations', contacts: [['Anton', '082 440 5494']] },
+        { name: 'Hospitality', contacts: [['Monika', '082 781 9369']] },
+        { name: 'NLU Café', contacts: [['Fatima', '076 321 9454']] },
+        { name: 'Kids 4 Christ', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Kids 4 Christ — Worship / AV', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Kids 4 Christ — Helpers', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Kids 4 Christ — Tithing & Offerings', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Kids 4 Christ — Fun', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Youth', contacts: [['Jason', '083 415 9327']] },
+        { name: 'Back Seat Connectors', contacts: [['Craig', '072 645 4803'], ['Delilah', '082 979 0005']] },
+        { name: 'Growth Track', contacts: [['Carlos', '082 573 2050']] },
+        { name: 'Bible School — Teachers', contacts: [['Angela', '072 246 1320']] },
+        { name: 'Bible School — Atmosphere & Welcoming', contacts: [['Angela', '072 246 1320']] },
+        { name: 'Bible School — Prayer Team', contacts: [['Angela', '072 246 1320']] },
+        { name: 'Bible School — Hospitality', contacts: [['Angela', '072 246 1320']] },
+        { name: 'Bible School — Care Team', contacts: [['Angela', '072 246 1320']] },
+        { name: 'Worship', contacts: [['Dimitri', '082 330 9979'], ['Angela', '072 246 1320']] },
+        { name: 'AV', contacts: [['Derek', '082 536 6345']] },
+        { name: 'Sound', contacts: [['Derek', '082 536 6345']] },
+        { name: 'Media Production', contacts: [['Bill', '073 087 1064']] },
+        { name: 'Intercessory Team', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Care Ministry', contacts: [['Joanne', '064 511 0315']] },
+        { name: 'Toddler Room', contacts: [['Vanessa', '065 886 8196']] },
+        { name: "Men's Ministry", contacts: [['Craig', '072 645 4803']] },
+        { name: 'Kids Outside Crew', contacts: [['Bruno', '083 715 3734'], ['Adesia', '083 704 3682']] },
+        { name: 'Finances — Tithes & Offerings', contacts: [['Carlos', '082 573 2050']] },
+        { name: 'Church Finance Bible Governance', contacts: [] },
+        { name: 'Legacy Team (Business)', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Youth Security', contacts: [['Craig', '072 645 4803']] },
+        { name: 'Prayer Chain', contacts: [['Lance', '071 898 4879'], ['Paula', '083 326 7386']] },
+        { name: 'Cleaning', contacts: [['Fatima', '076 321 9454']] },
+        { name: 'Building Excellence', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Admin', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Office', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Youth Leaders', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Prophetic', contacts: [['Christine', '083 287 5368']] },
+      ];
+
+      function telHref(num) { return 'tel:' + num.replace(/\s+/g, ''); }
+      function waHref(num) {
+        const digits = num.replace(/\D/g, '');
+        const intl = digits.startsWith('0') ? '27' + digits.slice(1) : digits;
+        return 'https://wa.me/' + intl;
+      }
+      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+      function card(t) {
+        const contacts = t.contacts.filter(c => c[1]);
+        const contactRows = contacts.length ? contacts.map(c => `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border-top:1px solid rgba(255,255,255,.06)">
+            <span style="font-size:13px;color:rgba(255,255,255,.85)">${esc(c[0])}</span>
+            <span style="display:flex;gap:8px;align-items:center">
+              <a href="${telHref(c[1])}" style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);text-decoration:none;letter-spacing:.04em">${esc(c[1])}</a>
+              <a href="${waHref(c[1])}" target="_blank" rel="noopener" title="WhatsApp ${esc(c[0])}" style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.18);border-radius:50%;color:var(--accent);text-decoration:none" aria-label="WhatsApp ${esc(c[0])}">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.4 11.4 0 0 0 12 0 11.4 11.4 0 0 0 .6 11.4c0 2 .5 4 1.5 5.7L.5 24l7.1-1.9a11.4 11.4 0 0 0 5.4 1.4h.1A11.4 11.4 0 0 0 24 12.1a11.4 11.4 0 0 0-3.5-8.6Zm-8.5 18a9.5 9.5 0 0 1-4.9-1.3l-.4-.2-4.2 1.1 1.1-4.1-.2-.4a9.5 9.5 0 1 1 8.7 4.9Zm5.2-7.1c-.3-.1-1.7-.8-2-.9s-.5-.1-.7.1c-.2.3-.8 1-1 1.2-.2.2-.4.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.4.1-.5.1-.1.3-.4.4-.5l.3-.5c.1-.2 0-.3 0-.5l-.7-1.7c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.2.3-1 .9-1 2.3 0 1.3 1 2.7 1.1 2.8.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
+              </a>
+            </span>
+          </div>`).join('') : `<div style="font-size:12px;color:rgba(255,255,255,.4);padding:6px 0;border-top:1px solid rgba(255,255,255,.06)">Contact via the church office</div>`;
+        return `
+          <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);padding:14px 16px">
+            <div style="font-family:var(--font-sans);font-size:16px;font-weight:500;letter-spacing:-.01em">${esc(t.name)}</div>
+            <div style="margin-top:10px">${contactRows}</div>
+          </div>`;
+      }
+
+      document.getElementById('dream-teams').innerHTML = TEAMS.map(card).join('');
+    })();
+  </script>
+</section>
+
+<div class="cta-strip">
+  <div class="cta-strip-bg"><img src="assets/cta-community.png" alt="" data-slot="dream-teams-cta"></div>
+  <div class="cta-strip-overlay"></div>
+  <div class="cta-strip-content">
+    <span class="eyebrow"><span class="dot"></span>Start with Sunday</span>
+    <h2>Find your<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">place to serve.</span></h2>
+    <p class="cta-strip-lede">Every Dream Team leader was once a first-time visitor. Start on Sunday, and let us walk you the rest of the way.</p>
+    <div class="cta-strip-actions">
+      <a href="visit.html" class="btn light">Plan a visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+<script src="js/crm.js?v=8"></script>
+<script src="js/site.js?v=8"></script>
+</body>
+</html>
