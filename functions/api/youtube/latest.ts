@@ -64,24 +64,29 @@ function extractInitialData(html: string): unknown | null {
   }
 }
 
-// YouTube's channel Videos tab now uses lockupViewModel (not videoRenderer).
-// Each video has: contentId, contentType=LOCKUP_CONTENT_TYPE_VIDEO,
-// metadata.lockupMetadataViewModel.title.content,
-// and metadata...metadataParts[] with view count + relative time text.
+// YouTube's channel Videos tab uses richItemRenderer entries, each wrapping
+// a lockupViewModel with contentId, contentType, and a nested
+// lockupMetadataViewModel for title and metadata rows. The page also
+// contains lockupViewModels in other places (playlists, sidebars), so we
+// scope to richItemRenderer.content.lockupViewModel only — these are the
+// real Videos tab grid in document order.
 function collectVideoLockups(root: unknown): Array<Record<string, unknown>> {
   const out: Array<Record<string, unknown>> = [];
-  const stack: unknown[] = [root];
-  while (stack.length) {
-    const node = stack.pop();
+  const queue: unknown[] = [root];
+  while (queue.length) {
+    const node = queue.shift();
     if (Array.isArray(node)) {
-      for (const item of node) stack.push(item);
+      for (const item of node) queue.push(item);
     } else if (node && typeof node === 'object') {
       const obj = node as Record<string, unknown>;
-      const lockup = obj.lockupViewModel as Record<string, unknown> | undefined;
+      const rich = obj.richItemRenderer as Record<string, unknown> | undefined;
+      const lockup = (rich?.content as Record<string, unknown> | undefined)
+        ?.lockupViewModel as Record<string, unknown> | undefined;
       if (lockup && lockup.contentType === 'LOCKUP_CONTENT_TYPE_VIDEO' && typeof lockup.contentId === 'string') {
         out.push(lockup);
+        continue;
       }
-      for (const key in obj) stack.push(obj[key]);
+      for (const key in obj) queue.push(obj[key]);
     }
   }
   return out;
