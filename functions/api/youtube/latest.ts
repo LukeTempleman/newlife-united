@@ -37,9 +37,10 @@ function normalizeTitle(t: string): string {
 }
 
 function parseRss(xml: string, limit: number): Video[] {
-  // Pull ALL entries from the feed, dedupe, then slice — RSS gives us
-  // every upload (including same-service re-uploads with identical titles),
-  // but the public YouTube channel page collapses those. Match that view.
+  // Pull ALL entries from the feed, then dedupe to one video per calendar
+  // date — the channel often uploads the same service twice (raw + cleaned
+  // re-upload) within minutes or hours. Sorted newest-first, so the most
+  // recent upload for a given date wins.
   const entries = xml.split(/<entry[\s>]/).slice(1);
   const parsed = entries.map((entry) => {
     const get = (re: RegExp) => {
@@ -62,12 +63,16 @@ function parseRss(xml: string, limit: number): Video[] {
 
   parsed.sort((a, b) => (b.published || '').localeCompare(a.published || ''));
 
-  const seen = new Set<string>();
+  const seenDates = new Set<string>();
+  const seenTitles = new Set<string>();
   const unique: Video[] = [];
   for (const v of parsed) {
-    const key = normalizeTitle(v.title);
-    if (seen.has(key)) continue;
-    seen.add(key);
+    const dateKey = (v.published || '').slice(0, 10);
+    const titleKey = normalizeTitle(v.title);
+    if (dateKey && seenDates.has(dateKey)) continue;
+    if (titleKey && seenTitles.has(titleKey)) continue;
+    if (dateKey) seenDates.add(dateKey);
+    if (titleKey) seenTitles.add(titleKey);
     unique.push(v);
     if (unique.length >= limit) break;
   }
