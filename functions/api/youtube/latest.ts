@@ -64,7 +64,11 @@ function extractInitialData(html: string): unknown | null {
   }
 }
 
-function collectVideoRenderers(root: unknown): Array<Record<string, unknown>> {
+// YouTube's channel Videos tab now uses lockupViewModel (not videoRenderer).
+// Each video has: contentId, contentType=LOCKUP_CONTENT_TYPE_VIDEO,
+// metadata.lockupMetadataViewModel.title.content,
+// and metadata...metadataParts[] with view count + relative time text.
+function collectVideoLockups(root: unknown): Array<Record<string, unknown>> {
   const out: Array<Record<string, unknown>> = [];
   const stack: unknown[] = [root];
   while (stack.length) {
@@ -73,9 +77,9 @@ function collectVideoRenderers(root: unknown): Array<Record<string, unknown>> {
       for (const item of node) stack.push(item);
     } else if (node && typeof node === 'object') {
       const obj = node as Record<string, unknown>;
-      const renderer = obj.videoRenderer || obj.gridVideoRenderer;
-      if (renderer && typeof renderer === 'object') {
-        out.push(renderer as Record<string, unknown>);
+      const lockup = obj.lockupViewModel as Record<string, unknown> | undefined;
+      if (lockup && lockup.contentType === 'LOCKUP_CONTENT_TYPE_VIDEO' && typeof lockup.contentId === 'string') {
+        out.push(lockup);
       }
       for (const key in obj) stack.push(obj[key]);
     }
@@ -83,19 +87,32 @@ function collectVideoRenderers(root: unknown): Array<Record<string, unknown>> {
   return out;
 }
 
-function extractTitle(renderer: Record<string, unknown>): string {
-  const t = renderer.title as Record<string, unknown> | undefined;
-  if (!t) return '';
-  if (typeof t.simpleText === 'string') return t.simpleText;
-  const runs = t.runs as Array<{ text?: string }> | undefined;
-  if (Array.isArray(runs) && runs[0]?.text) return runs[0].text;
-  return '';
+function extractLockupTitle(lockup: Record<string, unknown>): string {
+  const metadata = lockup.metadata as Record<string, unknown> | undefined;
+  const lockupMeta = metadata?.lockupMetadataViewModel as Record<string, unknown> | undefined;
+  const title = lockupMeta?.title as Record<string, unknown> | undefined;
+  return typeof title?.content === 'string' ? title.content : '';
 }
 
-function extractPublishedText(renderer: Record<string, unknown>): string {
-  const p = renderer.publishedTimeText as Record<string, unknown> | undefined;
-  if (!p) return '';
-  if (typeof p.simpleText === 'string') return p.simpleText;
+const RELATIVE_TIME_RE = /^\d+\s+(second|minute|hour|day|week|month|year)s?\s+ago$/i;
+
+function extractLockupPublishedText(lockup: Record<string, unknown>): string {
+  const metadata = lockup.metadata as Record<string, unknown> | undefined;
+  const lockupMeta = metadata?.lockupMetadataViewModel as Record<string, unknown> | undefined;
+  const contentMeta = (lockupMeta?.metadata as Record<string, unknown> | undefined)
+    ?.contentMetadataViewModel as Record<string, unknown> | undefined;
+  const rows = contentMeta?.metadataRows as Array<Record<string, unknown>> | undefined;
+  if (!Array.isArray(rows)) return '';
+  for (const row of rows) {
+    const parts = row?.metadataParts as Array<Record<string, unknown>> | undefined;
+    if (!Array.isArray(parts)) continue;
+    for (const part of parts) {
+      const text = (part?.text as Record<string, unknown> | undefined)?.content;
+      if (typeof text === 'string' && RELATIVE_TIME_RE.test(text.trim())) {
+        return text.trim();
+      }
+    }
+  }
   return '';
 }
 
@@ -106,14 +123,14 @@ function parseChannelVideos(html: string, limit: number): { channelId: string | 
   const data = extractInitialData(html);
   if (!data) return { channelId, videos: [] };
 
-  const renderers = collectVideoRenderers(data);
+  const lockups = collectVideoLockups(data);
   const seenIds = new Set<string>();
   const videos: Video[] = [];
 
-  for (const r of renderers) {
-    const id = typeof r.videoId === 'string' ? r.videoId : '';
+  for (const lockup of lockups) {
+    const id = lockup.contentId as string;
     if (!id || seenIds.has(id)) continue;
-    const title = extractTitle(r);
+    const title = extractLockupTitle(lockup);
     if (!title || DATE_IN_TITLE.test(title)) continue;
     seenIds.add(id);
     videos.push({
@@ -121,7 +138,7 @@ function parseChannelVideos(html: string, limit: number): { channelId: string | 
       title,
       url: `https://www.youtube.com/watch?v=${id}`,
       thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-      published: relativeToIso(extractPublishedText(r)),
+      published: relativeToIso(extractLockupPublishedText(lockup)),
       author: 'NewLife United Church',
     });
     if (videos.length >= limit) break;
