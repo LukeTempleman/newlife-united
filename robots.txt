@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-Sitemap: https://newlife-united.pages.dev/sitemap.xml
+Sitemap: https://newlifeunited.co.za/sitemap.xml

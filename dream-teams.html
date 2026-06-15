@@ -8,19 +8,19 @@
 <title>Dream Teams · Newlife United</title>
 <meta name="description" content="Areas to serve and make a difference at Newlife United. Find your Dream Team and use your gifts to impact lives.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://newlife-united.pages.dev/dream-teams">
+<link rel="canonical" href="https://newlifeunited.co.za/dream-teams">
 <meta name="theme-color" content="#0E0F0D">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Newlife United">
 <meta property="og:locale" content="en_ZA">
 <meta property="og:title" content="Dream Teams · Newlife United">
 <meta property="og:description" content="Areas to serve and make a difference at Newlife United. Find your Dream Team and use your gifts to impact lives.">
-<meta property="og:url" content="https://newlife-united.pages.dev/dream-teams">
-<meta property="og:image" content="https://newlife-united.pages.dev/assets/hero-index.png">
+<meta property="og:url" content="https://newlifeunited.co.za/dream-teams">
+<meta property="og:image" content="https://newlifeunited.co.za/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Dream Teams · Newlife United">
 <meta name="twitter:description" content="Areas to serve and make a difference at Newlife United. Find your Dream Team and use your gifts to impact lives.">
-<meta name="twitter:image" content="https://newlife-united.pages.dev/assets/hero-index.png">
+<meta name="twitter:image" content="https://newlifeunited.co.za/assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -83,11 +83,11 @@
         { name: 'Guests and Salvations', contacts: [['Anton', '082 440 5494']] },
         { name: 'Hospitality', contacts: [['Monika', '082 781 9369']] },
         { name: 'NLU Café', contacts: [['Fatima', '076 321 9454']] },
-        { name: 'Kids 4 Christ', contacts: [['Natali', '060 804 0301']] },
-        { name: 'Kids 4 Christ — Worship / AV', contacts: [['Natali', '060 804 0301']] },
-        { name: 'Kids 4 Christ — Helpers', contacts: [['Natali', '060 804 0301']] },
-        { name: 'Kids 4 Christ — Tithing & Offerings', contacts: [['Natali', '060 804 0301']] },
-        { name: 'Kids 4 Christ — Fun', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Kids For Christ', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Kids For Christ — Worship / AV', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Kids For Christ — Helpers', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Kids For Christ — Tithing & Offerings', contacts: [['Natali', '060 804 0301']] },
+        { name: 'Kids For Christ — Fun', contacts: [['Natali', '060 804 0301']] },
         { name: 'Youth', contacts: [['Jason', '083 415 9327']] },
         { name: 'Back Seat Connectors', contacts: [['Craig', '072 645 4803'], ['Delilah', '082 979 0005']] },
         { name: 'Growth Track', contacts: [['Carlos', '082 573 2050']] },
@@ -100,21 +100,21 @@
         { name: 'AV', contacts: [['Derek', '082 536 6345']] },
         { name: 'Sound', contacts: [['Derek', '082 536 6345']] },
         { name: 'Media Production', contacts: [['Bill', '073 087 1064']] },
-        { name: 'Intercessory Team', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Intercessory Team', contacts: [] },
         { name: 'Care Ministry', contacts: [['Joanne', '064 511 0315']] },
         { name: 'Toddler Room', contacts: [['Vanessa', '065 886 8196']] },
         { name: "Men's Ministry", contacts: [['Craig', '072 645 4803']] },
         { name: 'Kids Outside Crew', contacts: [['Bruno', '083 715 3734'], ['Adesia', '083 704 3682']] },
         { name: 'Finances — Tithes & Offerings', contacts: [['Carlos', '082 573 2050']] },
         { name: 'Church Finance Bible Governance', contacts: [] },
-        { name: 'Legacy Team (Business)', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Legacy Team (Business)', contacts: [] },
         { name: 'Youth Security', contacts: [['Craig', '072 645 4803']] },
         { name: 'Prayer Chain', contacts: [['Lance', '071 898 4879'], ['Paula', '083 326 7386']] },
         { name: 'Cleaning', contacts: [['Fatima', '076 321 9454']] },
-        { name: 'Building Excellence', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Admin', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Office', contacts: [['Jonathan', '078 000 2965']] },
-        { name: 'Youth Leaders', contacts: [['Jonathan', '078 000 2965']] },
+        { name: 'Building Excellence', contacts: [] },
+        { name: 'Admin', contacts: [] },
+        { name: 'Office', contacts: [] },
+        { name: 'Youth Leaders', contacts: [] },
         { name: 'Prophetic', contacts: [['Christine', '083 287 5368']] },
       ];
 
@@ -145,7 +145,8 @@
           </div>`;
       }
 
-      document.getElementById('dream-teams').innerHTML = TEAMS.map(card).join('');
+      const sortedTeams = TEAMS.slice().sort((a, b) => a.name.localeCompare(b.name));
+      document.getElementById('dream-teams').innerHTML = sortedTeams.map(card).join('');
     })();
   </script>
 </section>
