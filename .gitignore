@@ -2,6 +2,9 @@
 .env
 .env.local
 .env.*.local
+.env.*
+.dev.vars
+.dev.vars.*
 
 # Dependencies
 node_modules/

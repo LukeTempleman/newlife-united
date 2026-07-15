@@ -31,6 +31,7 @@
  *      contact            → general contact                             *
  *      next-steps-signup  → Growth Track signup                         *
  *      youth-connect      → youth ministry interest                     *
+ *      young-adults-connect → young adults ministry interest            *
  *      kids-connect       → kids ministry interest                      *
  *      small-group-join   → small group join request                    *
  *      legacy-team        → legacy team inquiry                         *
