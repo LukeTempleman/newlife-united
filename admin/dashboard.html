@@ -337,7 +337,7 @@
       <h2>Manage Events</h2>
       
       <div style="margin-bottom: 30px;">
-        <h3 style="margin-bottom: 16px;">Create New Event</h3>
+        <h3 id="eventFormHeading" style="margin-bottom: 16px;">Create New Event</h3>
         <form id="eventForm" onsubmit="handleAddEvent(event)">
           <div class="grid-2">
             <div class="form-group">
@@ -371,8 +371,8 @@
             </div>
 
             <div class="form-group">
-              <label for="eventTime">Start time *</label>
-              <input type="time" id="eventTime" name="time" required>
+              <label for="eventTime">Start time (optional)</label>
+              <input type="time" id="eventTime" name="time">
             </div>
           </div>
 
@@ -395,7 +395,7 @@
 
           <div class="form-group">
             <label for="eventImage">Image URL</label>
-            <input type="url" id="eventImage" name="image_url" placeholder="Tip: upload via Image Library, then paste URL here">
+            <input type="text" id="eventImage" name="image_url" placeholder="Upload below, or paste an image URL"><label for="eventImageFile" style="margin-top:12px">Upload a picture</label><input type="file" id="eventImageFile" accept="image/jpeg,image/png,image/webp,image/gif"><p style="font-size:13px;color:#666">JPEG, PNG, WebP or GIF · Up to 10 MB. Your picture uploads when you save.</p><img id="eventImagePreview" alt="Event picture preview" hidden style="display:none;width:100%;max-width:320px;max-height:220px;object-fit:contain;border-radius:8px;margin-top:12px"><button type="button" class="btn-secondary" id="removeEventImage" style="margin-top:10px">Remove picture</button><p id="eventSaveStatus" role="status" aria-live="polite"></p>
           </div>
 
           <div class="form-group">
@@ -406,8 +406,8 @@
           </div>
 
           <div class="button-group">
-            <button type="submit" class="btn-primary">Add Event</button>
-            <button type="reset" class="btn-secondary">Clear</button>
+            <button type="submit" id="eventSubmit" class="btn-primary">Add Event</button>
+            <button type="reset" id="eventCancel" class="btn-secondary">Clear</button>
           </div>
         </form>
       </div>
@@ -591,50 +591,84 @@
       };
     }
 
+    const eventCache = new Map();
+    const eventForm = document.getElementById('eventForm');
+    const eventImageFile = document.getElementById('eventImageFile');
+    const eventImageField = document.getElementById('eventImage');
+    const eventImagePreview = document.getElementById('eventImagePreview');
+    let eventPreviewUrl;
+    function showEventImage(url) {
+      const safe = /^(https?:\/\/|\/api\/images\/|assets\/)/i.test(url || '');
+      eventImagePreview.hidden = !safe;
+      eventImagePreview.style.display = safe ? 'block' : 'none';
+      if (safe) eventImagePreview.src = url.startsWith('assets/') ? '/' + url : url;
+      else eventImagePreview.removeAttribute('src');
+    }
+    eventImageField.addEventListener('input', function () { eventImageFile.value = ''; showEventImage(this.value.trim()); });
+    eventImageFile.addEventListener('change', function () {
+      if (eventPreviewUrl) URL.revokeObjectURL(eventPreviewUrl);
+      const file = this.files[0];
+      if (!file) return showEventImage(eventImageField.value);
+      if (!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type) || file.size > 10 * 1024 * 1024) {
+        this.value = ''; showEventImage(eventImageField.value);
+        return showStatus('eventsStatus', 'Choose a JPEG, PNG, WebP or GIF picture up to 10 MB.', 'error');
+      }
+      eventPreviewUrl = URL.createObjectURL(file);
+      eventImagePreview.src = eventPreviewUrl; eventImagePreview.hidden = false; eventImagePreview.style.display = 'block';
+    });
+    document.getElementById('removeEventImage').addEventListener('click', function () { eventImageField.value = ''; eventImageFile.value = ''; showEventImage(''); });
+    eventForm.addEventListener('reset', function () {
+      delete eventForm.dataset.eventId;
+      document.getElementById('eventFormHeading').textContent = 'Create New Event';
+      document.getElementById('eventSubmit').textContent = 'Add Event';
+      document.getElementById('eventCancel').textContent = 'Clear';
+      document.getElementById('eventSaveStatus').textContent = '';
+      if (eventPreviewUrl) URL.revokeObjectURL(eventPreviewUrl);
+      showEventImage('');
+    });
     async function handleAddEvent(e) {
       e.preventDefault();
+      if (eventForm.getAttribute('aria-busy') === 'true') return;
       const form = e.target;
       const formData = new FormData(form);
-      
-      const eventData = {
-        title: formData.get('title'),
-        description: formData.get('description'),
-        date: formData.get('date'),
-        time: formData.get('time'),
-        end_time: formData.get('end_time') || '',
-        location: formData.get('location'),
-        image_url: formData.get('image_url'),
-        page: formData.get('page'),
-        tag: formData.get('tag') || '',
-        featured: !!formData.get('featured'),
-      };
-
+      const eventId = form.dataset.eventId;
+      const eventData = Object.fromEntries(['title','description','date','time','end_time','location','image_url','page','tag'].map(key => [key, String(formData.get(key) || '').trim()]));
+      eventData.featured = !!formData.get('featured');
+      const controls = [...form.querySelectorAll('input,select,textarea,button')];
+      const status = document.getElementById('eventSaveStatus');
+      form.setAttribute('aria-busy', 'true'); controls.forEach(control => control.disabled = true);
       try {
-        const response = await fetch(`${API_BASE}/api/events`, {
-          method: 'POST',
-          headers: getAuthHeaders(),
-          body: JSON.stringify(eventData),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          showStatus('eventsStatus', 'Event created successfully!', 'success');
-          form.reset();
-          loadEvents();
-        } else {
-          showStatus('eventsStatus', data.error || 'Failed to create event', 'error');
+        const file = eventImageFile.files[0];
+        if (file) {
+          status.textContent = 'Uploading picture…';
+          const uploadData = new FormData(); uploadData.append('file',file);
+          const upload = await fetch('/api/images/upload',{method:'POST',headers:{Authorization:'Bearer '+authToken},body:uploadData});
+          const result = await upload.json();
+          if (!upload.ok) throw new Error(result.error || 'Picture upload failed');
+          eventData.image_url = new URL(result.url).pathname;
+          eventImageField.value = eventData.image_url; eventImageFile.value = ''; showEventImage(eventData.image_url);
         }
+        status.textContent = 'Saving event…';
+        const response = await fetch(API_BASE + '/api/events' + (eventId ? '/' + encodeURIComponent(eventId) : ''), {
+          method: eventId ? 'PUT' : 'POST', headers: getAuthHeaders(), body: JSON.stringify(eventData),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(response.status === 401 ? 'Your session expired. Please sign in again.' : data.error || 'Could not save event');
+        showStatus('eventsStatus', eventId ? 'Event updated successfully!' : 'Event created successfully!', 'success');
+        form.reset(); await loadEvents();
       } catch (error) {
-        showStatus('eventsStatus', 'Error creating event: ' + error.message, 'error');
-      }
+        showStatus('eventsStatus', 'Could not save event: ' + error.message, 'error');
+        status.textContent = 'Your changes are still here. Please try again.';
+      } finally { form.removeAttribute('aria-busy'); controls.forEach(control => control.disabled = false); }
     }
 
     async function loadEvents() {
       try {
         const response = await fetch(`${API_BASE}/api/events`);
         const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Could not load events");
         const events = data.data || [];
+        eventCache.clear(); events.forEach(item => eventCache.set(item.id, item));
 
         const eventsList = document.getElementById('eventsList');
         if (events.length === 0) {
@@ -645,12 +679,12 @@
         eventsList.innerHTML = events.map(event => `
           <div class="event-card">
             <div class="event-info">
-              ${event.image_url ? `<img src="${event.image_url}" alt="${event.title}" style="width: 100%; max-width: 200px; border-radius: 4px; margin-bottom: 10px;">` : ''}
-              <h3>${event.title}</h3>
+              ${event.image_url ? `<img src="${escapeHtml(event.image_url.startsWith('assets/') ? '/' + event.image_url : event.image_url)}" alt="${escapeHtml(event.title)}" style="width: 100%; max-width: 200px; border-radius: 4px; margin-bottom: 10px;">` : ''}
+              <h3>${escapeHtml(event.title)}</h3>
               <p><strong>Date:</strong> ${new Date(event.date).toLocaleDateString()} at ${event.time}</p>
-              <p><strong>Location:</strong> ${event.location || 'TBD'}</p>
-              <p><strong>Page:</strong> ${event.page}</p>
-              ${event.description ? `<p><strong>Description:</strong> ${event.description}</p>` : ''}
+              <p><strong>Location:</strong> ${escapeHtml(event.location || 'TBD')}</p>
+              <p><strong>Page:</strong> ${escapeHtml(event.page)}</p>
+              ${event.description ? `<p><strong>Description:</strong> ${escapeHtml(event.description)}</p>` : ''}
             </div>
             <div class="event-actions">
               <button class="btn-primary" onclick="editEvent('${event.id}')">Edit</button>
@@ -665,7 +699,18 @@
     }
 
     function editEvent(eventId) {
-      alert('Edit functionality coming soon! Event ID: ' + eventId);
+      if (eventForm.getAttribute('aria-busy') === 'true') return;
+      const item = eventCache.get(eventId);
+      if (!item) return showStatus('eventsStatus', 'Please refresh the event list and try again.', 'error');
+      eventForm.reset(); eventForm.dataset.eventId = item.id;
+      for (const key of ['title','description','date','time','end_time','location','image_url','page','tag']) eventForm.elements.namedItem(key).value = item[key] || '';
+      document.getElementById('eventFeatured').checked = !!item.featured;
+      document.getElementById('eventFormHeading').textContent = 'Edit Event';
+      document.getElementById('eventSubmit').textContent = 'Save Changes';
+      document.getElementById('eventCancel').textContent = 'Cancel Edit';
+      showEventImage(item.image_url || '');
+      eventForm.scrollIntoView({behavior: 'smooth', block: 'start'});
+      document.getElementById('eventTitle').focus({preventScroll:true});
     }
 
     async function deleteEvent(eventId) {
