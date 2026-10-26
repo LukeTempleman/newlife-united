@@ -13,4 +13,4 @@ database_id = "82409576-39ef-4bf4-904d-bf5611d9f013"
 binding = "IMAGES"
 bucket_name = "newlife-images"
 jurisdiction = "eu"
-remote = true
+remote = false

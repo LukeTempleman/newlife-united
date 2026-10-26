@@ -324,7 +324,7 @@
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('events')">Events</button>
       <button class="tab-btn" onclick="switchTab('submissions')">Inbox</button>
-      <button class="tab-btn" onclick="switchTab('testimonies')">Testimonies</button>
+      <button class="tab-btn" onclick="switchTab('testimonies')"><img src="/assets/testimonies-icon.svg" alt="" width="22" height="22" style="vertical-align:middle;margin-right:6px">Testimonies</button>
       <button class="tab-btn" onclick="switchTab('images')">Image Library</button>
       <button class="tab-btn" onclick="switchTab('slots')">Page Images</button>
       <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
@@ -441,7 +441,7 @@
     <!-- Testimonies Tab -->
     <div id="testimonies" class="tab-content">
       <div id="testimoniesStatus" class="status-message"></div>
-      <h2>Manage Testimonies</h2>
+      <h2><img src="/assets/testimonies-icon.svg" alt="" width="40" height="40" style="vertical-align:middle;margin-right:10px">Manage Testimonies</h2>
 
       <div style="margin-bottom: 30px;">
         <h3 style="margin-bottom: 16px;">Add a Testimony</h3>
@@ -467,6 +467,7 @@
             <input type="url" id="testimonyImage" name="image_url" placeholder="Tip: upload via Image Library, then paste URL here">
           </div>
 
+          <div class="form-group"><label for="testimonyVideo">Testimony video (optional)</label><input type="file" id="testimonyVideo" accept="video/mp4,video/webm"><p>MP4 or WebM · Up to 50 MB. Only upload videos you have permission to share publicly.</p><video id="testimonyVideoPreview" controls preload="metadata" hidden style="width:100%;max-width:480px;margin-top:12px"></video><p id="testimonyUploadStatus" role="status" aria-live="polite"></p><progress id="testimonyUploadProgress" max="100" value="0" hidden style="width:100%"></progress></div>
           <div class="button-group">
             <button type="submit" class="btn-primary">Add Testimony</button>
             <button type="reset" class="btn-secondary">Clear</button>
@@ -974,6 +975,37 @@
     }
 
     // ── Testimonies ────────────────────────────────────────────────────
+    let testimonyPreviewUrl;
+    const videoInput = document.getElementById('testimonyVideo');
+    const preview = document.getElementById('testimonyVideoPreview');
+    videoInput.addEventListener('change', function () {
+      if (testimonyPreviewUrl) URL.revokeObjectURL(testimonyPreviewUrl);
+      delete document.getElementById('testimonyForm').dataset.uploadedVideo;
+      const file = videoInput.files[0];
+      preview.hidden = !file;
+      if (file) { testimonyPreviewUrl = URL.createObjectURL(file); preview.src = testimonyPreviewUrl; }
+      else { preview.removeAttribute('src'); preview.load(); }
+    });
+    document.getElementById('testimonyForm').addEventListener('reset', function () {
+      delete document.getElementById('testimonyForm').dataset.uploadedVideo;
+      if (testimonyPreviewUrl) URL.revokeObjectURL(testimonyPreviewUrl);
+      preview.removeAttribute('src'); preview.load(); preview.hidden = true;
+    });
+    function uploadTestimonyVideo(file) {
+      return new Promise((resolve, reject) => {
+        if (!['video/mp4', 'video/webm'].includes(file.type)) return reject(new Error('Choose an MP4 or WebM video.'));
+        if (file.size > 50 * 1024 * 1024) return reject(new Error('Video must be 50 MB or smaller.'));
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/images/upload');
+        xhr.setRequestHeader('Authorization', 'Bearer ' + authToken);
+        xhr.upload.onprogress = event => { if (event.lengthComputable) document.getElementById('testimonyUploadProgress').value = Math.round(event.loaded / event.total * 100); };
+        xhr.onload = () => { try { const result = JSON.parse(xhr.responseText); if (xhr.status >= 200 && xhr.status < 300) resolve(new URL(result.url).pathname); else reject(new Error(result.error || 'Video upload failed')); } catch { reject(new Error('Video upload failed')); } };
+        xhr.onerror = () => reject(new Error('Connection lost. Please try again.'));
+        xhr.timeout = 300000;
+        xhr.ontimeout = () => reject(new Error('Upload timed out. Please try a smaller video.'));
+        const data = new FormData(); data.append('file', file); xhr.send(data);
+      });
+    }
     async function handleAddTestimony(e) {
       e.preventDefault();
       const form = e.target;
@@ -984,7 +1016,18 @@
         location: fd.get('location') || '',
         image_url: fd.get('image_url') || '',
       };
+      const buttons = form.querySelectorAll('button');
+      buttons.forEach(button => button.disabled = true);
+      const status = document.getElementById('testimonyUploadStatus');
+      const progress = document.getElementById('testimonyUploadProgress');
       try {
+        const file = videoInput.files[0];
+        if (file) {
+          status.textContent = 'Uploading video…'; progress.hidden = false;
+          payload.video_url = form.dataset.uploadedVideo || await uploadTestimonyVideo(file);
+          form.dataset.uploadedVideo = payload.video_url;
+        }
+        status.textContent = 'Saving testimony…';
         const response = await fetch(`${API_BASE}/api/testimonies`, {
           method: 'POST',
           headers: getAuthHeaders(),
@@ -992,15 +1035,19 @@
         });
         const data = await response.json();
         if (response.ok) {
-          showStatus('testimoniesStatus', 'Testimony added', 'success');
+          showStatus('testimoniesStatus', 'Testimony published successfully', 'success');
+          delete form.dataset.uploadedVideo;
+          status.textContent = '';
           form.reset();
           loadTestimonies();
         } else {
           showStatus('testimoniesStatus', data.error || 'Failed to add testimony', 'error');
+          status.textContent = '';
         }
       } catch (error) {
         showStatus('testimoniesStatus', 'Error: ' + error.message, 'error');
-      }
+        status.textContent = '';
+      } finally { buttons.forEach(button => button.disabled = false); progress.hidden = true; }
     }
 
     async function loadTestimonies() {
@@ -1020,6 +1067,7 @@
         }
         list.innerHTML = rows.map(t => `
           <div style="background:white;border-radius:8px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;gap:14px">
+            ${t.video_url ? `<video controls preload="metadata" src="${escapeHtml(t.video_url)}" style="width:180px;max-width:100%"></video>` : ''}
             ${t.image_url ? `<img src="${escapeHtml(t.image_url)}" alt="" style="width:72px;height:72px;object-fit:cover;border-radius:4px;flex-shrink:0">` : ''}
             <div style="flex:1;min-width:0">
               <div style="font-weight:600;font-size:14px;margin-bottom:2px">${escapeHtml(t.name)}</div>

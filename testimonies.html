@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="assets/favicon-dark.png">
+<link rel="apple-touch-icon" href="assets/favicon-dark.png">
+<title>Testimonies · Newlife United</title>
+<meta name="description" content="Stories of faith and hope from Newlife United. Share what God has done in your life.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://newlifeunited.co.za/testimonies">
+<meta name="theme-color" content="#0E0F0D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=10">
+<script src="/js/slots.js?v=8" defer></script>
+</head>
+<body data-page="testimonies"><div id="site-nav"></div><main>
+<section class="section testimony-hero"><div class="container"><span class="eyebrow">Our church family · His faithfulness</span><img src="assets/testimonies-icon.svg" alt="" width="64" height="64" style="display:block;margin-top:24px"><h1>Every story.<br><em>His goodness.</em></h1><p class="friendly-lede">A changed life. A renewed hope. A prayer answered. Our stories remind us of God’s faithfulness, and yours could encourage someone today.</p><a class="btn accent-bg" href="#share-story">Share your story ↗</a></div></section>
+<section id="testimonies-section" class="section dark bordered" style="padding-top:140px;padding-bottom:140px">
+  <div class="container">
+    <div style="margin-bottom:48px">
+      <span class="eyebrow"><span class="dot"></span>His faithfulness</span>
+      <h2 style="font-family:var(--font-sans);font-weight:500;font-size:clamp(48px,6vw,100px);letter-spacing:-.04em;line-height:.9;margin:24px 0 0">
+        What He's<br><span style="font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--accent)">doing now.</span>
+      </h2>
+    </div>
+    <p class="friendly-lede">Stories of faith, hope, and what God is doing in our church family.</p><div class="friendly-actions"><a class="btn ghost" href="mailto:info@newlifeunited.co.za?subject=My%20testimony">Share your testimony ↗</a></div>
+    <div id="testimonies-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)"><div class="testimony-invitation"><span class="eyebrow">Your story matters</span><h3>Encourage someone with your story.</h3><p>Has God made a difference in your life? Email our church team to share your testimony.</p></div></div>
+  </div>
+
+  <script>
+    (function () {
+      const wrap = document.getElementById('testimonies-section');
+      const grid = document.getElementById('testimonies-grid');
+      if (!grid) return;
+      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+      fetch('/api/testimonies').then(r => r.ok ? r.json() : null).then(data => {
+        if (!data || !data.success) return;
+        const items = data.data || [];
+        if (!items.length) return;
+        grid.innerHTML = items.slice(0, 6).map(t => `
+          <div style="background:var(--ink);padding:36px 32px;display:flex;flex-direction:column;gap:18px">
+            ${t.video_url && /^\/api\/images\/[a-zA-Z0-9_.-]+$/.test(t.video_url) ? `<video controls playsinline preload="metadata" aria-label="Testimony from ${esc(t.name)}" style="width:100%;aspect-ratio:16/9;border-radius:8px;background:#000" src="${esc(t.video_url)}"></video>` : ''}
+            ${t.image_url ? `<div style="width:64px;height:64px;border-radius:50%;overflow:hidden;background:#111"><img src="${esc(t.image_url)}" alt="${esc(t.name)}" style="width:100%;height:100%;object-fit:cover"></div>` : ''}
+            <div style="font-size:16px;line-height:1.65;color:rgba(255,255,255,.85);font-family:var(--font-display);font-style:italic;font-weight:300">"${esc(t.body)}"</div>
+            <div>
+              <div style="font-size:14px;font-weight:500;color:var(--paper)">${esc(t.name)}</div>
+              ${t.location ? `<div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px">${esc(t.location)}</div>` : ''}
+            </div>
+          </div>
+        `).join('');
+        wrap.style.display = '';
+      }).catch(() => {});
+    })();
+  </script>
+</section>
+<section class="section bordered" id="share-story"><div class="container share-story"><div><span class="eyebrow">We’d love to hear from you</span><h2>Share your <em>testimony.</em></h2><p class="friendly-lede">Tell us what life was like before, what happened, and what has changed. Share only what you feel comfortable sharing.</p></div><div class="testimony-invitation"><h3>Start a conversation</h3><p>Email your story to our church team. Please tell us whether you’re comfortable with it being shared on the website and how you’d like your name to appear.</p><a class="btn accent-bg" href="mailto:info@newlifeunited.co.za?subject=My%20testimony">Email your testimony ↗</a><p class="small-note">Your email opens in your own mail app.</p></div></div></section>
+</main><div id="site-footer"></div><script src="js/crm.js?v=8"></script><script src="js/site.js?v=10"></script></body></html>

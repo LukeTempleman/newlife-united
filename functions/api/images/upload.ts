@@ -8,7 +8,7 @@ const ALLOWED_TYPES = [
 ];
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  if (!requireAuth(request, env)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAuth(request, env))) return json({ error: 'Unauthorized' }, 401);
 
   try {
     const formData = await request.formData();
@@ -21,6 +21,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     if (!ALLOWED_TYPES.includes(file.type)) {
       return json({ error: 'Invalid file type. Allowed: JPEG, PNG, WebP, GIF, MP4, WebM, MOV.' }, 400);
     }
+
+    if (file.size > 50 * 1024 * 1024) return json({ error: 'File must be 50 MB or smaller' }, 413);
 
     const timestamp = Date.now();
     const random = Math.random().toString(36).substring(2, 11);

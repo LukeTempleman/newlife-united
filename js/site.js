@@ -5,6 +5,7 @@
   // ── Nav data ────────────────────────────────────────────────────
   const NAV = [
     { slug: 'about',   label: 'About',       href: 'about.html' },
+    { slug: 'testimonies', label: 'Testimonies', href: 'testimonies.html' },
     { slug: 'watch',   label: 'Watch',        href: 'watch.html' },
     {
       slug: 'involved', label: 'Get Involved', href: 'connect.html',
@@ -28,7 +29,7 @@
   const FOOTER_COLS = [
     { heading: 'Visit',       links: [['Sundays', 'visit.html'], ['Plan your visit', 'visit.html'], ['What to expect', 'visit.html'], ['Contact', 'contact.html']] },
     { heading: 'Get Involved',links: [['Connect', 'connect.html'], ['Next Steps', 'next-steps.html'], ['Small Groups', 'small-groups.html'], ['Dream Teams', 'dream-teams.html'], ['Bible School', 'bible-school.html']] },
-    { heading: 'Family',      links: [['Kids For Christ', 'kids.html'], ['Youth United', 'youth.html'], ['Young Adults Connect', 'young-adults.html'], ['Legacy Team', 'legacy.html'], ['Events', 'events.html']] },
+    { heading: 'Family',      links: [['Kids For Christ', 'kids.html'], ['Youth United', 'youth.html'], ['Young Adults Connect', 'young-adults.html'], ['Legacy Team', 'legacy.html'], ['Events', 'events.html'], ['Testimonies', 'testimonies.html']] },
     { heading: 'Generosity',  links: [['Tithes & Offerings', 'give.html'], ['Building Fund', 'give.html'], ['Apostolic Fund', 'give.html'], ['Bible School Fund', 'give.html']] },
   ];
 
@@ -92,11 +93,21 @@
           <a href="visit.html" class="btn ghost sm" style="border-color:var(--paper);color:var(--paper)">
             Plan a visit ${arrow(12)}
           </a>
-          <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <button class="nav-hamburger" aria-label="Open menu" aria-controls="nav-mobile" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
         </div>
       </div>
+      <aside class="service-launch-banner" aria-label="Christmas service announcement">
+        <a class="service-launch-banner-inner" href="events.html#christmas-service">
+          <span class="service-launch-badge">You’re invited</span>
+          <span class="service-launch-copy">
+            <strong>Christmas service</strong>
+            <span>25 December 2026 · 09:00</span>
+          </span>
+          <span class="service-launch-link">Christmas details ${arrow(12)}</span>
+        </a>
+      </aside>
       <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
         <a href="index.html" ${page === 'index' ? 'class="active"' : ''}>Home</a>
         ${mobileLinks}
@@ -111,6 +122,10 @@
     syncNavHeight();
     window.addEventListener('resize', syncNavHeight);
 
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && mob && mob.classList.contains('open')) { btn.click(); btn.focus(); }
+    });
+
     // Hamburger toggle
     const btn = navEl.querySelector('.nav-hamburger');
     const mob = document.getElementById('nav-mobile');
@@ -119,6 +134,7 @@
         syncNavHeight();
         const open = mob.classList.toggle('open');
         btn.setAttribute('aria-expanded', open);
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         mob.setAttribute('aria-hidden', !open);
         document.body.style.overflow = open ? 'hidden' : '';
       });
@@ -384,3 +400,7 @@
   });
 
 })();
+
+// Dismiss calendar choices with Escape or a click outside.
+document.addEventListener('click', function (event) { document.querySelectorAll('.calendar-picker[open]').forEach(function (picker) { if (!picker.contains(event.target) || event.target.closest('a')) picker.open = false; }); });
+document.addEventListener('keydown', function (event) { if (event.key === 'Escape') document.querySelectorAll('.calendar-picker[open]').forEach(function (picker) { picker.open = false; picker.querySelector('summary').focus(); }); });
