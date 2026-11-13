@@ -89,7 +89,7 @@
         </a>
         <ul class="nav-links">${links}</ul>
         <div class="nav-cta">
-          <span class="nav-service-time">SUN · 8:00 &amp; 10:00</span>
+          <span class="nav-service-time">SUN · 09:00</span>
           <a href="visit.html" class="btn ghost sm" style="border-color:var(--paper);color:var(--paper)">
             Plan a visit ${arrow(12)}
           </a>
