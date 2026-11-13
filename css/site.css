@@ -93,6 +93,37 @@ input, textarea, select { font-family: inherit; }
 .nav-cta { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .nav-service-time { font-size: 12px; font-family: var(--font-mono); color: rgba(255,255,255,0.5); }
 
+/* Two-service launch announcement */
+.service-launch-banner {
+  background: var(--accent); color: var(--ink);
+  border-top: 1px solid rgba(14,15,13,0.12);
+}
+.service-launch-banner-inner {
+  max-width: 1440px; margin: 0 auto; padding: 13px 40px;
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 22px;
+  color: inherit; text-decoration: none;
+}
+.service-launch-badge {
+  padding: 5px 9px; border: 1px solid rgba(14,15,13,0.38);
+  font-family: var(--font-mono); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+.service-launch-copy {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 14px; line-height: 1.3;
+}
+.service-launch-copy strong {
+  font-size: 15px; font-weight: 700; letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.service-launch-copy > span { font-size: 14px; }
+.service-launch-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
 /* Pillar cards on home page — lift, brighten, accent-glow on hover */
 .pillar-card { transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
 .pillar-card img { transition: opacity .4s ease, filter .4s ease, transform .6s ease; }
@@ -439,6 +470,15 @@ select.input-field option { background: #0E0F0D; }
   .nav-mobile a { font-size: 18px; padding: 12px 0; }
   .nav-mobile-sub { padding-left: 12px; }
   .nav-mobile-sub a { font-size: 14px; padding: 8px 0; }
+  .service-launch-banner-inner {
+    padding: 11px 20px; grid-template-columns: 1fr auto; gap: 12px;
+  }
+  .service-launch-badge { display: none; }
+  .service-launch-copy { display: block; }
+  .service-launch-copy strong { display: block; font-size: 12px; }
+  .service-launch-copy > span { display: block; margin-top: 2px; font-size: 11px; }
+  .service-launch-link { font-size: 0; gap: 0; }
+  .service-launch-link svg { width: 16px; height: 16px; }
 
   /* ── Sections ─────────────────────────────────────────────── */
   .section { padding: 64px 20px !important; }
@@ -603,3 +643,39 @@ select.input-field option { background: #0E0F0D; }
     padding: 72px 18px 48px !important;
   }
 }
+
+/* Welcoming service and testimony sections */
+html { scroll-padding-top: 180px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+.nav-links { gap: 20px; }
+.nav-links a { min-height: 44px; }
+.nav-dropdown:focus-within .nav-dropdown-menu { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+.christmas-section { background: #19251e; }
+.christmas-card { display: grid; grid-template-columns: 170px 1fr; gap: 48px; align-items: center; }
+.christmas-date { display: flex; flex-direction: column; align-items: center; padding: 28px; border: 1px solid #a6b78b66; border-radius: 90px 90px 12px 12px; color: var(--accent); letter-spacing: .15em; }
+.christmas-date strong { font-family: var(--font-display); font-size: 84px; font-weight: 400; line-height: 1.2; }
+.christmas-card h2, .share-story h2 { font-size: clamp(36px,5vw,68px); line-height: 1.05; margin: 16px 0; letter-spacing: -.035em; }
+.christmas-card em, .testimony-hero em, .share-story em { font-family: var(--font-display); color: var(--accent); font-weight: 300; }
+.christmas-card p { max-width: 660px; color: #e0e5dc; line-height: 1.7; }
+.service-details { font-weight: 600; }
+.friendly-actions { display: flex; gap: 14px; flex-wrap: wrap; margin: 24px 0; }
+.friendly-lede { max-width: 680px; font-size: 18px; line-height: 1.75; color: #d0d3ca; margin: 24px 0; }
+.testimony-hero { background: radial-gradient(ellipse at top right,#2a3828,transparent 70%); padding-top: 100px; padding-bottom: 100px; }
+.testimony-hero h1 { font-size: clamp(54px,8vw,112px); line-height: 1; margin: 28px 0; letter-spacing: -.045em; }
+.testimony-invitation { background: #171b16; padding: 32px; }
+.testimony-invitation h3 { font-size: 26px; line-height: 1.25; margin: 16px 0; }
+.testimony-invitation p { color: #d0d3ca; line-height: 1.75; max-width: 660px; }
+.share-story { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.small-note { font-size: 13px; }
+@media (min-width: 769px) and (max-width: 1250px) { .nav-links, .nav-service-time { display: none; } .nav-hamburger { display: flex; } }
+@media (max-width: 768px) { .christmas-card, .share-story { grid-template-columns: 1fr; gap: 28px; } .christmas-date { width: 112px; padding: 16px; } .christmas-date strong { font-size: 56px; } .friendly-actions .btn { width: 100%; justify-content: center; } .testimony-invitation { padding: 24px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+.calendar-picker { position: relative; }
+.calendar-picker summary { cursor: pointer; list-style: none; }
+.calendar-picker summary::-webkit-details-marker { display: none; }
+.calendar-options { position: absolute; z-index: 20; top: calc(100% + 8px); left: 0; width: 260px; max-width: calc(100vw - 40px); padding: 12px; border: 1px solid #53604e; border-radius: 12px; background: #171f19; box-shadow: 0 16px 40px #0006; }
+.calendar-options p { font-size: 13px; margin: 4px 12px 8px; color: #cbd2c6; }
+.calendar-options a { display: block; padding: 12px; color: var(--paper); text-decoration: none; border-radius: 6px; }
+.calendar-options a:hover, .calendar-options a:focus-visible { background: #303d2c; }
+@media(max-width:768px) { .calendar-picker { width: 100%; } }

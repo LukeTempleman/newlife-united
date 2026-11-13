@@ -13,6 +13,12 @@ const corsHeaders = {
 };
 
 export const onRequest: PagesFunction<Env> = async ({ request, next }) => {
+  const url = new URL(request.url);
+  if (url.hostname === 'www.newlifeunited.co.za') {
+    url.hostname = 'newlifeunited.co.za';
+    return Response.redirect(url.toString(), 301);
+  }
+
   if (request.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

@@ -43,7 +43,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 };
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  if (!requireAuth(request, env)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAuth(request, env))) return json({ error: 'Unauthorized' }, 401);
 
   try {
     const url = new URL(request.url);

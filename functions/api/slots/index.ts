@@ -7,7 +7,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const adminMode = url.searchParams.get('admin') === '1';
 
   if (adminMode) {
-    if (!requireAuth(request, env)) return json({ error: 'Unauthorized' }, 401);
+    if (!(await requireAuth(request, env))) return json({ error: 'Unauthorized' }, 401);
     try {
       const result = await env.DB
         .prepare('SELECT slot_id, page, label, default_url, current_url, updated_at FROM image_slots ORDER BY page, slot_id')

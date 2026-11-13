@@ -1,7 +1,7 @@
 import { Env, json, requireAuth } from '../_utils';
 
 export const onRequestPut: PagesFunction<Env> = async ({ request, env, params }) => {
-  if (!requireAuth(request, env)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAuth(request, env))) return json({ error: 'Unauthorized' }, 401);
 
   const id = params.id as string;
   if (!id) return json({ error: 'Testimony ID required' }, 400);
@@ -13,7 +13,8 @@ export const onRequestPut: PagesFunction<Env> = async ({ request, env, params })
     const values: unknown[] = [];
 
     for (const [k, v] of Object.entries(updates)) {
-      if (k === 'id' || k === 'created_at') continue;
+      if (!['name', 'body', 'location', 'image_url', 'video_url', 'is_active'].includes(k)) continue;
+      if (k === 'video_url' && v && (typeof v !== 'string' || !/^\/api\/images\/[a-zA-Z0-9_.-]+$/.test(v))) return json({ error: 'Invalid video URL' }, 400);
       fields.push(`${k} = ?`);
       values.push(v);
     }
@@ -38,7 +39,7 @@ export const onRequestPut: PagesFunction<Env> = async ({ request, env, params })
 };
 
 export const onRequestDelete: PagesFunction<Env> = async ({ request, env, params }) => {
-  if (!requireAuth(request, env)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAuth(request, env))) return json({ error: 'Unauthorized' }, 401);
 
   const id = params.id as string;
   if (!id) return json({ error: 'Testimony ID required' }, 400);

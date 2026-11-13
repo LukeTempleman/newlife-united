@@ -5,7 +5,7 @@ interface SlotUpdate {
 }
 
 export const onRequestPut: PagesFunction<Env> = async ({ request, env, params }) => {
-  if (!requireAuth(request, env)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAuth(request, env))) return json({ error: 'Unauthorized' }, 401);
 
   const slotId = params.id as string;
   if (!slotId) return json({ error: 'Slot ID required' }, 400);
@@ -33,7 +33,7 @@ export const onRequestPut: PagesFunction<Env> = async ({ request, env, params })
 
 // DELETE clears the override (reverts the slot to its default image).
 export const onRequestDelete: PagesFunction<Env> = async ({ request, env, params }) => {
-  if (!requireAuth(request, env)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAuth(request, env))) return json({ error: 'Unauthorized' }, 401);
 
   const slotId = params.id as string;
   if (!slotId) return json({ error: 'Slot ID required' }, 400);

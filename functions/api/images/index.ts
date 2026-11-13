@@ -1,7 +1,7 @@
 import { Env, json, requireAuth } from '../_utils';
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  if (!requireAuth(request, env)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAuth(request, env))) return json({ error: 'Unauthorized' }, 401);
 
   try {
     const origin = new URL(request.url).origin;

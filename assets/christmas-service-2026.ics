@@ -1,0 +1,12 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Newlife United//Christmas Service//EN
+BEGIN:VEVENT
+UID:christmas-2026@newlifeunited.co.za
+DTSTAMP:20261026T100000Z
+DTSTART:20261225T070000Z
+SUMMARY:Christmas service - Newlife United
+LOCATION:129\, 12th Avenue\, Edenvale
+DESCRIPTION:Celebrate the birth of Jesus with Newlife United. Service at 09:00 South Africa time.
+END:VEVENT
+END:VCALENDAR
